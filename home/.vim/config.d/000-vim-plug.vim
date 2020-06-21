@@ -69,3 +69,10 @@ Plug 'jmcantrell/vim-virtualenv'
 "Plug 'saltstack/salt-vim'
 
 call plug#end()
+
+
+let g:coc_global_extensions = [
+      \'coc-python',
+      \'coc-json',
+      \'coc-go',
+      \]

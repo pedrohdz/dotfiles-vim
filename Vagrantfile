@@ -43,6 +43,7 @@ Vagrant.configure('2') do |config|
       # instead.
       mkdir /home/vagrant/.vim || true
       find /vagrant/.vim/* -maxdepth 0 -type d -exec ln -fsv \{\} /home/vagrant/.vim/ \;
+      ln -fsv /vagrant/.vim/coc-settings.json /home/vagrant/.vim/coc-settings.json
     EOT
 
   #config.vm.provision 'shell',
