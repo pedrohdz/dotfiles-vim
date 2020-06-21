@@ -1,5 +1,10 @@
 call plug#begin()
 
+" -----------------------------------------------------------------------------
+" new
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" -----------------------------------------------------------------------------
 " dr-vimfiles
 Plug 'altercation/vim-colors-solarized'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -34,31 +39,33 @@ Plug 'vim-scripts/colorsel.vim'
 Plug 'xolox/vim-colorscheme-switcher'
 Plug 'xolox/vim-misc'
 
+" -----------------------------------------------------------------------------
 " dr-vimfiles-devops
 Plug 'chr4/nginx.vim'
 Plug 'hashivim/vim-consul'
 Plug 'hashivim/vim-packer'
 Plug 'hashivim/vim-terraform'
 Plug 'hashivim/vim-vagrant'
-Plug 'juliosueiras/vim-terraform-completion'
+"Plug 'juliosueiras/vim-terraform-completion'
 Plug 'towolf/vim-helm'
 
+" -----------------------------------------------------------------------------
 " dr-vimfiles-nodejs
 Plug 'suan/vim-instant-markdown'
 
+" -----------------------------------------------------------------------------
 " dr-vimfiles-python
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'Rykka/InstantRst'
 Plug 'SirVer/ultisnips'
-Plug 'davidhalter/jedi-vim'
+"Plug 'davidhalter/jedi-vim'
 Plug 'digitalrounin/vim-yaml-folds'
-Plug 'hdima/python-syntax'
+"Plug 'hdima/python-syntax'
 Plug 'honza/vim-snippets'
-Plug 'hynek/vim-python-pep8-indent'
+"Plug 'hynek/vim-python-pep8-indent'
 Plug 'ingydotnet/yaml-vim'
 Plug 'jmcantrell/vim-virtualenv'
-Plug 'python-rope/ropevim'
-Plug 'saltstack/salt-vim'
+"Plug 'python-rope/ropevim'
+"Plug 'saltstack/salt-vim'
 
 call plug#end()
-
