@@ -128,3 +128,8 @@ tags
 # End of https://www.toptal.com/developers/gitignore/api/osx,linux,vim,emacs,osx,vagrant
 
 # Generated using ignr.py - github.com/Antrikshy/ignr.py
+
+#------------------------------------------------------------------------------
+# Project local
+#------------------------------------------------------------------------------
+/*.log

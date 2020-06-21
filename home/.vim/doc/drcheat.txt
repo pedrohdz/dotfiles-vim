@@ -1,0 +1,206 @@
+*drcheat.txt* Drounin keymap cheat sheet
+
+Author: Digital Rounin LLC
+
+==============================================================================
+Drounin keymap cheat sheet              *drcheat*
+
+1. Introduction                         |drcheat-intro|
+2. Custom Mappings                      |drcheat-custom|
+  1. Function keys                      |drcheat-custom-func|
+  2. Leader Mapping                     |drcheat-custom-leader|
+3. Builtin Mappings                     |drcheat-builtin|
+  1. Spell checking                     |drcheat-builtin-spell|
+  2. vimdiff                            |drcheat-builtin-vimdiff|
+  3. Other                              |drcheat-builtin-other|
+4. Plugin Mappings                      |drcheat-plugin|
+  1. YankRing                           |drcheat-plugin-yankring|
+  2. YouCompleteMe                      |drcheat-plugin-ycm|
+  3. jedi-vim                           |drcheat-plugin-jedi|
+  4. UltiSnips                          |drcheat-plugin-ultisnips|
+  5. Syntastic                          |drcheat-plugin-syntastic|
+  6. Unimpaired                         |drcheat-plugin-unimapired|
+  7. bufexplorer                        |drcheat-plugin-bufexplorer|
+
+==============================================================================
+1. Introduction                         *drcheat-intro*
+
+TODO...
+
+==============================================================================
+2. Custom Mappings                      *drcheat-custom*
+------------------------------------------------------------------------------
+2.1. Function keys                      *drcheat-custom-func*
+
+  normal mode: ~
+    <F1>          - Vim help
+    <S-F1>        - Bring up *drcheat* sheet
+    <F2>          - Open Buffer Explorer
+    <F3>          - CtrlP
+    <F4>          -
+    <F5>          - Gundo toggle
+    <F6>          - YankRing show
+    <F7>          - Paste toggle
+    <F8>          - Color scheme
+    <F9>          - MAYBE NOTHING?
+    <F10>         -
+    <F11>         -
+    <F12>         -
+
+------------------------------------------------------------------------------
+2.2. Leader Mapping                     *drcheat-custom-leader*
+
+  normal mode: ~
+    <leader>\     - Clear the search highlight.
+    <leader>CN    - Collapse all multi-line occurrences of whitespace into
+                    one line.
+    <leader>CW    - Clean trailing whitespace.
+    <leader>CT    - Retab.
+    <leader>s     - Open current buffer in a new split.
+    <leader>ts    - Toggle spelling hints.
+    <leader>rt    - Reload ctags.
+    <leader>e     - Opens an edit command with the path of the currently
+                    edited file filled in.
+    <leader>lc    - Closes the window showing the location list from sytastic
+                    errors.
+
+  command line: ~
+    <C-P>     Inserts the path of the currently edited file into a command.
+
+==============================================================================
+3. Builtin Mappings                     *drcheat-builtin*
+
+This section is a summary of default key mappings that I use often, but not
+often enough to commit to memory.
+
+------------------------------------------------------------------------------
+3.1. Spell checking                     *drcheat-builtin-spell*
+
+  normal mode: ~
+    ]s            - Move to next misspelled word after the cursor.  A count
+                    before the command can be used to repeat.  'wrapscan'
+                    applies.
+    [s            - Like "]s" but search backwards, find the misspelled
+                    word before the cursor.  Doesn't recognize words split
+                    over two lines, thus may stop at words that are not
+                    highlighted as bad.  Does not stop at word with missing
+                    capital at the start of a line.
+    ]S            - Like "]s" but only stop at bad words, not at rare words
+                    or words for another region.
+    [S            - Like "]S" but search backwards.
+    :help spell
+
+------------------------------------------------------------------------------
+3.2. vimdiff                            *drcheat-builtin-vimdiff*
+
+  normal mode: ~
+    ]c            - next difference
+    [c            - previous difference
+    do            - diff obtain
+    dp            - diff put
+    :diffupdate   -  to remove leftover spacing issues
+    :only         - once you’re done reviewing all conflicts, this shows only
+                    the middle/merged file
+
+------------------------------------------------------------------------------
+3.2. Other                              *drcheat-builtin-other*
+
+  normal mode: ~
+    :colorscheme  - By itself, displays name of current theme.
+                    <Tab><Tab> list available themes.
+                    With name, switches theme.
+
+==============================================================================
+4. Plugin Mappings                      *drcheat-plugin*
+
+------------------------------------------------------------------------------
+4.1. YankRing                           *drcheat-plugin-yankring*
+
+  normal mode: ~
+    <F6>          - YankRing show
+    <C-P>         - move backwards through the yankring.
+    <C-N>         - move forwards through the yankring.
+
+For more: |yankring|
+
+------------------------------------------------------------------------------
+4.2. YouCompleteMe                      *drcheat-plugin-ycm*
+
+  normal mode: ~
+    <C-Space>
+                  - Used to invoke the completion menu for semantic
+                    completion.
+    :YcmCompleter - List of available 'YcmCompleter' commands.
+    :YcmCompleter GoToDeclaration
+    :YcmCompleter GoToDefinition
+    :YcmCompleter GoTo
+    :YcmCompleter GoToReferences
+    :YcmCompleter GetDoc
+                  - Python specific commands.
+
+For more: |youcompleteme| or http://valloric.github.io/YouCompleteMe/
+
+------------------------------------------------------------------------------
+4.3. jedi-vim                           *drcheat-plugin-jedi*
+
+  normal mode: ~
+    <leader>d     - Goto definitions.  Follow identifier as far as possible,
+                    includes imports and statements.
+    <leader>g     - Goto assignments.  Typical goto function.
+    K             - Show Documentation/Pydoc.  Shows a popup with assignments.
+    <leader>n     - Usages.  Shows all the usages of a name.
+    <leader>r     - Renaming <leader>r
+    :Pyimport os  - `Pyimport` opens Python module.  Example opens the os
+                    module.
+
+For more: |jedi-vim.txt| or https://github.com/davidhalter/jedi-vim
+
+------------------------------------------------------------------------------
+4.4. UltiSnips                          *drcheat-plugin-ultisnips*
+
+  normal mode: ~
+    <c-d>         - Expand trigger (custom)
+    <c-j>         - Jump forward trigger
+    <c-k>         - Jump backward trigger
+
+For more: |UltiSnips| or https://github.com/SirVer/ultisnips
+
+------------------------------------------------------------------------------
+4.5. Syntastic                          *drcheat-plugin-syntastic*
+
+  normal mode: ~
+    :lnext        - Next error in list.  (See Unimapired)
+    :lprevious    - Previous error in list.  (See Unimapired)
+
+For more: |syntastic| or https://github.com/scrooloose/syntastic
+
+------------------------------------------------------------------------------
+4.6. Unimpaired                         *drcheat-plugin-unimapired*
+
+  normal mode: ~
+    [l            - Previous error. (:lprevious)
+    ]l            - Next error. (:lnext)
+    [L            - First error. (:lfirst)
+    ]L            - Last error. (:llast)
+    :help unimpaired
+
+For more: |unimpaired| or https://github.com/tpope/vim-unimpaired
+
+-------------------------------------------------------------------
+4.7. bufexplorer                        *drcheat-plugin-bufexplorer*
+
+  normal mode: ~
+
+    <F2>          - To start exploring in the current window.  (:BufExplorer)
+    <Leader>be    - To start exploring in the current window.  (:BufExplorer)
+    <Leader>bt    - To toggle bufexplorer on or off in the current window.
+                    (:ToggleBufExplorer)
+    <Leader>bs    - To start exploring in a newly split horizontal window.
+                    (:BufExplorerHorizontalSplit)
+    <Leader>bv    - To start exploring in a newly split vertical window.
+                    (:BufExplorerVerticalSplit)
+
+For more: |bufexplorer|
+
+==============================================================================
+vim:tw=78:ts=2:ft=help:norl:
