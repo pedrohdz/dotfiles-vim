@@ -1,40 +1,39 @@
-*drcheat.txt* Drounin keymap cheat sheet
+*cheat.txt* Keymap cheat sheet
 
-Author: Digital Rounin LLC
-
-==============================================================================
-Drounin keymap cheat sheet              *drcheat*
-
-1. Introduction                         |drcheat-intro|
-2. Custom Mappings                      |drcheat-custom|
-  1. Function keys                      |drcheat-custom-func|
-  2. Leader Mapping                     |drcheat-custom-leader|
-3. Builtin Mappings                     |drcheat-builtin|
-  1. Spell checking                     |drcheat-builtin-spell|
-  2. vimdiff                            |drcheat-builtin-vimdiff|
-  3. Other                              |drcheat-builtin-other|
-4. Plugin Mappings                      |drcheat-plugin|
-  1. YankRing                           |drcheat-plugin-yankring|
-  2. YouCompleteMe                      |drcheat-plugin-ycm|
-  3. jedi-vim                           |drcheat-plugin-jedi|
-  4. UltiSnips                          |drcheat-plugin-ultisnips|
-  5. Syntastic                          |drcheat-plugin-syntastic|
-  6. Unimpaired                         |drcheat-plugin-unimapired|
-  7. bufexplorer                        |drcheat-plugin-bufexplorer|
+Author: Pedro H. <5179251+pedrohdz@users.noreply.github.com>
 
 ==============================================================================
-1. Introduction                         *drcheat-intro*
+Drounin keymap cheat sheet              *cheat*
+
+  1. Introduction                         |cheat-intro|
+  2. Custom Mappings                      |cheat-custom|
+    1. Function keys                      |cheat-custom-func|
+    2. Leader Mapping                     |cheat-custom-leader|
+  3. Builtin Mappings                     |cheat-builtin|
+    1. Spell checking                     |cheat-builtin-spell|
+    2. vimdiff                            |cheat-builtin-vimdiff|
+    3. Other                              |cheat-builtin-other|
+  4. Plugin Mappings                      |cheat-plugin|
+    1. YankRing                           |cheat-plugin-yankring|
+    2. Conquer of Completion              |cheat-coc|
+    3. UltiSnips                          |cheat-plugin-ultisnips|
+    4. Syntastic                          |cheat-plugin-syntastic|
+    5. Unimpaired                         |cheat-plugin-unimapired|
+    6. bufexplorer                        |cheat-plugin-bufexplorer|
+
+==============================================================================
+1. Introduction                         *cheat-intro*
 
 TODO...
 
 ==============================================================================
-2. Custom Mappings                      *drcheat-custom*
+2. Custom Mappings                      *cheat-custom*
 ------------------------------------------------------------------------------
-2.1. Function keys                      *drcheat-custom-func*
+2.1. Function keys                      *cheat-custom-func*
 
   normal mode: ~
     <F1>          - Vim help
-    <S-F1>        - Bring up *drcheat* sheet
+    <S-F1>        - Bring up *cheat* sheet
     <F2>          - Open Buffer Explorer
     <F3>          - CtrlP
     <F4>          -
@@ -48,7 +47,7 @@ TODO...
     <F12>         -
 
 ------------------------------------------------------------------------------
-2.2. Leader Mapping                     *drcheat-custom-leader*
+2.2. Leader Mapping                     *cheat-custom-leader*
 
   normal mode: ~
     <leader>\     - Clear the search highlight.
@@ -68,13 +67,13 @@ TODO...
     <C-P>     Inserts the path of the currently edited file into a command.
 
 ==============================================================================
-3. Builtin Mappings                     *drcheat-builtin*
+3. Builtin Mappings                     *cheat-builtin*
 
 This section is a summary of default key mappings that I use often, but not
 often enough to commit to memory.
 
 ------------------------------------------------------------------------------
-3.1. Spell checking                     *drcheat-builtin-spell*
+3.1. Spell checking                     *cheat-builtin-spell*
 
   normal mode: ~
     ]s            - Move to next misspelled word after the cursor.  A count
@@ -91,7 +90,7 @@ often enough to commit to memory.
     :help spell
 
 ------------------------------------------------------------------------------
-3.2. vimdiff                            *drcheat-builtin-vimdiff*
+3.2. vimdiff                            *cheat-builtin-vimdiff*
 
   normal mode: ~
     ]c            - next difference
@@ -103,7 +102,7 @@ often enough to commit to memory.
                     the middle/merged file
 
 ------------------------------------------------------------------------------
-3.2. Other                              *drcheat-builtin-other*
+3.3. Other                              *cheat-builtin-other*
 
   normal mode: ~
     :colorscheme  - By itself, displays name of current theme.
@@ -111,10 +110,10 @@ often enough to commit to memory.
                     With name, switches theme.
 
 ==============================================================================
-4. Plugin Mappings                      *drcheat-plugin*
+4. Plugin Mappings                      *cheat-plugin*
 
 ------------------------------------------------------------------------------
-4.1. YankRing                           *drcheat-plugin-yankring*
+4.1. YankRing                           *cheat-plugin-yankring*
 
   normal mode: ~
     <F6>          - YankRing show
@@ -124,39 +123,38 @@ often enough to commit to memory.
 For more: |yankring|
 
 ------------------------------------------------------------------------------
-4.2. YouCompleteMe                      *drcheat-plugin-ycm*
+4.2. Conquer of Completion               *cheat-coc*
 
   normal mode: ~
-    <C-Space>
-                  - Used to invoke the completion menu for semantic
-                    completion.
-    :YcmCompleter - List of available 'YcmCompleter' commands.
-    :YcmCompleter GoToDeclaration
-    :YcmCompleter GoToDefinition
-    :YcmCompleter GoTo
-    :YcmCompleter GoToReferences
-    :YcmCompleter GetDoc
-                  - Python specific commands.
+    [g            - Previous diagnostics
+    ]g            - Next diagnostics
+    gd            - Goto definition)
+    gy            - Goto type-definition)
+    gi            - Goto implementation)
+    gr            - Goto references)
+    K             - Show documentation
+    <leader>rn    - Rename
+    <leader>ac    - Apply codeAction to the current buffer
+    <leader>qf    - AutoFix problem on the current line
+    :Format       - Command to format current buffer
+    :Fold         - Command to fold current buffer
+    :OR           - Command for organize imports of the current buffer
 
-For more: |youcompleteme| or http://valloric.github.io/YouCompleteMe/
+  normal and visual mode: ~
+    <leader>f     - Format selected
+    <leader>a     - Code action on selected
+    <c-s>         - select range
+    if            - TODO
+    af            - TODO
+    ic            - TODO
+    ac            - TODO
+
+TODO: Add more items from 800-coc.vim.
+
+For more: |coc-nvim| or https://github.com/neoclide/coc.nvim
 
 ------------------------------------------------------------------------------
-4.3. jedi-vim                           *drcheat-plugin-jedi*
-
-  normal mode: ~
-    <leader>d     - Goto definitions.  Follow identifier as far as possible,
-                    includes imports and statements.
-    <leader>g     - Goto assignments.  Typical goto function.
-    K             - Show Documentation/Pydoc.  Shows a popup with assignments.
-    <leader>n     - Usages.  Shows all the usages of a name.
-    <leader>r     - Renaming <leader>r
-    :Pyimport os  - `Pyimport` opens Python module.  Example opens the os
-                    module.
-
-For more: |jedi-vim.txt| or https://github.com/davidhalter/jedi-vim
-
-------------------------------------------------------------------------------
-4.4. UltiSnips                          *drcheat-plugin-ultisnips*
+4.3. UltiSnips                          *cheat-plugin-ultisnips*
 
   normal mode: ~
     <c-d>         - Expand trigger (custom)
@@ -166,7 +164,7 @@ For more: |jedi-vim.txt| or https://github.com/davidhalter/jedi-vim
 For more: |UltiSnips| or https://github.com/SirVer/ultisnips
 
 ------------------------------------------------------------------------------
-4.5. Syntastic                          *drcheat-plugin-syntastic*
+4.4. Syntastic                          *cheat-plugin-syntastic*
 
   normal mode: ~
     :lnext        - Next error in list.  (See Unimapired)
@@ -175,7 +173,7 @@ For more: |UltiSnips| or https://github.com/SirVer/ultisnips
 For more: |syntastic| or https://github.com/scrooloose/syntastic
 
 ------------------------------------------------------------------------------
-4.6. Unimpaired                         *drcheat-plugin-unimapired*
+4.5. Unimpaired                         *cheat-plugin-unimapired*
 
   normal mode: ~
     [l            - Previous error. (:lprevious)
@@ -187,7 +185,7 @@ For more: |syntastic| or https://github.com/scrooloose/syntastic
 For more: |unimpaired| or https://github.com/tpope/vim-unimpaired
 
 -------------------------------------------------------------------
-4.7. bufexplorer                        *drcheat-plugin-bufexplorer*
+4.6. bufexplorer                        *cheat-plugin-bufexplorer*
 
   normal mode: ~
 
