@@ -6,6 +6,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'fannheyward/coc-markdownlint'
 Plug 'iamcco/coc-spell-checker'
+Plug 'iamcco/coc-vimlsp'
 Plug 'neoclide/coc-git'
 Plug 'neoclide/coc-java'
 Plug 'neoclide/coc-json'
@@ -78,6 +79,11 @@ Plug 'ingydotnet/yaml-vim'
 Plug 'jmcantrell/vim-virtualenv'
 "Plug 'python-rope/ropevim'
 "Plug 'saltstack/salt-vim'
+
+
+" -----------------------------------------------------------------------------
+" Old
+"Plug 'Raimondi/delimitMate'
 
 call plug#end()
 

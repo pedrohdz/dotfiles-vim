@@ -1,37 +1,42 @@
 " Preferences
 " -----------------------------------------------------------------------------
-set modelines=0
-set encoding=utf-8
-set scrolloff=3
-set sidescrolloff=3
 set autoindent
-set smartindent
-set showmode
-set showcmd
-set hidden
-set wildmenu
-set wildmode=list:longest
-set noerrorbells
-set novisualbell
-set ttyfast
-set ruler
+set autowrite
 set backspace=indent,eol,start
-set number
-set title
-set laststatus=2
-set splitbelow splitright
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set smarttab
+set encoding=utf-8
 set expandtab
-set nowrap
-set list
-set listchars=tab:▸-,eol:¬,trail:·
 set foldlevelstart=0
 set foldmethod=marker
 set formatoptions=tcq
-set autowrite
+set hidden
+set laststatus=2
+set list
+set listchars=tab:▸-,eol:¬,trail:·
+set modeline
+set modelines=5
+set noerrorbells
+set nolist
+set nonumber
+set novisualbell
+set nowrap
+set number
+set ruler
+set scrolloff=3
+set shiftwidth=2
+set showcmd
+set showmode
+set sidescrolloff=3
+set smartindent
+set smarttab
+set softtabstop=2
+set splitbelow splitright
+set tabstop=2
+set textwidth=79
+set title
+set ttyfast
+set wildmenu
+set wildmode=list:longest
+
 
 set pastetoggle=<F7>
 
@@ -57,3 +62,6 @@ set completeopt=longest,menu
 set pumheight=20
 
 let mapleader = '\'
+
+filetype on
+filetype plugin indent on
