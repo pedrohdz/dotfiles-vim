@@ -36,7 +36,6 @@ Vagrant.configure('2') do |config|
       set -o pipefail
 
       ln -fvs /vagrant/.vimrc /home/vagrant/.vimrc
-      ln -fvs /vagrant/.vimrc.local /home/vagrant/.vimrc.local
 
       # The neoclide/coc.nvim vim pligin does not like symlinks when creating
       # ~/.vim/plugged/coc.nvim.  So we are symlinking eveything in ~/.vim/
