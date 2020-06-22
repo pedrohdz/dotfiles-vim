@@ -4,13 +4,24 @@ call plug#begin()
 " new
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+Plug 'fannheyward/coc-markdownlint'
+Plug 'iamcco/coc-spell-checker'
+Plug 'neoclide/coc-git'
+Plug 'neoclide/coc-java'
+Plug 'neoclide/coc-json'
+Plug 'neoclide/coc-python'
+Plug 'neoclide/coc-solargraph'
+Plug 'neoclide/coc-yaml'
+"Plug 'weirongxu/coc-explorer'
+
+
 " -----------------------------------------------------------------------------
 " dr-vimfiles
 Plug 'altercation/vim-colors-solarized'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dhruvasagar/vim-railscasts-theme'
 Plug 'elzr/vim-json'
-Plug 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'majutsushi/tagbar'
@@ -70,9 +81,3 @@ Plug 'jmcantrell/vim-virtualenv'
 
 call plug#end()
 
-
-let g:coc_global_extensions = [
-      \'coc-python',
-      \'coc-json',
-      \'coc-go',
-      \]

@@ -57,10 +57,3 @@ set completeopt=longest,menu
 set pumheight=20
 
 let mapleader = '\'
-
-"----
-" delimitMate
-"----
-" delimitMate_expand_cr - interferes with supertab's SuperTabCrMapping
-let g:delimitMate_expand_cr    = 0
-let g:delimitMate_expand_space = 1

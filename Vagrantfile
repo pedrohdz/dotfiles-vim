@@ -25,7 +25,7 @@ Vagrant.configure('2') do |config|
     inline: <<-'EOT'
       apt-get update
       apt-get dist-upgrade -y
-      apt-get install -y vim tree nodejs npm
+      apt-get install -y vim tree nodejs npm python3-pip python3-venv
     EOT
 
   config.vm.provision 'shell',
