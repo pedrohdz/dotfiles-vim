@@ -9,7 +9,6 @@ endif
 " color schema configuration *MUST* happen before activating the schema, else
 " the modifcations will not take.
 if &t_Co > 2 || has("gui_running")
-  syntax on
   set background=dark
 
   " Configured in: 400-colorscheme_jellybeans.vim
