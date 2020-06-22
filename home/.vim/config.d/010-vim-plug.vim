@@ -25,6 +25,11 @@ Plug 'romainl/Apprentice'
 Plug 'vim-scripts/colorsel.vim'
 Plug 'xolox/vim-colorscheme-switcher'
 
+
+" -----------------------------------------------------------------------------
+" New plugins (post `dr-vimfiles*`)
+Plug 'farmergreg/vim-lastplace'
+
 " -----------------------------------------------------------------------------
 " dr-vimfiles
 Plug 'ctrlpvim/ctrlp.vim'
