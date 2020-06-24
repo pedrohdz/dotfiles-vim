@@ -30,6 +30,7 @@ Plug 'xolox/vim-colorscheme-switcher'
 Plug 'dense-analysis/ale'
 Plug 'farmergreg/vim-lastplace'
 Plug 'pearofducks/ansible-vim'
+Plug 'towolf/vim-helm'
 
 " -----------------------------------------------------------------------------
 " dr-vimfiles
@@ -65,7 +66,6 @@ Plug 'hashivim/vim-consul'
 Plug 'hashivim/vim-packer'
 Plug 'hashivim/vim-terraform'
 Plug 'hashivim/vim-vagrant'
-Plug 'towolf/vim-helm'
 
 " -----------------------------------------------------------------------------
 " dr-vimfiles-nodejs
