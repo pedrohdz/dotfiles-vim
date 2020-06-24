@@ -27,8 +27,9 @@ Plug 'xolox/vim-colorscheme-switcher'
 
 " -----------------------------------------------------------------------------
 " New plugins (post `dr-vimfiles*`)
-Plug 'farmergreg/vim-lastplace'
 Plug 'dense-analysis/ale'
+Plug 'farmergreg/vim-lastplace'
+Plug 'pearofducks/ansible-vim'
 
 " -----------------------------------------------------------------------------
 " dr-vimfiles
