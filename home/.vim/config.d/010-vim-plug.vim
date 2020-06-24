@@ -25,10 +25,10 @@ Plug 'romainl/Apprentice'
 Plug 'vim-scripts/colorsel.vim'
 Plug 'xolox/vim-colorscheme-switcher'
 
-
 " -----------------------------------------------------------------------------
 " New plugins (post `dr-vimfiles*`)
 Plug 'farmergreg/vim-lastplace'
+Plug 'dense-analysis/ale'
 
 " -----------------------------------------------------------------------------
 " dr-vimfiles
@@ -43,7 +43,7 @@ Plug 'mattn/webapi-vim'
 Plug 'othree/xml.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'  " Replacing with dense-analysis/ale
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-haml'
