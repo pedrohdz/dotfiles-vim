@@ -31,6 +31,7 @@ Plug 'dense-analysis/ale'
 Plug 'farmergreg/vim-lastplace'
 Plug 'pearofducks/ansible-vim'
 Plug 'towolf/vim-helm'
+Plug 'mustache/vim-mustache-handlebars'
 
 " -----------------------------------------------------------------------------
 " dr-vimfiles
