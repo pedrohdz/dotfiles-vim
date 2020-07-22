@@ -29,9 +29,10 @@ Plug 'xolox/vim-colorscheme-switcher'
 " New plugins (post `dr-vimfiles*`)
 Plug 'dense-analysis/ale'
 Plug 'farmergreg/vim-lastplace'
-Plug 'pearofducks/ansible-vim'
-Plug 'towolf/vim-helm'
 Plug 'mustache/vim-mustache-handlebars'
+Plug 'pearofducks/ansible-vim'
+Plug 'tomtom/tcomment_vim'
+Plug 'towolf/vim-helm'
 
 " -----------------------------------------------------------------------------
 " dr-vimfiles
@@ -45,7 +46,7 @@ Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'othree/xml.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'scrooloose/nerdcommenter'
+"Plug 'scrooloose/nerdcommenter'  " Replaced by tomtom/tcomment_vim
 "Plug 'scrooloose/syntastic'  " Replacing with dense-analysis/ale
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-fugitive'
