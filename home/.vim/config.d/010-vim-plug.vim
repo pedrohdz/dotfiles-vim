@@ -4,17 +4,6 @@ call plug#begin()
 " Conquer of Completion (CoC)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'fannheyward/coc-markdownlint'
-Plug 'iamcco/coc-spell-checker'
-Plug 'iamcco/coc-vimlsp'
-Plug 'neoclide/coc-git'
-Plug 'neoclide/coc-java'
-Plug 'neoclide/coc-json'
-Plug 'neoclide/coc-python'
-Plug 'neoclide/coc-solargraph'
-Plug 'neoclide/coc-yaml'
-"Plug 'weirongxu/coc-explorer'
-
 " -----------------------------------------------------------------------------
 " Color configuration
 Plug 'altercation/vim-colors-solarized'
@@ -91,4 +80,3 @@ Plug 'jmcantrell/vim-virtualenv'
 "Plug 'Raimondi/delimitMate'
 
 call plug#end()
-
