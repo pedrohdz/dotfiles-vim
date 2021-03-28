@@ -7,5 +7,10 @@
       "initializationOptions": {}
     }
   },
+  "dockerfile": {
+    "command": "docker-langserver",
+    "filetypes": ["dockerfile"],
+    "args": ["--stdio"]
+  },
   "coc.preferences.diagnostic.displayByAle": true
 }
