@@ -60,7 +60,8 @@ Plug 'hashivim/vim-vagrant'
 
 " -----------------------------------------------------------------------------
 " dr-vimfiles-nodejs
-Plug 'suan/vim-instant-markdown'
+"Plug 'suan/vim-instant-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 " -----------------------------------------------------------------------------
 " dr-vimfiles-python
