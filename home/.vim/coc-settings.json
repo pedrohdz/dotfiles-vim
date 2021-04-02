@@ -12,5 +12,6 @@
     "filetypes": ["dockerfile"],
     "args": ["--stdio"]
   },
-  "coc.preferences.diagnostic.displayByAle": true
+  "coc.preferences.diagnostic.displayByAle": true,
+  "diagnostic.displayByAle": true
 }

@@ -13,4 +13,4 @@ let python_highlight_all = 1
 "     pyflakes - More error analysis
 "     pycodestyle - formally known as pep8
 "     mccabe - Ned’s script to check McCabe complexity.
-let g:syntastic_python_checkers = ['python', 'pylint', 'flake8']
+"let g:syntastic_python_checkers = ['python', 'pylint', 'flake8']
