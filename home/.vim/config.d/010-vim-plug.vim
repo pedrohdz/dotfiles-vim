@@ -24,10 +24,14 @@ Plug 'tomtom/tcomment_vim'
 Plug 'towolf/vim-helm'
 
 " -----------------------------------------------------------------------------
-" dr-vimfiles
+" Graduated from dr-vimfiles
+Plug 'elzr/vim-json'
+Plug 'kevinoid/vim-jsonc'
+
+" -----------------------------------------------------------------------------
+" From original dr-vimfiles
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dhruvasagar/vim-railscasts-theme'
-Plug 'elzr/vim-json'
 Plug 'godlygeek/tabular'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'majutsushi/tagbar'
