@@ -18,6 +18,7 @@ Plug 'xolox/vim-colorscheme-switcher'
 " New plugins (post `dr-vimfiles*`)
 Plug 'dense-analysis/ale'
 Plug 'farmergreg/vim-lastplace'
+Plug 'liuchengxu/vim-which-key'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'pearofducks/ansible-vim'
 Plug 'tomtom/tcomment_vim'

@@ -52,3 +52,4 @@ set completeopt=longest,menu
 set pumheight=20
 
 let mapleader = '\'
+let maplocalleader = "\<Space>"
