@@ -24,6 +24,10 @@ Plug 'pearofducks/ansible-vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'towolf/vim-helm'
 
+if has('conceal')
+  Plug 'Yggdroot/indentLine'
+end
+
 " -----------------------------------------------------------------------------
 " Graduated from dr-vimfiles
 Plug 'elzr/vim-json'

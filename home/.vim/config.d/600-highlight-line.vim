@@ -3,6 +3,7 @@ if v:version > 700
     autocmd WinEnter * setlocal cursorline
     autocmd WinLeave * setlocal nocursorline
     set cursorline
+    set cursorcolumn
 
     " Highlight column
     autocmd WinEnter * setlocal colorcolumn=+1
