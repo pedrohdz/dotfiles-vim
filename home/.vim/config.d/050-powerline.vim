@@ -10,8 +10,12 @@ endfunction
 
 function _PhdzLoadPowerline()
   let paths = [
+        \'/opt/devenv/opt/python/powerline-status/lib/python3.9',
+        \'/opt/devenv/opt/python/powerline-status/lib/python3.8',
+        \'/opt/devenv/opt/python/powerline-status/lib/python3.7',
+        \'~/.local/opt/python/powerline/lib/python3.9',
+        \'~/.local/opt/python/powerline/lib/python3.8',
         \'~/.local/opt/python/powerline/lib/python3.7',
-        \'~/.local/opt/python/powerline/lib/python3.8'
         \]
   let path = _PhdzFindPowerline(paths)
 
