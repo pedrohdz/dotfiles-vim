@@ -5,6 +5,11 @@ call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " -----------------------------------------------------------------------------
+" Airline - Trying it out
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" -----------------------------------------------------------------------------
 " Color configuration
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'

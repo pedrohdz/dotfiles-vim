@@ -1,3 +1,6 @@
+" Turning off PowerLine while testing out AirLine
+finish
+
 function _PhdzFindPowerline(pathes)
   for item in a:pathes
     let expanded = expand(item . '/site-packages/powerline/bindings/vim')

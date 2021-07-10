@@ -39,7 +39,13 @@ endif
 set undolevels=1000
 set backup
 set directory=.
-set viminfo='500,:1000,/1000,f1,n~/.viminfo
+
+if has('nvim')
+  set viminfo='500,:1000,/1000,f1,n~/.nviminfo
+else
+  set viminfo='500,:1000,/1000,f1,n~/.viminfo
+endif
+
 
 " Searching
 set incsearch
