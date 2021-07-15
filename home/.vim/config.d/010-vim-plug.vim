@@ -4,10 +4,10 @@ call plug#begin()
 " Conquer of Completion (CoC)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" -----------------------------------------------------------------------------
-" Airline - Trying it out
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" " -----------------------------------------------------------------------------
+" " Airline - Trying it out
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 
 " -----------------------------------------------------------------------------
 " Color configuration
