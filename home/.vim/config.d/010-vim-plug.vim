@@ -21,7 +21,7 @@ Plug 'xolox/vim-colorscheme-switcher'
 
 " -----------------------------------------------------------------------------
 " New plugins (post `dr-vimfiles*`)
-Plug 'dense-analysis/ale'
+"Plug 'dense-analysis/ale'
 Plug 'farmergreg/vim-lastplace'
 Plug 'liuchengxu/vim-which-key'
 Plug 'mustache/vim-mustache-handlebars'
@@ -82,12 +82,12 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'Rykka/InstantRst'
 Plug 'SirVer/ultisnips'
-Plug 'digitalrounin/vim-yaml-folds'
+Plug 'pedrohdz/vim-yaml-folds'
 "Plug 'hdima/python-syntax'
 Plug 'honza/vim-snippets'
 "Plug 'hynek/vim-python-pep8-indent'
 Plug 'ingydotnet/yaml-vim'
-Plug 'jmcantrell/vim-virtualenv'
+"Plug 'jmcantrell/vim-virtualenv'
 
 
 " -----------------------------------------------------------------------------
