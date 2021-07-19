@@ -29,6 +29,10 @@ Plug 'pearofducks/ansible-vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'towolf/vim-helm'
 
+" Fuzzy Finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+
 if has('conceal')
   Plug 'Yggdroot/indentLine'
 end
