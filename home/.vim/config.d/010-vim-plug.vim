@@ -12,6 +12,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " -----------------------------------------------------------------------------
 " Color configuration
 Plug 'altercation/vim-colors-solarized'
+Plug 'dhruvasagar/vim-railscasts-theme'
 Plug 'morhetz/gruvbox'
 Plug 'nanotech/jellybeans.vim'
 Plug 'romainl/Apprentice'
@@ -23,6 +24,8 @@ Plug 'xolox/vim-colorscheme-switcher'
 " New plugins (post `dr-vimfiles*`)
 "Plug 'dense-analysis/ale'
 Plug 'farmergreg/vim-lastplace'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'pearofducks/ansible-vim'
@@ -45,7 +48,6 @@ Plug 'kevinoid/vim-jsonc'
 " -----------------------------------------------------------------------------
 " From original dr-vimfiles
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'dhruvasagar/vim-railscasts-theme'
 Plug 'godlygeek/tabular'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'majutsushi/tagbar'
