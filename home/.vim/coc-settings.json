@@ -21,5 +21,6 @@
   // "diagnostic.displayByAle": true,
   // `signature.target`: https://github.com/neoclide/coc.nvim/issues/2233#issuecomment-670794044
   "signature.target": "preview",
-  "diagnostic.checkCurrentLine": true
+  "diagnostic.checkCurrentLine": true,
+  "coc.source.file.triggerCharacters": [ "/" ]
 }
