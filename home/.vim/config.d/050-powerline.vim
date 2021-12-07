@@ -1,3 +1,7 @@
+if has('nvim')
+  finish
+endif
+
 function _PhdzGetPowerlineVimPath()
   let l:powerlined_cmd  = "powerline-daemon"
   let l:powerlined_cmd_path = ""

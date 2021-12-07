@@ -1,8 +1,17 @@
-call plug#begin()
+function _PhdzPluginInstallPath()
+  if has('nvim')
+    return '~/.vim/plugged-nvim'
+  endif
+  return '~/.vim/plugged'
+endfunction
+
+call plug#begin(_PhdzPluginInstallPath())
 
 " -----------------------------------------------------------------------------
 " Conquer of Completion (CoC)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+if !has('nvim')
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+endif
 
 " " -----------------------------------------------------------------------------
 " " Airline - Trying it out
