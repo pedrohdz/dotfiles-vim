@@ -9,7 +9,11 @@ call plug#begin(_PhdzPluginInstallPath())
 
 " -----------------------------------------------------------------------------
 " Conquer of Completion (CoC)
-if !has('nvim')
+if has('nvim')
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+  Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+else
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 
