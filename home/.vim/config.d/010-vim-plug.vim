@@ -13,10 +13,13 @@ if !has('nvim')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 
-" " -----------------------------------------------------------------------------
-" " Airline - Trying it out
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+" -----------------------------------------------------------------------------
+" Airline - Trying it out
+" TODO - Replace Powerline in Vim as well?
+if has('nvim')
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+endif
 
 " -----------------------------------------------------------------------------
 " Color configuration
