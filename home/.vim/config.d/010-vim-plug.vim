@@ -40,8 +40,7 @@ Plug 'xolox/vim-colorscheme-switcher'
 " New plugins (post `dr-vimfiles*`)
 "Plug 'dense-analysis/ale'
 Plug 'farmergreg/vim-lastplace'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'lambdalisue/fern.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'pearofducks/ansible-vim'
@@ -49,8 +48,8 @@ Plug 'tomtom/tcomment_vim'
 Plug 'towolf/vim-helm'
 
 " Fuzzy Finder
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 if has('conceal')
   Plug 'Yggdroot/indentLine'
