@@ -8,6 +8,15 @@ map <unique> <S-F1> :help drcheat<cr>:resize 10000<cr>
 nmap <unique> gV `[v`]
 
 
+" Function keys
+" -----------------------------------------------------------------------------
+map <unique> <F2>   :ToggleBufExplorer<CR>
+let g:ctrlp_map = '<F3>'
+map <unique> <F5> :GundoToggle<cr>
+map <unique> <F6> :YRShow<cr>
+set pastetoggle=<F7>
+
+
 " Leader mapping
 " -----------------------------------------------------------------------------
 " Clear the search highlight

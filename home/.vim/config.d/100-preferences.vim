@@ -28,9 +28,6 @@ set title
 set ttyfast
 set wildmode=list:longest
 
-
-set pastetoggle=<F7>
-
 if has("mouse")
  set mouse=a
 endif
