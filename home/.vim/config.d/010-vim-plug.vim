@@ -39,17 +39,17 @@ Plug 'xolox/vim-colorscheme-switcher'
 " -----------------------------------------------------------------------------
 " New plugins (post `dr-vimfiles*`)
 "Plug 'dense-analysis/ale'
+Plug 'cespare/vim-toml', { 'branch': 'main', 'for': 'toml' }
 Plug 'farmergreg/vim-lastplace'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'pearofducks/ansible-vim'
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'tomtom/tcomment_vim'
 Plug 'towolf/vim-helm'
-
-" Fuzzy Finder
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
 
 if has('conceal')
   Plug 'Yggdroot/indentLine'
