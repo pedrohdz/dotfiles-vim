@@ -39,6 +39,7 @@ Plug 'xolox/vim-colorscheme-switcher'
 " -----------------------------------------------------------------------------
 " New plugins (post `dr-vimfiles*`)
 "Plug 'dense-analysis/ale'
+Plug 'airblade/vim-gitgutter'
 Plug 'cespare/vim-toml', { 'branch': 'main', 'for': 'toml' }
 Plug 'farmergreg/vim-lastplace'
 Plug 'junegunn/fzf'
@@ -50,6 +51,10 @@ Plug 'pearofducks/ansible-vim'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'tomtom/tcomment_vim'
 Plug 'towolf/vim-helm'
+
+if has('nvim')
+  Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
+endif
 
 if has('conceal')
   Plug 'Yggdroot/indentLine'
@@ -102,7 +107,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 " dr-vimfiles-python
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'Rykka/InstantRst'
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'  " Revisit
 Plug 'pedrohdz/vim-yaml-folds'
 "Plug 'hdima/python-syntax'
 Plug 'honza/vim-snippets'

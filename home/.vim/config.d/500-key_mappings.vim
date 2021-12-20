@@ -8,6 +8,11 @@ map <unique> <S-F1> :help drcheat<cr>:resize 10000<cr>
 nmap <unique> gV `[v`]
 
 
+" General
+" -----------------------------------------------------------------------------
+let g:bufExplorerDisableDefaultKeyMapping = 1
+
+
 " Function keys
 " -----------------------------------------------------------------------------
 map <unique> <F2>   :ToggleBufExplorer<CR>

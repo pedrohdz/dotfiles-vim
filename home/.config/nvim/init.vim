@@ -47,4 +47,8 @@ lsp.terraformls.setup(coq.lsp_ensure_capabilities())
 require('lspconfig').yamlls.setup{}
 lsp.yamlls.setup(coq.lsp_ensure_capabilities())
 
+-- vim
+require('lspconfig').vimls.setup{}
+lsp.vimls.setup(coq.lsp_ensure_capabilities())
+
 EOF
