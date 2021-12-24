@@ -1,6 +1,14 @@
 " -----------------------------------------------------------------------------
 " Public funcations
 " -----------------------------------------------------------------------------
+function! PhdzUpdateBuffer()
+  if &diff
+    call PhdzHudApplyCurrentOrSimple()
+    return
+  endif
+  call PhdzHudApplyCurrentOrFull()
+endfunction
+
 function! PhdzHudApplyCurrentOrFull()
   call _PhdzHudApplyCurrentOrDefaultTo(_PHDZ_HUD_CONSTANT_FULL())
 endfunction
@@ -13,21 +21,13 @@ function! PhdzHudApplyCurrentOrNone()
   call _PhdzHudApplyCurrentOrDefaultTo(_PHDZ_HUD_CONSTANT_NONE())
 endfunction
 
-function! PhdzUpdateBuffer()
-  if &diff
-    call PhdzHudApplyCurrentOrSimple()
-    return
-  endif
-  call PhdzHudApplyCurrentOrFull()
-endfunction
-
 function! PhdzHudToggle()
   let l:previous_state = exists("b:_phdz_hud_current_state") ? b:_phdz_hud_current_state : _PHDZ_HUD_CONSTANT_NONE()
-  if l:previous_state == _PHDZ_HUD_CONSTANT_FULL() 
+  if l:previous_state == _PHDZ_HUD_CONSTANT_FULL()
     call PhdzHudApplySimple()
-  elseif l:previous_state == _PHDZ_HUD_CONSTANT_SIMPLE() 
+  elseif l:previous_state == _PHDZ_HUD_CONSTANT_SIMPLE()
     call PhdzHudApplyNone()
-  elseif l:previous_state == _PHDZ_HUD_CONSTANT_NONE() 
+  elseif l:previous_state == _PHDZ_HUD_CONSTANT_NONE()
     call PhdzHudApplyFull()
   else
     echoerr printf("Error - Unknown HUD state of '%s', switching to '%s'.", l:previous_state, _PHDZ_HUD_CONSTANT_FULL())
@@ -35,16 +35,6 @@ function! PhdzHudToggle()
   endif
 
   echomsg printf("Changed HUD from '%s' to '%s'", l:previous_state, b:_phdz_hud_current_state)
-endfunction
-
-function! _PhdzTryExecute(commannd)
-  try
-    execute a:commannd
-  catch /.*/
-    if has('nvim')
-      echoerr printf("ERROR - Failed to execute '%s'.", a:commannd)
-    endif
-  endtry
 endfunction
 
 function! PhdzHudApplyFull()
@@ -101,9 +91,9 @@ function! _PhdzHudApplyCurrentOrDefaultTo(value)
   let l:state = exists("b:_phdz_hud_current_state") ? b:_phdz_hud_current_state : a:value
   if l:state == _PHDZ_HUD_CONSTANT_FULL()
     call PhdzHudApplyFull()
-  elseif l:state == _PHDZ_HUD_CONSTANT_SIMPLE() 
+  elseif l:state == _PHDZ_HUD_CONSTANT_SIMPLE()
     call PhdzHudApplySimple()
-  elseif l:state == _PHDZ_HUD_CONSTANT_NONE() 
+  elseif l:state == _PHDZ_HUD_CONSTANT_NONE()
     call PhdzHudApplyNone()
   else
     echoerr printf("Error - Unknown HUD state of '%s', defaulting to '%s'.", l:state, _PHDZ_HUD_CONSTANT_FULL())
@@ -111,13 +101,24 @@ function! _PhdzHudApplyCurrentOrDefaultTo(value)
   endif
 endfunction
 
+function! _PhdzTryExecute(commannd)
+  try
+    execute a:commannd
+  catch /.*/
+    if has('nvim')
+      echoerr printf("ERROR - Failed to execute '%s'.", a:commannd)
+    endif
+  endtry
+endfunction
+
 
 " -----------------------------------------------------------------------------
 " Internal funcations
 " -----------------------------------------------------------------------------
-augroup phdz_hub 
+augroup phdz_hub
   autocmd!
-  autocmd BufNewFile,BufRead,BufEnter * call PhdzUpdateBuffer()
+  " autocmd BufNewFile,BufRead,BufEnter * call PhdzUpdateBuffer()
+  autocmd BufNewFile,BufRead * call PhdzUpdateBuffer()
 augroup END
 
 nmap <F1>   :<C-E><C-U>call PhdzHudToggle()<CR>
