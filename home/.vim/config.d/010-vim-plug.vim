@@ -8,11 +8,20 @@ endfunction
 call plug#begin(_PhdzPluginInstallPath())
 
 " -----------------------------------------------------------------------------
-" Conquer of Completion (CoC)
+" LSP
 if has('nvim')
+  Plug 'williamboman/nvim-lsp-installer'
   Plug 'neovim/nvim-lspconfig'
-  Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
-  Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
+
+  " For vsnip users.
+  Plug 'hrsh7th/cmp-vsnip'
+  Plug 'hrsh7th/vim-vsnip'
+
 else
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
