@@ -43,7 +43,6 @@ else
   set viminfo='500,:1000,/1000,f1,n~/.viminfo
 endif
 
-
 " Searching
 set incsearch
 set showmatch
@@ -51,7 +50,8 @@ set hlsearch
 runtime macros/matchit.vim
 
 " Popup menu behavior
-set completeopt=longest,menu
+" OLD - set completeopt=longest,menu
+set completeopt=menu,menuone,noselect
 set pumheight=20
 
 let mapleader = '\'

@@ -41,7 +41,7 @@ end
 -- --------------------------------------------------------------------------
 -- This section is mostly from:
 --   - https://github.com/hrsh7th/nvim-cmp/#recommended-configuration=
-local cmp = require'cmp'
+local cmp = require('cmp')
 
 cmp.setup({
   snippet = {
@@ -107,6 +107,46 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 
 
 -- --------------------------------------------------------------------------
+-- Setup lspkind-nvim, adds vscode-like pictograms to neovim built-in lsp
+-- --------------------------------------------------------------------------
+-- This section is mostly from:
+--   - https://github.com/onsails/lspkind.nvim
+--   - https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations=
+local lspkind = require('lspkind')
+cmp.setup {
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol_text',
+      menu = ({
+        buffer = '[Buffer]',
+        nvim_lsp = '[LSP]',
+        luasnip = '[LuaSnip]',
+        nvim_lua = '[Lua]',
+        latex_symbols = '[Latex]',
+      })
+    }),
+  },
+}
+
+-- Colors for nvim-cmp completion menus. Thank you:
+--   - https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#how-to-add-visual-studio-code-dark-theme-colors-to-the-menu=
+--   - https://www.reddit.com/r/neovim/comments/r42njg/here_are_the_vs_code_theme_colors_for_the_new/hmelirh/
+vim.cmd('set termguicolors')
+vim.cmd('syntax on')
+vim.cmd('highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080')
+vim.cmd('highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6')
+vim.cmd('highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6')
+vim.cmd('highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE')
+vim.cmd('highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE')
+vim.cmd('highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE')
+vim.cmd('highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0')
+vim.cmd('highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0')
+vim.cmd('highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4')
+vim.cmd('highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4')
+vim.cmd('highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4')
+
+
+-- --------------------------------------------------------------------------
 -- nvim-lsp-installer
 -- --------------------------------------------------------------------------
 -- In order for nvim-lsp-installer to register the necessary hooks at the
@@ -164,6 +204,13 @@ lspconfig.sumneko_lua.setup{
   capabilities = capabilities,
   flags = lsp_flags,
   on_attach = on_attach,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' }
+      }
+    }
+  }
 }
 
 -- pyright
