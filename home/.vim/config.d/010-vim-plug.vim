@@ -55,7 +55,6 @@ Plug 'farmergreg/vim-lastplace'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'lambdalisue/fern.vim'
-Plug 'liuchengxu/vim-which-key'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'pearofducks/ansible-vim'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -64,6 +63,7 @@ Plug 'towolf/vim-helm'
 
 if has('nvim')
   Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
+  Plug 'folke/which-key.nvim'
 endif
 
 if has('conceal')

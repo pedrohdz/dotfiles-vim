@@ -18,40 +18,42 @@ function _PhdzFzfProjectFiles ()
   execute ":Files " . _PhdzFindProjectRoot()
 endfunction
 
-
-let g:which_key_leader_map.a = {
-    \ 'name' : '+all-buffers',
-    \ 'd'    : ['<Plug>(toggle-lsp-diag)', 'lsp-diag-toggle'],
-    \ 'g'    : [':GitGutterToggle', 'git-gutter-toggle'],
-    \ 'v'    : ['<Plug>(toggle-lsp-diag-vtext)', 'lsp-diag-vtext-toggle'],
-\ }
-
-let g:which_key_leader_map.b = {
-    \ 'name' : '+buffer',
-    \ 'g'    : [':GitGutterBufferToggle', 'git-gutter-toggle'],
-    \ 'h'    : [':GitGutterLineHighlightsToggle', 'git-gutter-line-highlights'],
-\ }
-
-let g:which_key_leader_map.f = {
-    \ 'name' : '+fzf',
-    \ 'f'    : ['_PhdzFzfProjectFiles()', 'project-files'],
-\ }
-
-let g:which_key_leader_map.g = {
-    \ 'name' : '+git',
-    \ 'b' : [":BCommits", "fzf-git-buffer-commits"],
-    \ 'c' : [":Commits", "fzf-git-project-commits"],
-    \ 'f' : [":GFiles", "fzf-git-files"],
-    \ 's' : [":GFiles?", "fzf-git-status"],
-\ }
-
-let g:which_key_leader_map.v = {
-    \ 'name' : '+vim',
-    \ 'b'    : [':Buffers', 'fzf-open-buffers'],
-    \ 'c'    : [':Colors', 'fzf-colors'],
-    \ 'k'    : [':Marks', 'fzf-marks'],
-    \ 'm'    : [':Maps', 'fzf-normal-mode-mappings'],
-\ }
+if has('nvim')
+lua << EOF
+  local which_key = require('which-key')
+  which_key.register({
+    a = {
+      name = 'all-buffers',
+      d = {'<Plug>(toggle-lsp-diag)', 'lsp-diag-toggle'},
+      g = {'<cmd>GitGutterToggle<CR>', 'git-gutter-toggle'},
+      v = {'<Plug>(toggle-lsp-diag-vtext)', 'lsp-diag-vtext-toggle'},
+    },
+    b = {
+      name = 'buffer',
+      g = {'<cmd>GitGutterBufferToggle<CR>', 'git-gutter-toggle'},
+      h = {'<cmd>GitGutterLineHighlightsToggle<CR>', 'git-gutter-line-highlights'},
+    },
+    f = {
+      name = 'fzf',
+      f = {'<cmd>call _PhdzFzfProjectFiles()<CR>', 'project-files'},
+    },
+    g = {
+      name = 'git',
+      b = {"<cmd>BCommits<CR>", "fzf-git-buffer-commits"},
+      c = {"<cmd>Commits<CR>", "fzf-git-project-commits"},
+      f = {"<cmd>GFiles<CR>", "fzf-git-files"},
+      s = {"<cmd>GFiles?<CR>", "fzf-git-status"},
+    },
+    v = {
+      name = 'vim',
+      b = {'<cmd>Buffers<CR>', 'fzf-open-buffers'},
+      c = {'<cmd>Colors<CR>', 'fzf-colors'},
+      k = {'<cmd>Marks<CR>', 'fzf-marks'},
+      m = {'<cmd>Maps<CR>', 'fzf-normal-mode-mappings'},
+    },
+  }, { prefix = '<leader>' })
+EOF
+endif
 
 " :Rg [PATTERN] 	rg search result (ALT-A to select all, ALT-D to deselect all)
 " :Ag [PATTERN] 	ag search result (ALT-A to select all, ALT-D to deselect all)

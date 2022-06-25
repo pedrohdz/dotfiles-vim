@@ -30,16 +30,37 @@ map <unique> <leader>\ :nohlsearch<cr>
 map <unique> <leader>CN :%s/^\n\+/\r/<cr>:let @/=''<cr>
 map <unique> <leader>CT :retab<cr>
 map <unique> <leader>CW :%s/\s\+$//<cr>:let @/=''<cr>
-let g:which_key_leader_map.C = {
-    \ 'name' : '+clean',
-    \ 'N'    : 'clean-vertical-whitespace',
-    \ 'T'    : 'clean-tabs',
-    \ 'W'    : 'clean-whitespace',
-\ }
+
+if has('nvim')
+lua << EOF
+  local which_key = require('which-key')
+  which_key.register({
+    C = {
+      name = 'clean',
+      N = 'clean-vertical-whitespace',
+      T = 'clean-tabs',
+      W = 'clean-whitespace',
+    }
+  }, { prefix = '<leader>' })
+EOF
+endif
+
 
 " Toggle spelling hints
 nmap <unique> <leader>ts :set spell!<cr>
-let g:which_key_leader_map.t = { 'name' : '+spelling' }
+
+if has('nvim')
+lua << EOF
+  local which_key = require('which-key')
+  which_key.register({
+    t = {
+      name = 'toggle',
+      s = 'spell-checking',
+    }
+  }, { prefix = '<leader>' })
+EOF
+endif
+
 
 " Inserts the path of the currently edited file into a command - Command mode: Ctrl+P
 cmap <unique> <C-P> <C-R>=expand("%:p:h") . "/" <CR>
