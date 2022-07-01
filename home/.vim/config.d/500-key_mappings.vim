@@ -53,8 +53,8 @@ if has('nvim')
 lua << EOF
   local which_key = require('which-key')
   which_key.register({
-    t = {
-      name = 'toggle',
+    s = {
+      name = 'switch/toggle',
       s = 'spell-checking',
     }
   }, { prefix = '<leader>' })

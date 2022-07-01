@@ -33,10 +33,10 @@ lua << EOF
       g = {'<cmd>GitGutterBufferToggle<CR>', 'git-gutter-toggle'},
       h = {'<cmd>GitGutterLineHighlightsToggle<CR>', 'git-gutter-line-highlights'},
     },
-    f = {
-      name = 'fzf',
-      f = {'<cmd>call _PhdzFzfProjectFiles()<CR>', 'project-files'},
-    },
+    -- f = {
+    --   name = 'fzf',
+    --   f = {'<cmd>call _PhdzFzfProjectFiles()<CR>', 'project-files'},
+    -- },
     g = {
       name = 'git',
       b = {"<cmd>BCommits<CR>", "fzf-git-buffer-commits"},

@@ -63,7 +63,13 @@ Plug 'towolf/vim-helm'
 
 if has('nvim')
   Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
+  Plug 'folke/trouble.nvim'
   Plug 'folke/which-key.nvim'
+  Plug 'jose-elias-alvarez/null-ls.nvim'
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'nvim-lua/plenary.nvim'  " Required by null-ls.nvim & telescope.nvim
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
 
 if has('conceal')
