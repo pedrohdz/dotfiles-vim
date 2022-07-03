@@ -49,18 +49,6 @@ endif
 " Toggle spelling hints
 nmap <unique> <leader>ts :set spell!<cr>
 
-if has('nvim')
-lua << EOF
-  local which_key = require('which-key')
-  which_key.register({
-    s = {
-      name = 'switch/toggle',
-      s = 'spell-checking',
-    }
-  }, { prefix = '<leader>' })
-EOF
-endif
-
 
 " Inserts the path of the currently edited file into a command - Command mode: Ctrl+P
 cmap <unique> <C-P> <C-R>=expand("%:p:h") . "/" <CR>

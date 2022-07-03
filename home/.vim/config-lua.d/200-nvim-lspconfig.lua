@@ -1,39 +1,17 @@
 -- --------------------------------------------------------------------------
 -- LSP key mappings
 -- --------------------------------------------------------------------------
+-- Use an on_attach function to only map the following keys after the language
+-- server attaches to the current buffer.
 --   - https://github.com/neovim/nvim-lspconfig#suggested-configuration=
 --   - See `:help vim.diagnostic.*` for documentation on any of the below functions
-local which_key = require("which-key")
-
-which_key.register({
-  d = {
-    name = 'diagnostics',
-    f = { vim.diagnostic.open_float, 'open-diagnostics-float' },
-    o = { vim.diagnostic.setloclist, 'open-diagnostics-list' },
-  }
-}, {
-  prefix = "<leader>",
-  noremap = true,
-  silent = true,
-})
-
-which_key.register({
-  ['[g'] = { vim.diagnostic.goto_prev, 'goto-prev-diagnostics' },
-  [']g'] = { vim.diagnostic.goto_next, 'goto-next-diagnostics' },
-}, {
-  noremap = true,
-  silent = true,
-})
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  which_key.register({
+  require("which-key").register({
     ['<C-k>'] = { vim.lsp.buf.signature_help, 'signature_help' },
     ['<localleader>D'] = { vim.lsp.buf.type_definition, 'type_definition' },
     ['<localleader>ca'] = { vim.lsp.buf.code_action, 'code_action' },
@@ -42,11 +20,11 @@ local on_attach = function(client, bufnr)
     ['<localleader>wa'] = { vim.lsp.buf.add_workspace_folder, 'add_workspace_folder' },
     ['<localleader>wl'] = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, 'list_workspace_folders' },
     ['<localleader>wr'] = { vim.lsp.buf.remove_workspace_folder, 'remove_workspace_folder' },
-    ['K'] = { vim.lsp.buf.hover, 'hover' },
-    ['gD'] = { vim.lsp.buf.declaration, 'declaration' },
-    ['gd'] = { vim.lsp.buf.definition, 'definition' },
-    ['gi'] = { vim.lsp.buf.implementation, 'implementation' },
-    ['gr'] = { vim.lsp.buf.references, 'references' },
+    ['K'] = { vim.lsp.buf.hover, 'Hover' },
+    ['gD'] = { vim.lsp.buf.declaration, 'Goto declaration' },
+    ['gd'] = { vim.lsp.buf.definition, 'Goto definition' },
+    ['gi'] = { vim.lsp.buf.implementation, 'Goto implementation' },
+    ['gr'] = { vim.lsp.buf.references, 'Goto references' },
   }, {
     buffer = bufnr,
     noremap = true,

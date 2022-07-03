@@ -22,33 +22,23 @@ if has('nvim')
 lua << EOF
   local which_key = require('which-key')
   which_key.register({
-    a = {
-      name = 'all-buffers',
-      d = {'<Plug>(toggle-lsp-diag)', 'lsp-diag-toggle'},
-      g = {'<cmd>GitGutterToggle<CR>', 'git-gutter-toggle'},
-      v = {'<Plug>(toggle-lsp-diag-vtext)', 'lsp-diag-vtext-toggle'},
-    },
-    b = {
-      name = 'buffer',
-      g = {'<cmd>GitGutterBufferToggle<CR>', 'git-gutter-toggle'},
-      h = {'<cmd>GitGutterLineHighlightsToggle<CR>', 'git-gutter-line-highlights'},
-    },
     f = {
       name = 'fzf',
       g = {
-        name = 'git',
+        name = 'Git',
         b = {"<cmd>BCommits<CR>", "git-buffer-commits"},
         c = {"<cmd>Commits<CR>", "git-project-commits"},
         f = {"<cmd>GFiles<CR>", "git-files"},
         s = {"<cmd>GFiles?<CR>", "git-status"},
       },
       s = {
+        name = 'Search',
         a = {'<cmd>Ag<CR>', 'ag search result (ALT-A to select all, ALT-D to deselect all)'},
         f = {'<cmd>call _PhdzFzfProjectFiles()<CR>', 'project-files'},
         r = {'<cmd>Rg<CR>', 'rg search result (ALT-A to select all, ALT-D to deselect all)'},
       },
       v = {
-        name = 'vim',
+        name = 'Vim',
         C = {'<cmd>Commands<CR>', 'Commands'},
         L = {'<cmd>BLines<CR>', 'Lines in the current buffer'},
         T = {'<cmd>BTags<CR>', 'Tags in the current buffer'},
@@ -73,10 +63,6 @@ lua << EOF
   })
 EOF
 endif
-
-
-
-
 
 " :Locate PATTERN 	locate command output
 " :Snippets 	Snippets (UltiSnips)
