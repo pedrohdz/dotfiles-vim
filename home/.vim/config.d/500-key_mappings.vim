@@ -20,6 +20,7 @@ let g:ctrlp_map = '<F3>'
 map <unique> <F5> :GundoToggle<cr>
 map <unique> <F6> :YRShow<cr>
 set pastetoggle=<F7>
+map <unique> <F8> <cmd>TroubleToggle workspace_diagnostics<cr>
 
 
 " Leader mapping

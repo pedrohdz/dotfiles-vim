@@ -35,6 +35,10 @@ which_key.register({
       s = {builtin.lsp_document_symbols, 'Document symbols (buffer)'},
       y = {builtin.lsp_dynamic_workspace_symbols, 'Dynamic symbols (workspace)'},
     },
+    o = {
+      name = 'Other',
+      t = {'<cmd>TodoTelescope<cr>', 'LSP definitions'},
+    },
     p = {
       name = 'Telescope pickers',
       P = {builtin.planets, 'Planets'},

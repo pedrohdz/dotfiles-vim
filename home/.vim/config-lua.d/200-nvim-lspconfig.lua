@@ -11,7 +11,7 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  require("which-key").register({
+  require('which-key').register({
     ['<C-k>'] = { vim.lsp.buf.signature_help, 'signature_help' },
     ['<localleader>D'] = { vim.lsp.buf.type_definition, 'type_definition' },
     ['<localleader>ca'] = { vim.lsp.buf.code_action, 'code_action' },
@@ -30,6 +30,29 @@ local on_attach = function(client, bufnr)
     noremap = true,
     silent = true,
   })
+
+  require('which-key').register({
+    d = {
+      name = 'Trouble',
+      C = {'<cmd>TroubleClose<cr>', 'Close'},
+      R = {'<cmd>TroubleRefresh<cr>', 'Refresh'},
+      T = {'<cmd>TroubleToggle<cr>', 'Toggle'},
+      c = {'<cmd>TodoTrouble<cr>', 'Todo comments'},
+      d = {'<cmd>TroubleToggle document_diagnostics<cr>', 'LSP document diagnostics'},
+      f = {'<cmd>TroubleToggle lsp_definitions<cr>', 'LSP definitions'},
+      l = {'<cmd>TroubleToggle loclist<cr>', 'Loclist'},
+      q = {'<cmd>TroubleToggle quickfix<cr>', 'LSP Quickfix'},
+      r = {'<cmd>TroubleToggle lsp_references<cr>', 'LSP References'},
+      t = {'<cmd>TroubleToggle lsp_type_definitions<cr>', 'LSP type definitions'},
+      w = {'<cmd>TroubleToggle workspace_diagnostics<cr>', 'LSP workspace diagnostics'},
+    },
+  }, {
+    buffer = bufnr,
+    noremap = true,
+    prefix = '<localleader>',
+    silent = true,
+  })
+
 end
 
 

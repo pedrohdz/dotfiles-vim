@@ -23,7 +23,6 @@ if has('nvim')
   " For vsnip users.
   Plug 'hrsh7th/cmp-vsnip'
   Plug 'hrsh7th/vim-vsnip'
-
 else
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
@@ -45,7 +44,6 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'romainl/Apprentice'
 
 Plug 'vim-scripts/colorsel.vim'
-Plug 'xolox/vim-colorscheme-switcher'
 
 " -----------------------------------------------------------------------------
 " New plugins (post `dr-vimfiles*`)
@@ -64,6 +62,7 @@ Plug 'towolf/vim-helm'
 
 if has('nvim')
   Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
+  Plug 'folke/todo-comments.nvim'
   Plug 'folke/trouble.nvim'
   Plug 'folke/which-key.nvim'
   Plug 'jose-elias-alvarez/null-ls.nvim'
@@ -105,7 +104,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/HTML-AutoCloseTag'
 Plug 'vim-scripts/YankRing.vim'
-Plug 'xolox/vim-misc'  " Requires by xolox/vim-colorscheme-switcher
 
 " -----------------------------------------------------------------------------
 " dr-vimfiles-devops
