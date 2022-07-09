@@ -9,11 +9,13 @@ local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+  local builtin = require('telescope.builtin')
+  local which_key = require('which-key')
+
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  require('which-key').register({
+  which_key.register({
     ['<C-k>'] = { vim.lsp.buf.signature_help, 'signature_help' },
-    ['<localleader>D'] = { vim.lsp.buf.type_definition, 'type_definition' },
     ['<localleader>ca'] = { vim.lsp.buf.code_action, 'code_action' },
     ['<localleader>f'] = { vim.lsp.buf.formatting, 'formatting' },
     ['<localleader>rn'] = { vim.lsp.buf.rename, 'rename' },
@@ -21,30 +23,38 @@ local on_attach = function(client, bufnr)
     ['<localleader>wl'] = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, 'list_workspace_folders' },
     ['<localleader>wr'] = { vim.lsp.buf.remove_workspace_folder, 'remove_workspace_folder' },
     ['K'] = { vim.lsp.buf.hover, 'Hover' },
-    ['gD'] = { vim.lsp.buf.declaration, 'Goto declaration' },
-    ['gd'] = { vim.lsp.buf.definition, 'Goto definition' },
-    ['gi'] = { vim.lsp.buf.implementation, 'Goto implementation' },
-    ['gr'] = { vim.lsp.buf.references, 'Goto references' },
   }, {
     buffer = bufnr,
     noremap = true,
     silent = true,
   })
 
-  require('which-key').register({
-    d = {
-      name = 'Trouble',
-      C = {'<cmd>TroubleClose<cr>', 'Close'},
-      R = {'<cmd>TroubleRefresh<cr>', 'Refresh'},
-      T = {'<cmd>TroubleToggle<cr>', 'Toggle'},
-      c = {'<cmd>TodoTrouble<cr>', 'Todo comments'},
-      d = {'<cmd>TroubleToggle document_diagnostics<cr>', 'LSP document diagnostics'},
-      f = {'<cmd>TroubleToggle lsp_definitions<cr>', 'LSP definitions'},
-      l = {'<cmd>TroubleToggle loclist<cr>', 'Loclist'},
-      q = {'<cmd>TroubleToggle quickfix<cr>', 'LSP Quickfix'},
-      r = {'<cmd>TroubleToggle lsp_references<cr>', 'LSP References'},
-      t = {'<cmd>TroubleToggle lsp_type_definitions<cr>', 'LSP type definitions'},
-      w = {'<cmd>TroubleToggle workspace_diagnostics<cr>', 'LSP workspace diagnostics'},
+  which_key.register({
+    g = {
+      name = 'Goto',
+      -- Common gotos
+      d = {builtin.lsp_definitions, 'Goto definition, word under the cursor'},
+      D = {vim.lsp.buf.declaration, 'Goto declaration'},
+      t = {builtin.lsp_type_definitions, 'Goto type definition, word under the cursor'},
+      i = {builtin.lsp_implementations, 'Goto implementation, word under the cursor'},
+      r = {builtin.lsp_references, 'Show refs for word under the cursor'},
+
+      -- Show symbols
+      s = {builtin.lsp_document_symbols, 'Document symbols (buffer)'},
+      S = {builtin.lsp_workspace_symbols, 'Document symbols (workspace)'},
+      y = {builtin.lsp_dynamic_workspace_symbols, 'Dynamic symbols (workspace)'},
+      T = {builtin.treesitter, 'Treesitter'},
+
+      -- Ins & outs
+      I = {builtin.lsp_incoming_calls, 'Incoming calls, word under the cursor'},
+      O = {builtin.lsp_outgoing_calls, 'Outgoing calls, word under the cursor'},
+
+      -- Other
+      g = {function () builtin.diagnostics({bufnr = 0}) end, 'Diagnostics (buffer)'},
+      G = {function () builtin.diagnostics({bufnr = nil}) end, 'Diagnostics (workspace)'},
+      l = {builtin.loclist, 'Loclist'},
+      q = {builtin.quickfix, 'Quickfix'},
+      w = {'<cmd>TodoTelescope<cr>', 'Todo (work) list'},
     },
   }, {
     buffer = bufnr,
@@ -52,7 +62,6 @@ local on_attach = function(client, bufnr)
     prefix = '<localleader>',
     silent = true,
   })
-
 end
 
 
@@ -82,6 +91,12 @@ cmp.setup({
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
+    ['<C-l>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        return cmp.complete_common_string()
+      end
+      fallback()
+    end, { 'i', 'c' }),
     ['<CR>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
@@ -127,7 +142,14 @@ cmp.setup.filetype('gitcommit', {
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
+  mapping = cmp.mapping.preset.cmdline({
+    ['<C-l>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        return cmp.complete_common_string()
+      end
+      fallback()
+    end, { 'i', 'c' }),
+  }),
   sources = {
     { name = 'buffer' },
     {
@@ -140,7 +162,14 @@ cmp.setup.cmdline('/', {
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
+  mapping = cmp.mapping.preset.cmdline({
+    ['<C-l>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        return cmp.complete_common_string()
+      end
+      fallback()
+    end, { 'i', 'c' }),
+  }),
   sources = cmp.config.sources({
     { name = 'path' },
   }, {
