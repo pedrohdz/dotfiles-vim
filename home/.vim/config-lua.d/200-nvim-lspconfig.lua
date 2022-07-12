@@ -20,7 +20,8 @@ local on_attach = function(client, bufnr)
     ['<localleader>f'] = { vim.lsp.buf.formatting, 'formatting' },
     ['<localleader>rn'] = { vim.lsp.buf.rename, 'rename' },
     ['<localleader>wa'] = { vim.lsp.buf.add_workspace_folder, 'add_workspace_folder' },
-    ['<localleader>wl'] = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, 'list_workspace_folders' },
+    ['<localleader>wl'] = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
+      'list_workspace_folders' },
     ['<localleader>wr'] = { vim.lsp.buf.remove_workspace_folder, 'remove_workspace_folder' },
     ['K'] = { vim.lsp.buf.hover, 'Hover' },
   }, {
@@ -33,28 +34,28 @@ local on_attach = function(client, bufnr)
     g = {
       name = 'Goto',
       -- Common gotos
-      d = {builtin.lsp_definitions, 'Goto definition, word under the cursor'},
-      D = {vim.lsp.buf.declaration, 'Goto declaration'},
-      t = {builtin.lsp_type_definitions, 'Goto type definition, word under the cursor'},
-      i = {builtin.lsp_implementations, 'Goto implementation, word under the cursor'},
-      r = {builtin.lsp_references, 'Show refs for word under the cursor'},
+      d = { builtin.lsp_definitions, 'Goto definition, word under the cursor' },
+      D = { vim.lsp.buf.declaration, 'Goto declaration' },
+      t = { builtin.lsp_type_definitions, 'Goto type definition, word under the cursor' },
+      i = { builtin.lsp_implementations, 'Goto implementation, word under the cursor' },
+      r = { builtin.lsp_references, 'Show refs for word under the cursor' },
 
       -- Show symbols
-      s = {builtin.lsp_document_symbols, 'Document symbols (buffer)'},
-      S = {builtin.lsp_workspace_symbols, 'Document symbols (workspace)'},
-      y = {builtin.lsp_dynamic_workspace_symbols, 'Dynamic symbols (workspace)'},
-      T = {builtin.treesitter, 'Treesitter'},
+      s = { builtin.lsp_document_symbols, 'Document symbols (buffer)' },
+      S = { builtin.lsp_workspace_symbols, 'Document symbols (workspace)' },
+      y = { builtin.lsp_dynamic_workspace_symbols, 'Dynamic symbols (workspace)' },
+      T = { builtin.treesitter, 'Treesitter' },
 
       -- Ins & outs
-      I = {builtin.lsp_incoming_calls, 'Incoming calls, word under the cursor'},
-      O = {builtin.lsp_outgoing_calls, 'Outgoing calls, word under the cursor'},
+      I = { builtin.lsp_incoming_calls, 'Incoming calls, word under the cursor' },
+      O = { builtin.lsp_outgoing_calls, 'Outgoing calls, word under the cursor' },
 
       -- Other
-      g = {function () builtin.diagnostics({bufnr = 0}) end, 'Diagnostics (buffer)'},
-      G = {function () builtin.diagnostics({bufnr = nil}) end, 'Diagnostics (workspace)'},
-      l = {builtin.loclist, 'Loclist'},
-      q = {builtin.quickfix, 'Quickfix'},
-      w = {'<cmd>TodoTelescope<cr>', 'Todo (work) list'},
+      g = { function() builtin.diagnostics({ bufnr = 0 }) end, 'Diagnostics (buffer)' },
+      G = { function() builtin.diagnostics({ bufnr = nil }) end, 'Diagnostics (workspace)' },
+      l = { builtin.loclist, 'Loclist' },
+      q = { builtin.quickfix, 'Quickfix' },
+      w = { '<cmd>TodoTelescope<cr>', 'Todo (work) list' },
     },
   }, {
     buffer = bufnr,
@@ -71,6 +72,38 @@ end
 -- This section is mostly from:
 --   - https://github.com/hrsh7th/nvim-cmp/#recommended-configuration=
 local cmp = require('cmp')
+local select_options = { behavior = require('cmp.types').cmp.SelectBehavior.Select }
+
+-- TODO - `cmp.mapping.complete_common_string()` should work.  Looks like an
+-- upstream bug.
+local complete_common_string = function(fallback)
+  if cmp.visible() then
+    cmp.complete_common_string()
+  else
+    fallback()
+  end
+end
+
+local cmd_select_func = function(select_func)
+  return function()
+    if cmp.visible() then
+      select_func(select_options)
+    else
+      require('cmp.utils.feedkeys').call(require('cmp.utils.keymap').t('<C-z>'), 'n')
+    end
+  end
+end
+
+local confirm_func = cmp.mapping.confirm({
+  behavior = cmp.ConfirmBehavior.Replace,
+  select = false, -- Explicit selection one `false`
+})
+
+local confirm_insert_func = cmp.mapping.confirm({
+  behavior = cmp.ConfirmBehavior.Insert,
+  select = false, -- Explicit selection one `false`
+})
+
 
 cmp.setup({
   snippet = {
@@ -91,34 +124,11 @@ cmp.setup({
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<C-l>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        return cmp.complete_common_string()
-      end
-      fallback()
-    end, { 'i', 'c' }),
-    ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      -- elseif luasnip.expand_or_jumpable() then
-      --   luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      -- elseif luasnip.jumpable(-1) then
-      --   luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
+    ['<C-l>'] = complete_common_string,
+    ['<Tab>'] = cmp.mapping.select_next_item(select_options),
+    ['<S-Tab>'] = cmp.mapping.select_prev_item(select_options),
+    ['<CR>'] = cmp.mapping(confirm_func),
+    ['<Space>'] = cmp.mapping(confirm_insert_func),
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
@@ -143,12 +153,11 @@ cmp.setup.filetype('gitcommit', {
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline({
-    ['<C-l>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        return cmp.complete_common_string()
-      end
-      fallback()
-    end, { 'i', 'c' }),
+    ['<C-l>'] = cmp.mapping(complete_common_string, { 'c' }),
+    ['<Tab>'] = cmp.mapping(cmd_select_func(cmp.select_next_item), { 'c' }),
+    ['<S-Tab>'] = cmp.mapping(cmd_select_func(cmp.select_prev_item), { 'c' }),
+    ['<CR>'] = cmp.mapping(confirm_func, { 'c' }),
+    ['<Space>'] = cmp.mapping(confirm_insert_func, { 'c' }),
   }),
   sources = {
     { name = 'buffer' },
@@ -163,12 +172,11 @@ cmp.setup.cmdline('/', {
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline({
-    ['<C-l>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        return cmp.complete_common_string()
-      end
-      fallback()
-    end, { 'i', 'c' }),
+    ['<C-l>'] = cmp.mapping(complete_common_string, { 'c' }),
+    ['<Tab>'] = cmp.mapping(cmd_select_func(cmp.select_next_item), { 'c' }),
+    ['<S-Tab>'] = cmp.mapping(cmd_select_func(cmp.select_prev_item), { 'c' }),
+    ['<CR>'] = cmp.mapping(confirm_func, { 'c' }),
+    ['<Space>'] = cmp.mapping(confirm_insert_func, { 'c' }),
   }),
   sources = cmp.config.sources({
     { name = 'path' },
@@ -252,35 +260,35 @@ local lsp_flags = {
 }
 
 -- ansible
-lspconfig.ansiblels.setup{
+lspconfig.ansiblels.setup({
   capabilities = capabilities,
   flags = lsp_flags,
   on_attach = on_attach,
-}
+})
 
 -- bashls
-lspconfig.bashls.setup{
+lspconfig.bashls.setup({
   capabilities = capabilities,
   flags = lsp_flags,
   on_attach = on_attach,
-}
+})
 
 -- docker
-lspconfig.dockerls.setup{
+lspconfig.dockerls.setup({
   capabilities = capabilities,
   flags = lsp_flags,
   on_attach = on_attach,
-}
+})
 
 -- json
-lspconfig.jsonls.setup{
+lspconfig.jsonls.setup({
   capabilities = capabilities,
   flags = lsp_flags,
   on_attach = on_attach,
-}
+})
 
 -- lua
-lspconfig.sumneko_lua.setup{
+lspconfig.sumneko_lua.setup({
   capabilities = capabilities,
   flags = lsp_flags,
   on_attach = on_attach,
@@ -291,24 +299,24 @@ lspconfig.sumneko_lua.setup{
       }
     }
   }
-}
+})
 
 -- pyright
-lspconfig.pyright.setup{
+lspconfig.pyright.setup({
   capabilities = capabilities,
   flags = lsp_flags,
   on_attach = on_attach,
-}
+})
 
 -- ruby (solargraph)
-lspconfig.solargraph.setup{
+lspconfig.solargraph.setup({
   capabilities = capabilities,
   flags = lsp_flags,
   on_attach = on_attach,
-}
+})
 
 -- rust
-lspconfig.rust_analyzer.setup{
+lspconfig.rust_analyzer.setup({
   capabilities = capabilities,
   flags = lsp_flags,
   on_attach = on_attach,
@@ -316,25 +324,25 @@ lspconfig.rust_analyzer.setup{
   settings = {
     ["rust-analyzer"] = {}
   }
-}
+})
 
 -- terraform
-lspconfig.terraformls.setup{
+lspconfig.terraformls.setup({
   on_attach = on_attach,
   flags = lsp_flags,
   capabilities = capabilities,
-}
+})
 
 -- yaml
-lspconfig.yamlls.setup{
+lspconfig.yamlls.setup({
   capabilities = capabilities,
   flags = lsp_flags,
   on_attach = on_attach,
-}
+})
 
 -- vim
-lspconfig.vimls.setup{
+lspconfig.vimls.setup({
   capabilities = capabilities,
   flags = lsp_flags,
   on_attach = on_attach,
-}
+})
