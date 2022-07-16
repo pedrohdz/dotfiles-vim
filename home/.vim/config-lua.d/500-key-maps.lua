@@ -2,6 +2,7 @@ local which_key = require('which-key')
 local builtin = require('telescope.builtin')
 
 which_key.register({
+  ['?'] = {'<cmd>Cheatsheet<cr>', 'Cheatsheet'},
   d = {
     name = 'diagnostics',
     f = { vim.diagnostic.open_float, 'open-diagnostics-float' },

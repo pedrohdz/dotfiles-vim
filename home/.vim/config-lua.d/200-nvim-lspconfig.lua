@@ -123,10 +123,10 @@ local confirm_insert_func = cmp.mapping.confirm({
   select = false, -- Explicit selection one `false`
 })
 
-local sort_config = function ()
+local sort_config = function()
   -- This section is from:
   --   - https://www.reddit.com/r/neovim/comments/u3c3kw/how_do_you_sorting_cmp_completions_items/
- return {
+  return {
     priority_weight = 1.0,
     comparators = {
       compare.locality,

@@ -1,0 +1,21 @@
+# Comment
+
+
+## cmp-insert @completion-insert
+Abort                  | <C-e>
+Complete common string | <C-l>
+Confirm insert         | <M-CR>
+Confirm replace        | <CR>
+Scroll docs back       | <C-b>
+Scroll docs forward    | <C-f>
+Select next            | <Tab>
+Select previous        | <S-Tab>
+
+## cmp-cmdline @completion-cmdline
+Abort                  | <C-e>
+Complete common string | <C-l>
+Confirm insert         | <M-CR>
+Confirm replace        | <CR>
+Confirm with space     | <Space>
+Select next            | <Tab>
+Select previous        | <S-Tab>

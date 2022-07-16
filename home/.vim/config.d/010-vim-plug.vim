@@ -24,7 +24,8 @@ if has('nvim')
   Plug 'jose-elias-alvarez/null-ls.nvim'
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'neovim/nvim-lspconfig'
-  Plug 'nvim-lua/plenary.nvim'  " Required by null-ls.nvim & telescope.nvim
+  Plug 'nvim-lua/plenary.nvim'  " Required by null-ls.nvim & telescope.nvim, cheatsheet.nvim
+  Plug 'nvim-lua/popup.nvim'  " Required by cheatsheet.nvim
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'onsails/lspkind.nvim'
