@@ -8,33 +8,42 @@ endfunction
 call plug#begin(_PhdzPluginInstallPath())
 
 " -----------------------------------------------------------------------------
-" LSP
+" NeoVim
 if has('nvim')
+  Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
   Plug 'dmitmel/cmp-cmdline-history'
+  Plug 'folke/todo-comments.nvim'
+  Plug 'folke/trouble.nvim'
+  Plug 'folke/which-key.nvim'
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-nvim-lua'
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/nvim-cmp'
+  Plug 'jose-elias-alvarez/null-ls.nvim'
+  Plug 'kyazdani42/nvim-web-devicons'
   Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-lua/plenary.nvim'  " Required by null-ls.nvim & telescope.nvim
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'onsails/lspkind.nvim'
+  Plug 'sudormrfbin/cheatsheet.nvim'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
   Plug 'williamboman/nvim-lsp-installer'
   Plug 'windwp/nvim-autopairs'
 
   " For vsnip users.
   Plug 'hrsh7th/cmp-vsnip'
   Plug 'hrsh7th/vim-vsnip'
-else
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 
+
 " -----------------------------------------------------------------------------
-" Airline - Trying it out
-" TODO - Replace Powerline in Vim as well?
-if has('nvim')
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
+" CoC
+if ! has('nvim')
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 
 " -----------------------------------------------------------------------------
@@ -49,7 +58,6 @@ Plug 'vim-scripts/colorsel.vim'
 
 " -----------------------------------------------------------------------------
 " New plugins (post `dr-vimfiles*`)
-"Plug 'dense-analysis/ale'
 Plug 'airblade/vim-gitgutter'
 Plug 'cespare/vim-toml', { 'branch': 'main', 'for': 'toml' }
 Plug 'farmergreg/vim-lastplace'
@@ -62,18 +70,6 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'tomtom/tcomment_vim'
 Plug 'towolf/vim-helm'
 
-if has('nvim')
-  Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
-  Plug 'folke/todo-comments.nvim'
-  Plug 'folke/trouble.nvim'
-  Plug 'folke/which-key.nvim'
-  Plug 'jose-elias-alvarez/null-ls.nvim'
-  Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'nvim-lua/plenary.nvim'  " Required by null-ls.nvim & telescope.nvim
-  Plug 'nvim-telescope/telescope.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-endif
-
 if has('conceal')
   Plug 'Yggdroot/indentLine'
 end
@@ -82,6 +78,7 @@ end
 " Graduated from dr-vimfiles
 Plug 'elzr/vim-json'
 Plug 'kevinoid/vim-jsonc'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 " -----------------------------------------------------------------------------
 " From original dr-vimfiles
@@ -93,8 +90,6 @@ Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'othree/xml.vim'
 Plug 'pangloss/vim-javascript'
-"Plug 'scrooloose/nerdcommenter'  " Replaced by tomtom/tcomment_vim
-"Plug 'scrooloose/syntastic'  " Replacing with dense-analysis/ale
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-haml'
@@ -116,25 +111,11 @@ Plug 'hashivim/vim-terraform'
 Plug 'hashivim/vim-vagrant'
 
 " -----------------------------------------------------------------------------
-" dr-vimfiles-nodejs
-"Plug 'suan/vim-instant-markdown'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-
-" -----------------------------------------------------------------------------
 " dr-vimfiles-python
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'Rykka/InstantRst'
-" Plug 'SirVer/ultisnips'  " Revisit
 Plug 'pedrohdz/vim-yaml-folds'
-"Plug 'hdima/python-syntax'
 Plug 'honza/vim-snippets'
-"Plug 'hynek/vim-python-pep8-indent'
 Plug 'ingydotnet/yaml-vim'
-"Plug 'jmcantrell/vim-virtualenv'
-
-
-" -----------------------------------------------------------------------------
-" Old
-"Plug 'Raimondi/delimitMate'
 
 call plug#end()
