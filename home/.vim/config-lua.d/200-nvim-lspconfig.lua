@@ -1,3 +1,10 @@
+local cmp = require('cmp')
+local compare = require('cmp.config.compare')
+local feedkeys = require('cmp.utils.feedkeys')
+local keymap = require('cmp.utils.keymap')
+local lspkind = require('lspkind')
+local select_options = { behavior = require('cmp.types').cmp.SelectBehavior.Select }
+
 -- --------------------------------------------------------------------------
 -- LSP key mappings
 -- --------------------------------------------------------------------------
@@ -71,8 +78,6 @@ end
 -- --------------------------------------------------------------------------
 -- This section is mostly from:
 --   - https://github.com/hrsh7th/nvim-cmp/#recommended-configuration=
-local cmp = require('cmp')
-local select_options = { behavior = require('cmp.types').cmp.SelectBehavior.Select }
 
 -- TODO - `cmp.mapping.complete_common_string()` should work.  Looks like an
 -- upstream bug.
@@ -89,7 +94,21 @@ local cmd_select_func = function(select_func)
     if cmp.visible() then
       select_func(select_options)
     else
-      require('cmp.utils.feedkeys').call(require('cmp.utils.keymap').t('<C-z>'), 'n')
+      feedkeys.call(keymap.t('<C-z>'), 'n')
+    end
+  end
+end
+
+local confirm_with_tail = function(key)
+  return function(fallback)
+    if cmp.visible() then
+      cmp.confirm({
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = true,
+      })
+      feedkeys.call(keymap.t(key), 'n')
+    else
+      fallback()
     end
   end
 end
@@ -104,6 +123,26 @@ local confirm_insert_func = cmp.mapping.confirm({
   select = false, -- Explicit selection one `false`
 })
 
+local sort_config = function ()
+  -- This section is from:
+  --   - https://www.reddit.com/r/neovim/comments/u3c3kw/how_do_you_sorting_cmp_completions_items/
+ return {
+    priority_weight = 1.0,
+    comparators = {
+      compare.locality,
+      compare.scopes, -- what?
+      compare.recently_used,
+      compare.exact,
+      compare.score,
+      compare.offset,
+      compare.length,
+      compare.sort_text,
+      compare.order,
+      -- compare.kind,
+      -- compare.score_offset, -- not good at all
+    }
+  }
+end
 
 cmp.setup({
   snippet = {
@@ -128,17 +167,35 @@ cmp.setup({
     ['<Tab>'] = cmp.mapping.select_next_item(select_options),
     ['<S-Tab>'] = cmp.mapping.select_prev_item(select_options),
     ['<CR>'] = cmp.mapping(confirm_func),
-    ['<Space>'] = cmp.mapping(confirm_insert_func),
+    ['<M-CR>'] = cmp.mapping(confirm_insert_func),
   }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' }, -- For vsnip users.
-    -- { name = 'luasnip' }, -- For luasnip users.
-    -- { name = 'ultisnips' }, -- For ultisnips users.
-    -- { name = 'snippy' }, -- For snippy users.
-  }, {
-    { name = 'buffer' },
-  })
+  sources = cmp.config.sources(
+    {
+      { name = 'path' },
+      { name = 'nvim_lua' },
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' }, -- For vsnip users.
+      { name = 'buffer' },
+      -- { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }
+  ),
+  formatting = {
+    -- This section is mostly from:
+    --   - https://github.com/onsails/lspkind.nvim
+    --   - https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations=
+    format = lspkind.cmp_format({
+      mode = 'symbol_text',
+      menu = ({
+        buffer = '[Buffer]',
+        nvim_lsp = '[LSP]',
+        nvim_lua = '[NeovimLua]',
+        vsnip = '[Vsnip]',
+      })
+    }),
+  },
+  sorting = sort_config()
 })
 
 -- Set configuration for specific filetype.
@@ -157,7 +214,7 @@ cmp.setup.cmdline('/', {
     ['<Tab>'] = cmp.mapping(cmd_select_func(cmp.select_next_item), { 'c' }),
     ['<S-Tab>'] = cmp.mapping(cmd_select_func(cmp.select_prev_item), { 'c' }),
     ['<CR>'] = cmp.mapping(confirm_func, { 'c' }),
-    ['<Space>'] = cmp.mapping(confirm_insert_func, { 'c' }),
+    ['<M-CR>'] = cmp.mapping(confirm_insert_func, { 'c' }),
   }),
   sources = {
     { name = 'buffer' },
@@ -166,7 +223,17 @@ cmp.setup.cmdline('/', {
       option = { history_type = '/' },
       max_item_count = 7,
     },
-  }
+  },
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol',
+      menu = ({
+        buffer = '[Buffer]',
+        cmdline_history = '[History]',
+      })
+    }),
+  },
+  sorting = sort_config(),
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
@@ -176,18 +243,30 @@ cmp.setup.cmdline(':', {
     ['<Tab>'] = cmp.mapping(cmd_select_func(cmp.select_next_item), { 'c' }),
     ['<S-Tab>'] = cmp.mapping(cmd_select_func(cmp.select_prev_item), { 'c' }),
     ['<CR>'] = cmp.mapping(confirm_func, { 'c' }),
-    ['<Space>'] = cmp.mapping(confirm_insert_func, { 'c' }),
+    ['<M-CR>'] = cmp.mapping(confirm_insert_func, { 'c' }),
+    ['<Space>'] = cmp.mapping(confirm_with_tail('<Space>'), { 'c' }),
   }),
   sources = cmp.config.sources({
     { name = 'path' },
   }, {
+    { name = 'cmdline' },
     {
       name = 'cmdline_history',
       option = { history_type = ':' },
       max_item_count = 7,
     },
-    { name = 'cmdline' },
-  })
+  }),
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol',
+      menu = ({
+        cmdline = '[CmdLine]',
+        cmdline_history = '[History]',
+        path = '[Path]',
+      })
+    }),
+  },
+  sorting = sort_config()
 })
 
 -- Setup lspconfig.
@@ -195,27 +274,8 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 
 
 -- --------------------------------------------------------------------------
--- Setup lspkind-nvim, adds vscode-like pictograms to neovim built-in lsp
+-- Colors
 -- --------------------------------------------------------------------------
--- This section is mostly from:
---   - https://github.com/onsails/lspkind.nvim
---   - https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations=
-local lspkind = require('lspkind')
-cmp.setup {
-  formatting = {
-    format = lspkind.cmp_format({
-      mode = 'symbol_text',
-      menu = ({
-        buffer = '[Buffer]',
-        nvim_lsp = '[LSP]',
-        luasnip = '[LuaSnip]',
-        nvim_lua = '[Lua]',
-        latex_symbols = '[Latex]',
-      })
-    }),
-  },
-}
-
 -- Colors for nvim-cmp completion menus. Thank you:
 --   - https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#how-to-add-visual-studio-code-dark-theme-colors-to-the-menu=
 --   - https://www.reddit.com/r/neovim/comments/r42njg/here_are_the_vs_code_theme_colors_for_the_new/hmelirh/
