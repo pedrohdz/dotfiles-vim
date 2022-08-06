@@ -20,16 +20,8 @@ local on_attach = function(client, bufnr)
   local which_key = require('which-key')
 
   -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
   which_key.register({
-    ['<C-k>'] = { vim.lsp.buf.signature_help, 'signature_help' },
-    ['<localleader>ca'] = { vim.lsp.buf.code_action, 'code_action' },
-    ['<localleader>f'] = { vim.lsp.buf.formatting, 'formatting' },
-    ['<localleader>rn'] = { vim.lsp.buf.rename, 'rename' },
-    ['<localleader>wa'] = { vim.lsp.buf.add_workspace_folder, 'add_workspace_folder' },
-    ['<localleader>wl'] = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
-      'list_workspace_folders' },
-    ['<localleader>wr'] = { vim.lsp.buf.remove_workspace_folder, 'remove_workspace_folder' },
+    ['<C-k>'] = { vim.lsp.buf.signature_help, 'Signature help' },
     ['K'] = { vim.lsp.buf.hover, 'Hover' },
   }, {
     buffer = bufnr,
@@ -38,6 +30,9 @@ local on_attach = function(client, bufnr)
   })
 
   which_key.register({
+    a = { vim.lsp.buf.code_action, 'Code Action' },
+    f = { vim.lsp.buf.formatting, 'Re-format' },
+    r = { vim.lsp.buf.rename, 'Rename' },
     g = {
       name = 'Goto',
       -- Common gotos
@@ -63,6 +58,12 @@ local on_attach = function(client, bufnr)
       l = { builtin.loclist, 'Loclist' },
       q = { builtin.quickfix, 'Quickfix' },
       w = { '<cmd>TodoTelescope<cr>', 'Todo (work) list' },
+    },
+    w = {
+      name = 'Workspace',
+      a = { vim.lsp.buf.add_workspace_folder, 'add_workspace_folder' },
+      l = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, 'list_workspace_folders' },
+      r = { vim.lsp.buf.remove_workspace_folder, 'remove_workspace_folder' },
     },
   }, {
     buffer = bufnr,
