@@ -104,7 +104,7 @@ local confirm_with_tail = function(key)
     if cmp.visible() then
       cmp.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
+        select = false,
       })
       feedkeys.call(keymap.t(key), 'n')
     else
