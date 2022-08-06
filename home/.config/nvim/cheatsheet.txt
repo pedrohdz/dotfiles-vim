@@ -1,21 +1,24 @@
 # Comment
 
+## cmp-insert @completion-insert @pfh
+Abort                                     | <C-e>
+Complete common string                    | <C-l>
+Confirm insert                            | <M-CR>
+Confirm replace                           | <CR>
+Scroll docs back                          | <C-b>
+Scroll docs forward                       | <C-f>
+Select next                               | <Tab>
+Select previous                           | <S-Tab>
 
-## cmp-insert @completion-insert
-Abort                  | <C-e>
-Complete common string | <C-l>
-Confirm insert         | <M-CR>
-Confirm replace        | <CR>
-Scroll docs back       | <C-b>
-Scroll docs forward    | <C-f>
-Select next            | <Tab>
-Select previous        | <S-Tab>
+## cmp-cmdline @completion-cmdline @pfh
+Abort                                     | <C-e>
+Complete common string                    | <C-l>
+Confirm insert                            | <M-CR>
+Confirm replace                           | <CR>
+Confirm with space                        | <Space>
+Select next                               | <Tab>
+Select previous                           | <S-Tab>
 
-## cmp-cmdline @completion-cmdline
-Abort                  | <C-e>
-Complete common string | <C-l>
-Confirm insert         | <M-CR>
-Confirm replace        | <CR>
-Confirm with space     | <Space>
-Select next            | <Tab>
-Select previous        | <S-Tab>
+## navigation-vim @pfh
+Scroll window one line up (insert mode)   | <CTRL-X><CTRL-E>
+Scroll window one line down (insert mode) | <CTRL-X><CTRL-Y>

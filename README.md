@@ -1,5 +1,12 @@
 # dotfiles-vim
 
+## Appendix
+
+- [Reference material](docs/reference.md)
+
+
+### History
+
 Consolidation of my old *Vim* *dotfiles*:
 
 - [dr-vimfiles](https://github.com/pedrohdz/dr-vimfiles)
