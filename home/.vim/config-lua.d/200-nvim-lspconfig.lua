@@ -130,6 +130,7 @@ local sort_config = function()
   return {
     priority_weight = 1.0,
     comparators = {
+      compare.length,  -- new
       compare.locality,
       compare.scopes, -- what?
       compare.recently_used,
@@ -267,7 +268,23 @@ cmp.setup.cmdline(':', {
       })
     }),
   },
-  sorting = sort_config()
+  sorting = {
+    priority_weight = 1.0,
+    comparators = {
+      compare.length,
+      compare.locality,
+      compare.scopes, -- what?
+      compare.exact,
+      compare.score,
+      compare.offset,
+      compare.length,
+      compare.sort_text,
+      compare.order,
+      compare.recently_used,
+      -- compare.kind,
+      -- compare.score_offset, -- not good at all
+    }
+  }
 })
 
 -- Setup lspconfig.
