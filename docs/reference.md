@@ -125,6 +125,14 @@ iterations:
   configuration with full battery for Python, C++, Markdown, LaTeX, and more...
 - [ray-x/nvim](https://github.com/ray-x/nvim): Blazing fast neovim setup with
   140 plugins.
+- [neovim-for-beginner/tree/22-autocmd](https://github.com/alpha2phi/neovim-for-beginner/tree/22-autocmd)
+
+
+## Interesting write ups
+
+- [Lua Autocmd and Keymap
+  Functions](https://alpha2phi.medium.com/neovim-for-beginners-lua-autocmd-and-keymap-functions-3bdfe0bebe42):
+  How to map keys to specific buffers.
 
 
 ## Other Resources

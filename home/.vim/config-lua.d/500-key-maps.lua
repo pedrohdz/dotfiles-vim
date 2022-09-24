@@ -1,5 +1,6 @@
-local which_key = require('which-key')
 local builtin = require('telescope.builtin')
+local utils = require('telescope.utils')
+local which_key = require('which-key')
 
 which_key.register({
   ['?'] = {'<cmd>Cheatsheet<cr>', 'Cheatsheet'},
@@ -82,8 +83,10 @@ which_key.register({
     },
   },
 }, {
-  prefix = '<leader>',
+  mode = 'n',
   noremap = true,
+  nowait = true,
+  prefix = '<leader>',
   silent = true,
 })
 
@@ -91,6 +94,52 @@ which_key.register({
   ['[g'] = { vim.diagnostic.goto_prev, 'goto-prev-diagnostics' },
   [']g'] = { vim.diagnostic.goto_next, 'goto-next-diagnostics' },
 }, {
+  mode = 'n',
   noremap = true,
+  nowait = true,
   silent = true,
 })
+
+
+-- ----------------------------------------------------------------------------
+-- Function keys
+-- ----------------------------------------------------------------------------
+local function find_files_func(use_cwd)
+  return function()
+    local options = {
+       follow = true,
+       hidden = true,
+    }
+    if use_cwd then
+      options['cwd'] = utils.buffer_dir()
+    end
+    builtin.find_files(options)
+  end
+end
+
+local function live_grep_func(use_cwd)
+  return function()
+    local options = {}
+    if use_cwd then
+      options['cwd'] = utils.buffer_dir()
+    end
+    builtin.live_grep(options)
+  end
+end
+
+which_key.register(
+  {
+    name = 'Function keys',
+    ['<F2>'] = {'<cmd>ToggleBufExplorer<cr>', 'Buffer Explorer'},
+    ['<S-F2>'] = {builtin.buffers, 'Telescope Buffers'},
+    ['<F3>'] = {find_files_func(false), 'Files from CWD'},
+    ['<S-F3>'] = {find_files_func(true), 'Files from file directory'},
+    ['<F4>'] = {live_grep_func(false), 'String search from CWD'},
+    ['<S-F4>'] = {live_grep_func(true), 'String search from file directory'},
+  }, {
+    mode = 'n',
+    noremap = true,
+    nowait = true,
+    silent = true,
+  }
+)

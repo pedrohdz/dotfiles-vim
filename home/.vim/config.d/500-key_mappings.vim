@@ -15,8 +15,10 @@ let g:bufExplorerDisableDefaultKeyMapping = 1
 
 " Function keys
 " -----------------------------------------------------------------------------
-map <unique> <F2>   :ToggleBufExplorer<CR>
-let g:ctrlp_map = '<F3>'
+if !has('nvim')
+  map <unique> <F2>   :ToggleBufExplorer<CR>
+endif
+
 map <unique> <F5> :GundoToggle<cr>
 map <unique> <F6> :YRShow<cr>
 set pastetoggle=<F7>
