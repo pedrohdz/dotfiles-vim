@@ -313,22 +313,19 @@ vim.cmd('highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4')
 
 
 -- --------------------------------------------------------------------------
--- nvim-lsp-installer
+-- mason-lspconfig
 -- --------------------------------------------------------------------------
--- In order for nvim-lsp-installer to register the necessary hooks at the
--- right moment, make sure you call nvim-lsp-installer setup before you set
--- up any servers!
---   - https://github.com/neovim/nvim-lspconfig/wiki/Installing-language-servers
---   - https://github.com/williamboman/nvim-lsp-installer
-require('nvim-lsp-installer').setup {
-  automatic_installation = true
-}
+require('mason').setup()
+require('mason-lspconfig').setup({
+  automatic_installation = true,
+  -- ensure_installed = { 'tflint' },
+})
 
 
 -- --------------------------------------------------------------------------
 -- nvim-lsp-installer
 -- --------------------------------------------------------------------------
--- This sectio is a mix of:
+-- This section is a mix of:
 --   - https://github.com/neovim/nvim-lspconfig#suggested-configuration=
 --   - https://github.com/hrsh7th/nvim-cmp/#recommended-configuration=
 local lspconfig = require('lspconfig')

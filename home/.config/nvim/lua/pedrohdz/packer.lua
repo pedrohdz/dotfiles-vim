@@ -16,12 +16,16 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/nvim-cmp'
   use 'kyazdani42/nvim-web-devicons'
-  use 'neovim/nvim-lspconfig'
   use 'onsails/lspkind.nvim'
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
-  use 'williamboman/nvim-lsp-installer'
   use 'windwp/nvim-autopairs'
+
+  use {
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+    'neovim/nvim-lspconfig',
+  }
 
   -- For vsnip users.
   use 'hrsh7th/cmp-vsnip'
