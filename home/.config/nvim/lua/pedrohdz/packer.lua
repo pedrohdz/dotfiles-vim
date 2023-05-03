@@ -115,7 +115,7 @@ return require('packer').startup(function(use)
   use 'tpope/vim-surround'
   use 'tpope/vim-unimpaired'
   use 'vim-scripts/HTML-AutoCloseTag'
-  use 'vim-scripts/YankRing.vim'
+  use 'vim-scripts/YankRing.vim'  -- FIXME - Find something newer.
 
   -- -----------------------------------------------------------------------------
   -- dr-vimfiles-devops
