@@ -28,7 +28,7 @@ vim.opt.wildmode = { list = 'longest' }
 vim.opt.wrap = false
 
 if vim.fn.has('mouse') then
- vim.opt.mouse = 'a'
+  vim.opt.mouse = 'a'
 end
 
 -- Backups
@@ -43,9 +43,6 @@ vim.opt.directory = '.'
 vim.opt.incsearch = true
 vim.opt.showmatch = true
 vim.opt.hlsearch = true
-
--- FIXME - The next line
--- runtime macros/matchit.vim
 
 -- Popup menu behavior
 -- OLD - vim.opt.completeopt=longest,menu

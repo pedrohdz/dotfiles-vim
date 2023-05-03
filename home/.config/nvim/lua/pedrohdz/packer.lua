@@ -131,5 +131,4 @@ return require('packer').startup(function(use)
   use 'Rykka/InstantRst'
   use 'pedrohdz/vim-yaml-folds'
   use 'honza/vim-snippets'
-  use 'ingydotnet/yaml-vim'
 end)
