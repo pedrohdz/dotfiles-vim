@@ -413,6 +413,11 @@ lspconfig.yamlls.setup({
   capabilities = capabilities,
   flags = lsp_flags,
   on_attach = on_attach,
+  settings = {
+    yaml = {
+      keyOrdering = false
+    }
+  }
 })
 
 -- vim
