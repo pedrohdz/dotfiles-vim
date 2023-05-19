@@ -148,6 +148,7 @@ vim.opt.pastetoggle = '<F7>'
 which_key.register(
   {
     name = 'Function keys',
+    ['<S-F1>'] = {'<cmd>Cheatsheet<cr>', 'Cheatsheet'},
     ['<F2>'] = {'<cmd>ToggleBufExplorer<cr>', 'Buffer Explorer'},
     ['<S-F2>'] = {builtin.buffers, 'Telescope Buffers'},
     ['<F3>'] = {find_files_func(false), 'Files from CWD'},
@@ -157,7 +158,6 @@ which_key.register(
     ['<F5>'] = { '<cmd>GundoToggle<cr>', 'GundoToggle' },  -- FIXME - Not working
     ['<F6>'] = { '<cmd>YRShow<cr>', 'YRShow' },
     ['<F7>'] = 'Paste toggle',
-    ['<S-F1>'] = { '<cmd>help drcheat<cr><cmd>resize 10000<cr>' },  -- FIXME - Add shift function keys
   }, {
     mode = 'n',
     noremap = true,
