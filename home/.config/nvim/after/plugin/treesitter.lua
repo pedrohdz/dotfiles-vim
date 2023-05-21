@@ -3,6 +3,7 @@ require('nvim-treesitter.configs').setup({
   ensure_installed = {
     'bash',
     'c',
+    'hcl',
     'java',
     'json',
     'lua',
@@ -12,6 +13,7 @@ require('nvim-treesitter.configs').setup({
     'python',
     'rst',
     'rust',
+    'terraform',
     'vim',
     'yaml',
   },
