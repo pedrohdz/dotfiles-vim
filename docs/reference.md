@@ -22,10 +22,13 @@ Language Server Protocol (LSP):
   configs for Nvim LSP
 - [onsails/lspkind.nvim](https://github.com/onsails/lspkind.nvim): vscode-like
   pictograms for neovim lsp completion items
-- [williamboman/nvim-lsp-installer](https://github.com/williamboman/nvim-lsp-installer):
-  Neovim plugin that allow you to seamlessly manage LSP servers with
-  :LspInstall. With full Windows support! Further development has moved to
-  https://github.com/williamboman/mason.nvim!
+- [williamboman/mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim):
+  Extension to mason.nvim that makes it easier to use lspconfig with
+  mason.nvim. Strongly recommended for Windows users.
+    - [williamboman/mason.nvim](https://github.com/williamboman/mason.nvim):
+      Portable package manager for Neovim that runs everywhere Neovim runs.
+      Easily install and manage LSP servers, DAP servers, linters, and
+      formatters.
 
 Treesitter:
 
@@ -92,8 +95,33 @@ Other:
   runtime files
 
 
-## Plugins that Might be Integrated
+## Plugins that Might be Integrated (Todo List)
 
+- One or both of the following:
+    - [kosayoda/nvim-lightbulb](https://github.com/kosayoda/nvim-lightbulb): VSCode
+      💡 for neovim's built-in LSP.
+    - [weilbith/nvim-code-action-menu](https://github.com/weilbith/nvim-code-action-menu):
+      Pop-up menu for code actions to show meta-information and diff preview.
+- Telescope todo list:
+    - [s1n7ax/nvim-window-picker](https://github.com/s1n7ax/nvim-window-picker):
+      This plugins prompts the user to pick a window and returns the window id
+      of the picked window
+    - [nvim-telescope/telescope-file-browser.nvim](https://github.com/nvim-telescope/telescope-file-browser.nvim):
+      File Browser extension for telescope.nvim
+- File Explorer:
+    - [A Curated List of File Explorers for
+      Nvim](https://jdhao.github.io/2022/02/27/nvim_file_tree_explorer/): File
+      explorer is one of the most widely-used types of plugin for Vim/Nvim. Below
+      are my curated list of file explorers for Nvim. Some of these plugins are
+      specifically written for Nvim and will not work for Vim.
+    - [nvim-telescope/telescope-file-browser.nvim](https://github.com/nvim-telescope/telescope-file-browser.nvim):
+      File Browser extension for telescope.nvim
+    - [nvim-tree/nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua): A
+      file explorer tree for neovim written in lua
+    - [nvim-neo-tree/neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim):
+      Neovim plugin to manage the file system and other tree like structures.
+    - [tpope/vim-vinegar](https://github.com/tpope/vim-vinegar): vinegar.vim:
+      Combine with netrw to create a delicious salad dressing
 - [L3MON4D3/LuaSnip](https://github.com/L3MON4D3/LuaSnip): Snippet Engine for
   Neovim written in Lua.
 - [christoomey/vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator):
@@ -121,6 +149,8 @@ Other:
 These are *NeoVIim* configurations that could be inspirations for future
 iterations:
 
+- [ThePrimeagen/init.lua](https://github.com/ThePrimeagen/init.lua): As seen on
+  [YouTube - 0 to LSP : Neovim RC From Scratch](https://www.youtube.com/watch?v=w7i4amO_zaE).
 - [jdhao/nvim-config](https://github.com/jdhao/nvim-config): A modern Neovim
   configuration with full battery for Python, C++, Markdown, LaTeX, and more...
 - [ray-x/nvim](https://github.com/ray-x/nvim): Blazing fast neovim setup with
@@ -133,6 +163,11 @@ iterations:
 - [Lua Autocmd and Keymap
   Functions](https://alpha2phi.medium.com/neovim-for-beginners-lua-autocmd-and-keymap-functions-3bdfe0bebe42):
   How to map keys to specific buffers.
+- [A Curated List of File Explorers for
+  Nvim](https://jdhao.github.io/2022/02/27/nvim_file_tree_explorer/): File
+  explorer is one of the most widely-used types of plugin for Vim/Nvim. Below
+  are my curated list of file explorers for Nvim. Some of these plugins are
+  specifically written for Nvim and will not work for Vim.
 
 
 ## Other Resources

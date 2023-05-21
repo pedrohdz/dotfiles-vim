@@ -94,6 +94,7 @@ return require('packer').startup(function(use)
   -- Graduated from dr-vimfiles
   use 'elzr/vim-json'
   use 'kevinoid/vim-jsonc'
+  use 'pedrohdz/vim-yaml-folds'
 
   use({
     'iamcco/markdown-preview.nvim',
@@ -133,6 +134,5 @@ return require('packer').startup(function(use)
   -- dr-vimfiles-python
   use 'Glench/Vim-Jinja2-Syntax'
   use 'Rykka/InstantRst'
-  use 'pedrohdz/vim-yaml-folds'
   use 'honza/vim-snippets'
 end)
