@@ -1,5 +1,8 @@
 local M = {}
 
+-- ----------------------------------------------------------------------------
+--
+-- ----------------------------------------------------------------------------
 M.find_relative_project_root = function(fname)
   local util = require('lspconfig.util')
 
@@ -17,6 +20,35 @@ end
 
 M.find_cwd_project_root = function()
   return M.find_relative_project_root(vim.fn.getcwd())
+end
+
+
+-- ----------------------------------------------------------------------------
+--
+-- ----------------------------------------------------------------------------
+M.wrapper_dir_wrapper = function (func, dir, opts)
+  opts = vim.deepcopy(opts) or {}
+  opts.cwd = dir
+  return function()
+    func(opts)
+  end
+end
+
+M.with_buffer_project_root = function(func, opts)
+  return M.wrapper_dir_wrapper(func, M.find_buffer_project_root(), opts)
+end
+
+M.with_cwd_project_root = function(func, opts)
+  return M.wrapper_dir_wrapper(func, M.find_cwd_project_root(), opts)
+end
+
+M.with_buffer_dir = function(func, opts)
+  local utils = require('telescope.utils')
+  return M.wrapper_dir_wrapper(func, utils.buffer_dir(), opts)
+end
+
+M.with_cwd = function(func, opts)
+  return M.wrapper_dir_wrapper(func, vim.fn.getcwd(), opts)
 end
 
 return M

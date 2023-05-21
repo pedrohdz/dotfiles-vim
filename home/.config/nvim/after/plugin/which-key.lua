@@ -120,42 +120,29 @@ which_key.register({
 -- ----------------------------------------------------------------------------
 -- Function keys
 -- ----------------------------------------------------------------------------
-local function find_files_func(use_cwd)
-  return function()
-    local options = {
-      follow = true,
-      hidden = true,
-    }
-    if use_cwd then
-      options['cwd'] = utils.buffer_dir()
-    end
-    builtin.find_files(options)
-  end
-end
-
-local function live_grep_func(use_cwd)
-  return function()
-    local options = {}
-    if use_cwd then
-      options['cwd'] = utils.buffer_dir()
-    end
-    builtin.live_grep(options)
-  end
-end
-
 vim.opt.pastetoggle = '<F7>'
 
+local find_files_opts = { follow = true, hidden = true, }
 which_key.register(
   {
     name = 'Function keys',
     ['<S-F1>'] = { '<cmd>Cheatsheet<cr>', 'Cheatsheet' },
     ['<F2>'] = { '<cmd>ToggleBufExplorer<cr>', 'Buffer Explorer' },
     ['<S-F2>'] = { builtin.buffers, 'Telescope Buffers' },
-    ['<F3>'] = { find_files_func(false), 'Files from CWD' },
-    ['<S-F3>'] = { find_files_func(true), 'Files from file directory' },
-    ['<F4>'] = { live_grep_func(false), 'String search from CWD' },
-    ['<S-F4>'] = { live_grep_func(true), 'String search from file directory' },
-    ['<F5>'] = { '<cmd>GundoToggle<cr>', 'GundoToggle' }, -- FIXME - Not working
+
+    -- Find Files --
+    ['<F3>'] = {
+      phzutils.with_cwd(builtin.find_files, find_files_opts),
+      'Files, CWD'
+    },
+    ['<S-F3>'] = {
+      phzutils.with_cwd_project_root(builtin.find_files, find_files_opts),
+      'Files, CWD project root',
+    },
+
+    -- ['<F4>'] = AVAILABLE
+    -- ['<S-F4>'] = AVAILABLE
+    ['<F5>'] = { '<cmd>GundoToggle<cr>', 'GundoToggle' },
     ['<F6>'] = { '<cmd>YRShow<cr>', 'YRShow' },
     ['<F7>'] = 'Paste toggle',
   }, {
@@ -171,28 +158,61 @@ which_key.register(
 -- New custom mappings
 -- ----------------------------------------------------------------------------
 which_key.register({
-  ['?'] = { '<cmd>Cheatsheet<cr>', 'Cheatsheet' },
+  -- ['?'] = { '<cmd>Cheatsheet<cr>', 'Cheatsheet' },
 
+  -- Live Grep --
+  ['/'] = {
+    phzutils.with_cwd(builtin.live_grep),
+    'String search, CWD'
+  },
+  ['?'] = {
+    phzutils.with_cwd_project_root(builtin.live_grep),
+    'String search, CWD project root'
+  },
+
+  -- Grep Current String --
   ['*'] = {
-    function() builtin.grep_string({ cwd = vim.fn.getcwd() }) end,
+    phzutils.with_cwd(builtin.grep_string),
     'Grep current string, CWD'
   },
   ['#'] = {
-    function()
-      builtin.grep_string({ cwd = phzutils.find_cwd_project_root() })
-    end,
+    phzutils.with_cwd_project_root(builtin.grep_string),
     'Grep current string, CWD project root'
   },
+
+  -- ----
+  -- Relative to Buffer
+  -- ----
   r = {
     name = 'Relative to buffer',
+
+    -- Find Files --
+    ['<F3>'] = {
+      phzutils.with_buffer_dir(builtin.find_files, find_files_opts),
+      'Files, buf dir'
+    },
+    ['<S-F3>'] = {
+      phzutils.with_buffer_project_root(builtin.find_files, find_files_opts),
+      'Files, buf project root',
+    },
+
+    -- Live Grep --
+    ['/'] = {
+      phzutils.with_buffer_dir(builtin.live_grep),
+      'String search, buf dir'
+    },
+    ['?'] = {
+      phzutils.with_buffer_project_root(builtin.live_grep),
+      'String search, buf project root'
+    },
+
+    -- Grep Current String --
     ['*'] = {
-      function() builtin.grep_string({ cwd = utils.buffer_dir() }) end,
+      phzutils.with_buffer_dir(builtin.grep_string),
       'Grep current string, buf dir'
     },
     ['#'] = {
-      function()
-        builtin.grep_string({ cwd = phzutils.find_buffer_project_root() })
-      end,
+      phzutils.with_buffer_project_root(builtin.grep_string),
       'Grep current string, buf project root'
     },
   }
