@@ -26,29 +26,29 @@ end
 -- ----------------------------------------------------------------------------
 --
 -- ----------------------------------------------------------------------------
-M.wrapper_dir_wrapper = function (func, dir, opts)
+M.wrapper_dir_wrapper = function (func, dir_func, opts)
   opts = vim.deepcopy(opts) or {}
-  opts.cwd = dir
   return function()
+    opts.cwd = dir_func()
     func(opts)
   end
 end
 
 M.with_buffer_project_root = function(func, opts)
-  return M.wrapper_dir_wrapper(func, M.find_buffer_project_root(), opts)
+  return M.wrapper_dir_wrapper(func, M.find_buffer_project_root, opts)
 end
 
 M.with_cwd_project_root = function(func, opts)
-  return M.wrapper_dir_wrapper(func, M.find_cwd_project_root(), opts)
+  return M.wrapper_dir_wrapper(func, M.find_cwd_project_root, opts)
 end
 
 M.with_buffer_dir = function(func, opts)
   local utils = require('telescope.utils')
-  return M.wrapper_dir_wrapper(func, utils.buffer_dir(), opts)
+  return M.wrapper_dir_wrapper(func, utils.buffer_dir, opts)
 end
 
 M.with_cwd = function(func, opts)
-  return M.wrapper_dir_wrapper(func, vim.fn.getcwd(), opts)
+  return M.wrapper_dir_wrapper(func, vim.fn.getcwd, opts)
 end
 
 return M

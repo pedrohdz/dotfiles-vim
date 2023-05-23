@@ -30,9 +30,14 @@ local on_attach = function(client, bufnr)
   })
 
   which_key.register({
+    ['*'] = { builtin.lsp_references, 'Show refs for word under the cursor' },
+    ['#'] = { builtin.lsp_definitions, 'Goto definition, word under the cursor' },
+    ['^'] = { vim.lsp.buf.declaration, 'Goto declaration' },
+
     a = { vim.lsp.buf.code_action, 'Code Action' },
     f = { function () vim.lsp.buf.format({async = true}) end, 'Re-format' },
     r = { vim.lsp.buf.rename, 'Rename' },
+
     g = {
       name = 'Goto',
       -- Common gotos
