@@ -170,6 +170,11 @@ register({ ['<localleader><F1>'] = { '<cmd>WhichKey <localleader> v<cr>', 'Which
   quick_opts('v'))
 
 -- ----
+-- Common WhichKey names
+-- ----
+register({ ['<leader>r'] = { name = 'Relative to buffer' } })
+
+-- ----
 -- Find Files
 -- ----
 register({
@@ -183,11 +188,11 @@ register({
   quick_opts()
 )
 
-
+-- ----
+-- Find Strings
+-- ----
 register({
   -- ['?'] = { '<cmd>Cheatsheet<cr>', 'Cheatsheet' },
-
-  r = { name = 'Relative to buffer' },
 
   -- ----
   -- Live Grep
