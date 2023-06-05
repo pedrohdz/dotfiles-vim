@@ -20,32 +20,53 @@ local on_attach = function(client, bufnr)
   local which_key = require('which-key')
 
   -- Mappings.
-  which_key.register({
-    ['<C-k>'] = { vim.lsp.buf.signature_help, 'Signature help' },
-    ['K'] = { vim.lsp.buf.hover, 'Hover' },
-  }, {
-    buffer = bufnr,
-    noremap = true,
-    silent = true,
-  })
+  local whichkey_register_lsp_capability = function(mappings, options)
+    for keys, mapping_config in pairs(mappings) do
+      local lsp_capability, action, description, local_options = table.unpack(mapping_config)
+      local prefix = ' '
+      lsp_capability = lsp_capability .. 'Provider'
+      if not client.server_capabilities[lsp_capability] then
+        prefix = ''
+        action = function() print('ERROR - LSP "' .. lsp_capability .. '" capability is not available.') end
+      end
+
+      local_options = vim.tbl_extend('force', options or {}, local_options or {})
+      which_key.register(
+        { [keys] = { action, prefix .. ' ' .. description } },
+        local_options
+      )
+    end
+  end
+
+  whichkey_register_lsp_capability(
+    {
+      ['*'] = { 'references', builtin.lsp_references, 'Show references' },
+      ['#'] = { 'definition', builtin.lsp_definitions, 'Goto definition' },
+      ['^'] = { 'declaration', vim.lsp.buf.declaration, 'Goto declaration' },
+      ['0'] = { 'typeDefinition', builtin.lsp_type_definitions, 'Goto type definition' },
+
+
+      ['K'] = { 'hover', vim.lsp.buf.hover, 'Hover' },
+      ['<C-k>'] = { 'signatureHelp', vim.lsp.buf.signature_help, 'Signature help', { prefix = '', mode = { 'n', 'i' } } },
+
+      -- Changes code
+      ['r'] = { 'rename', vim.lsp.buf.rename, 'Rename' },
+      ['a'] = { 'codeAction', vim.lsp.buf.code_action, 'Code Action' },
+      ['f'] = { 'documentFormatting', function() vim.lsp.buf.format({ async = true }) end, 'Re-format' },
+    },
+    {
+      buffer = bufnr,
+      noremap = true,
+      prefix = '<localleader>',
+      silent = true,
+    }
+  )
 
   which_key.register({
-    ['*'] = { builtin.lsp_references, 'Show refs for word under the cursor' },
-    ['#'] = { builtin.lsp_definitions, 'Goto definition, word under the cursor' },
-    ['^'] = { vim.lsp.buf.declaration, 'Goto declaration' },
-
-    a = { vim.lsp.buf.code_action, 'Code Action' },
-    f = { function () vim.lsp.buf.format({async = true}) end, 'Re-format' },
-    r = { vim.lsp.buf.rename, 'Rename' },
-
     g = {
       name = 'Goto',
       -- Common gotos
-      d = { builtin.lsp_definitions, 'Goto definition, word under the cursor' },
-      D = { vim.lsp.buf.declaration, 'Goto declaration' },
-      t = { builtin.lsp_type_definitions, 'Goto type definition, word under the cursor' },
       i = { builtin.lsp_implementations, 'Goto implementation, word under the cursor' },
-      r = { builtin.lsp_references, 'Show refs for word under the cursor' },
 
       -- Show symbols
       s = { builtin.lsp_document_symbols, 'Document symbols (buffer)' },
@@ -135,7 +156,7 @@ local sort_config = function()
   return {
     priority_weight = 1.0,
     comparators = {
-      compare.length,  -- new
+      compare.length, -- new
       compare.locality,
       compare.scopes, -- what?
       compare.recently_used,
