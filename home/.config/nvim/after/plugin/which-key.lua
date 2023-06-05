@@ -1,7 +1,7 @@
 local builtin = require('telescope.builtin')
-local phzutils = require('pedrohdz.utils')
-local utils = require('telescope.utils')
 local which_key = require('which-key')
+
+local register = require('which-key').register
 
 which_key.setup({
   layout = {
@@ -19,7 +19,7 @@ which_key.setup({
   },
 })
 
-which_key.register({
+register({
   d = {
     name = 'diagnostics',
     f = { vim.diagnostic.open_float, 'open-diagnostics-float' },
@@ -106,7 +106,7 @@ which_key.register({
   silent = true,
 })
 
-which_key.register({
+register({
   ['[g'] = { vim.diagnostic.goto_prev, 'goto-prev-diagnostics' },
   [']g'] = { vim.diagnostic.goto_next, 'goto-next-diagnostics' },
 }, {
@@ -118,104 +118,96 @@ which_key.register({
 
 
 -- ----------------------------------------------------------------------------
--- Function keys
+-- New custom mappings
 -- ----------------------------------------------------------------------------
-vim.opt.pastetoggle = '<F7>'
-
+local find_files = require('telescope.builtin').find_files
 local find_files_opts = { follow = true, hidden = true, }
-which_key.register(
-  {
-    name = 'Function keys',
-    ['<S-F1>'] = { '<cmd>Cheatsheet<cr>', 'Cheatsheet' },
-    ['<F2>'] = { '<cmd>ToggleBufExplorer<cr>', 'Buffer Explorer' },
-    ['<S-F2>'] = { builtin.buffers, 'Telescope Buffers' },
+local with_buffer_dir = require('pedrohdz.utils').with_buffer_dir
+local with_buffer_project_root = require('pedrohdz.utils').with_buffer_project_root
+local with_cwd = require('pedrohdz.utils').with_cwd
+local with_cwd_project_root = require('pedrohdz.utils').with_cwd_project_root
 
-    -- Find Files --
-    ['<F3>'] = {
-      phzutils.with_cwd(builtin.find_files, find_files_opts),
-      'Files, CWD'
-    },
-    ['<S-F3>'] = {
-      phzutils.with_cwd_project_root(builtin.find_files, find_files_opts),
-      'Files, CWD project root',
-    },
-
-    -- ['<F4>'] = AVAILABLE
-    -- ['<S-F4>'] = AVAILABLE
-    ['<F5>'] = { '<cmd>GundoToggle<cr>', 'GundoToggle' },
-    ['<F6>'] = { '<cmd>YRShow<cr>', 'YRShow' },
-    ['<F7>'] = 'Paste toggle',
-  }, {
-    mode = 'n',
+local quick_opts = function(mode)
+  return {
+    mode = mode or 'n',
     noremap = true,
     nowait = true,
     silent = true,
   }
+end
+
+-- ----
+-- Function keys
+-- ----
+vim.opt.pastetoggle = '<F7>'
+
+register(
+  {
+    ['<F2>'] = { '<cmd>ToggleBufExplorer<cr>', 'Buffer Explorer' },
+    ['<S-F2>'] = { builtin.buffers, 'Telescope Buffers' },
+    -- ['<S-F4>'] = AVAILABLE
+    ['<F5>'] = { '<cmd>GundoToggle<cr>', 'GundoToggle' },
+    ['<F6>'] = { '<cmd>YRShow<cr>', 'YRShow' },
+    ['<F7>'] = 'Paste toggle',
+  },
+  quick_opts()
+)
+
+-- ----
+-- Help
+-- ----
+register({ ['<F1>'] = { '<cmd>WhichKey<cr>', 'WhichKey all' } }, quick_opts())
+register({ ['<S-F1>'] = { builtin.keymaps, 'Telescope Vim keymaps' } }, quick_opts())
+
+register({ ['<F1>'] = { '<cmd>WhichKey "" i<cr>', 'WhichKey INSERT' } }, quick_opts('i'))
+register({ ['<F1>'] = { '<cmd>WhichKey "" v<cr>', 'WhichKey VISUAL' } }, quick_opts('v'))
+
+register({ ['<leader><F1>'] = { '<cmd>WhichKey <leader><cr>', 'WhichKey <leader> all' } }, quick_opts())
+register({ ['<leader><F1>'] = { '<cmd>WhichKey <leader> v<cr>', 'WhichKey <leader> VISUAL' } }, quick_opts('v'))
+
+register({ ['<localleader><F1>'] = { '<cmd>WhichKey <localleader><cr>', 'WhichKey <localleader> all' } }, quick_opts())
+register({ ['<localleader><F1>'] = { '<cmd>WhichKey <localleader> v<cr>', 'WhichKey <localleader> VISUAL' } },
+  quick_opts('v'))
+
+-- ----
+-- Find Files
+-- ----
+register({
+    ['<F3>'] = { with_cwd(find_files, find_files_opts), 'Files, CWD' },
+    ['<S-F3>'] = { with_cwd_project_root(find_files, find_files_opts), 'Files, CWD project root', },
+
+    -- Relative to Buffer --
+    ['<leader>r<F3>'] = { with_buffer_dir(find_files, find_files_opts), 'Files, buf dir' },
+    ['<leader>r<S-F3>'] = { with_buffer_project_root(find_files, find_files_opts), 'Files, buf project root', },
+  },
+  quick_opts()
 )
 
 
--- ----------------------------------------------------------------------------
--- New custom mappings
--- ----------------------------------------------------------------------------
-which_key.register({
+register({
   -- ['?'] = { '<cmd>Cheatsheet<cr>', 'Cheatsheet' },
 
-  -- Live Grep --
-  ['/'] = {
-    phzutils.with_cwd(builtin.live_grep),
-    'String search, CWD'
-  },
-  ['?'] = {
-    phzutils.with_cwd_project_root(builtin.live_grep),
-    'String search, CWD project root'
-  },
+  r = { name = 'Relative to buffer' },
 
+  -- ----
+  -- Live Grep
+  -- ----
+  ['/'] = { with_cwd(builtin.live_grep), 'String search, CWD' },
+  ['?'] = { with_cwd_project_root(builtin.live_grep), 'String search, CWD project root' },
+
+  -- Relative to Buffer --
+  ['r/'] = { with_buffer_dir(builtin.live_grep), 'String search, buf dir' },
+  ['r?'] = { with_buffer_project_root(builtin.live_grep), 'String search, buf project root' },
+
+  -- ----
   -- Grep Current String --
-  ['*'] = {
-    phzutils.with_cwd(builtin.grep_string),
-    'Grep current string, CWD'
-  },
-  ['#'] = {
-    phzutils.with_cwd_project_root(builtin.grep_string),
-    'Grep current string, CWD project root'
-  },
-
   -- ----
-  -- Relative to Buffer
-  -- ----
-  r = {
-    name = 'Relative to buffer',
+  ['*'] = { with_cwd(builtin.grep_string), 'Grep current string, CWD' },
+  ['#'] = { with_cwd_project_root(builtin.grep_string), 'Grep current string, CWD project root' },
 
-    -- Find Files --
-    ['<F3>'] = {
-      phzutils.with_buffer_dir(builtin.find_files, find_files_opts),
-      'Files, buf dir'
-    },
-    ['<S-F3>'] = {
-      phzutils.with_buffer_project_root(builtin.find_files, find_files_opts),
-      'Files, buf project root',
-    },
-
-    -- Live Grep --
-    ['/'] = {
-      phzutils.with_buffer_dir(builtin.live_grep),
-      'String search, buf dir'
-    },
-    ['?'] = {
-      phzutils.with_buffer_project_root(builtin.live_grep),
-      'String search, buf project root'
-    },
-
-    -- Grep Current String --
-    ['*'] = {
-      phzutils.with_buffer_dir(builtin.grep_string),
-      'Grep current string, buf dir'
-    },
-    ['#'] = {
-      phzutils.with_buffer_project_root(builtin.grep_string),
-      'Grep current string, buf project root'
-    },
-  }
+  -- Relative to Buffer --
+  ['r*'] = { with_buffer_dir(builtin.grep_string), 'Grep current string, buf dir' },
+  ['r#'] = { with_buffer_project_root(builtin.grep_string), 'Grep current string, buf project root' },
 }, {
   mode = 'n',
   noremap = true,
@@ -228,7 +220,7 @@ which_key.register({
 -- ----------------------------------------------------------------------------
 -- Other
 -- ----------------------------------------------------------------------------
-which_key.register({
+register({
   C = {
     name = 'clean',
     N = 'clean-vertical-whitespace',

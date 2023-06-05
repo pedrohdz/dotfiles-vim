@@ -19,7 +19,7 @@ local on_attach = function(client, bufnr)
   local builtin = require('telescope.builtin')
   local which_key = require('which-key')
 
-  -- Mappings.
+  -- Mappings
   local whichkey_register_lsp_capability = function(mappings, options)
     for keys, mapping_config in pairs(mappings) do
       local lsp_capability, action, description, local_options = table.unpack(mapping_config)
@@ -38,6 +38,7 @@ local on_attach = function(client, bufnr)
     end
   end
 
+  which_key.register({name = 'Local Leader'}, {prefix = '<localleader>'})
   whichkey_register_lsp_capability(
     {
       ['*'] = { 'references', builtin.lsp_references, 'Show references' },

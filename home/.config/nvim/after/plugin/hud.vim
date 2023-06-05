@@ -121,4 +121,4 @@ augroup phdz_hub
   autocmd BufNewFile,BufRead * call PhdzUpdateBuffer()
 augroup END
 
-nmap <F1>   :<C-E><C-U>call PhdzHudToggle()<CR>
+nmap <F4>   :<C-E><C-U>call PhdzHudToggle()<CR>
