@@ -222,6 +222,27 @@ register({
 })
 
 
+-- ----
+-- Trouble
+-- ----
+local trouble = require("trouble")
+local trouble_func = function(func)
+  return function()
+    func({skip_groups = true, jump = true})
+  end
+end
+
+register(
+  {
+    [']r'] = { trouble_func(trouble.next), 'Trouble - next' },
+    [']R'] = { trouble_func(trouble.last), 'Trouble - last' },
+    ['[r'] = { trouble_func(trouble.previous), 'Trouble - back' },
+    ['[R'] = { trouble_func(trouble.first), 'Trouble - first' },
+  },
+  quick_opts()
+)
+
+
 -- ----------------------------------------------------------------------------
 -- Other
 -- ----------------------------------------------------------------------------

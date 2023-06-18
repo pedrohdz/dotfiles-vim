@@ -38,6 +38,8 @@ local on_attach = function(client, bufnr)
     end
   end
 
+  -- To list capabilities:
+  --    `:lua vim.lsp.get_active_clients()[1].server_capabilities`
   which_key.register({name = 'Local Leader'}, {prefix = '<localleader>'})
   whichkey_register_lsp_capability(
     {
