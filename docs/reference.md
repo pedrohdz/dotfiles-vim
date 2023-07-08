@@ -81,10 +81,6 @@ Other:
   colorful, dark color scheme for Vim.
 - [pedrohdz/vim-yaml-folds](https://github.com/pedrohdz/vim-yaml-folds): YAML,
   RAML, EYAML & SaltStack SLS folding for Vim
-- [vim-airline/vim-airline-themes](https://github.com/vim-airline/vim-airline-themes):
-  A collection of themes for vim-airline
-- [vim-airline/vim-airline](https://github.com/vim-airline/vim-airline): lean &
-  mean status/tabline for vim that's light as air
 - [vim-scripts/YankRing.vim](https://github.com/vim-scripts/YankRing.vim):
   Maintains a history of previous yanks, changes and deletes
 - [windwp/nvim-autopairs](https://github.com/windwp/nvim-autopairs): autopairs
@@ -100,7 +96,9 @@ Other:
   Indent guides for Neovim
 - [lewis6991/gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim): Git
   integration for buffers
-
+- [nvim-lualine/lualine.nvim](https://github.com/nvim-lualine/lualine.nvim): A
+  blazing fast and easy to configure neovim statusline plugin written in pure
+  lua.
 
 ## Plugins that Might be Integrated (Todo List)
 

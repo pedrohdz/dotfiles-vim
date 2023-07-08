@@ -1,9 +1,9 @@
 -- Bootstrap Packer if it is not already setup...
 local ensure_packer = function()
   local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
     vim.cmd [[packadd packer.nvim]]
     return true
   end
@@ -31,8 +31,6 @@ return require('packer').startup(function(use)
   use 'hrsh7th/nvim-cmp'
   use 'kyazdani42/nvim-web-devicons'
   use 'onsails/lspkind.nvim'
-  use 'vim-airline/vim-airline'
-  use 'vim-airline/vim-airline-themes'
   use 'windwp/nvim-autopairs'
 
   use {
@@ -103,6 +101,12 @@ return require('packer').startup(function(use)
   use { 'lukas-reineke/indent-blankline.nvim' }
   use { 'numToStr/Comment.nvim' }
   use { 'rust-lang/rust.vim', ft = 'rust' }
+
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
+
 
   -- -----------------------------------------------------------------------------
   -- Graduated from dr-vimfiles
