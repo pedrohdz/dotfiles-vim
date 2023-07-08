@@ -40,7 +40,7 @@ endfunction
 function! PhdzHudApplyFull()
   let b:_phdz_hud_current_state = _PHDZ_HUD_CONSTANT_FULL()
   call _PhdzTryExecute(":GitGutterEnable")
-  call _PhdzTryExecute(":IndentLinesEnable")
+  call _PhdzTryExecute(":IndentBlanklineEnable")
   call _PhdzTryExecute(":ToggleDiagOn")
   setlocal list
   setlocal number
@@ -50,7 +50,7 @@ endfunction
 function! PhdzHudApplySimple()
   let b:_phdz_hud_current_state = _PHDZ_HUD_CONSTANT_SIMPLE()
   call _PhdzTryExecute(":GitGutterDisable")
-  call _PhdzTryExecute(":IndentLinesEnable")
+  call _PhdzTryExecute(":IndentBlanklineEnable")
   call _PhdzTryExecute(":ToggleDiagOff")
   setlocal list
   setlocal number
@@ -60,7 +60,7 @@ endfunction
 function! PhdzHudApplyNone()
   let b:_phdz_hud_current_state = _PHDZ_HUD_CONSTANT_NONE()
   call _PhdzTryExecute(":GitGutterDisable")
-  call _PhdzTryExecute(":IndentLinesDisable")
+  call _PhdzTryExecute(":IndentBlanklineDisable")
   call _PhdzTryExecute(":ToggleDiagOff")
   setlocal nolist
   setlocal nonumber

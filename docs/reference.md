@@ -96,6 +96,8 @@ Other:
 - [numToStr/Comment.nvim](https://github.com/numToStr/Comment.nvim): :brain:
   :muscle: // Smart and powerful comment plugin for neovim. Supports
   treesitter, dot repeat, left-right/up-down motions, hooks, and more
+- [lukas-reineke/indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim):
+  Indent guides for Neovim
 
 
 ## Plugins that Might be Integrated (Todo List)

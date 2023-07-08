@@ -91,7 +91,6 @@ return require('packer').startup(function(use)
 
   -- -----------------------------------------------------------------------------
   -- New plugins (post `dr-vimfiles*`)
-  use 'Yggdroot/indentLine'
   use 'airblade/vim-gitgutter'
   use 'farmergreg/vim-lastplace'
   use 'junegunn/fzf'
@@ -101,6 +100,7 @@ return require('packer').startup(function(use)
   use 'pearofducks/ansible-vim'
   use 'towolf/vim-helm'
   use { 'cespare/vim-toml', branch = 'main', ft = 'toml' }
+  use { 'lukas-reineke/indent-blankline.nvim' }
   use { 'numToStr/Comment.nvim' }
   use { 'rust-lang/rust.vim', ft = 'rust' }
 
