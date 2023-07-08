@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd(
   {
     pattern = yaml_config.filetypes,
     callback = lsp_config_callback,
-    group = vim.api.nvim_create_augroup('lspconfig-yaml-phz', {}),
+    group = vim.api.nvim_create_augroup('phdz-lspconfig-yaml', {}),
     desc = string.format(
       'Checks whether server %s should start a new instance or attach to an existing one.',
       yaml_config.name
