@@ -3,6 +3,10 @@ require('nvim-treesitter.configs').setup({
   ensure_installed = {
     'bash',
     'c',
+    'dockerfile',
+    'dot',
+    'git_config',
+    'git_rebase',
     'hcl',
     'java',
     'json',
@@ -14,7 +18,9 @@ require('nvim-treesitter.configs').setup({
     'rst',
     'rust',
     'terraform',
+    'toml',
     'vim',
+    'vimdoc',
     'yaml',
   },
 })
