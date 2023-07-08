@@ -161,6 +161,8 @@ iterations:
 - [ray-x/nvim](https://github.com/ray-x/nvim): Blazing fast neovim setup with
   140 plugins.
 - [neovim-for-beginner/tree/22-autocmd](https://github.com/alpha2phi/neovim-for-beginner/tree/22-autocmd)
+- [nvim-lua/kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim): A
+  launch point for your personal nvim configuration
 
 
 ## Interesting write ups
