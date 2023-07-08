@@ -39,21 +39,21 @@ return require('packer').startup(function(use)
   use {
     'jose-elias-alvarez/null-ls.nvim',
     requires = {
-      {'nvim-lua/plenary.nvim'},
+      { 'nvim-lua/plenary.nvim' },
     }
   }
 
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.1',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    requires = { { 'nvim-lua/plenary.nvim' } }
   }
 
   use {
     'sudormrfbin/cheatsheet.nvim',
     requires = {
-      {'nvim-telescope/telescope.nvim'},
-      {'nvim-lua/popup.nvim'},
-      {'nvim-lua/plenary.nvim'},
+      { 'nvim-telescope/telescope.nvim' },
+      { 'nvim-lua/popup.nvim' },
+      { 'nvim-lua/plenary.nvim' },
     }
   }
 
@@ -85,9 +85,9 @@ return require('packer').startup(function(use)
   use 'lambdalisue/fern.vim'
   use 'mustache/vim-mustache-handlebars'
   use 'pearofducks/ansible-vim'
-  use 'tomtom/tcomment_vim'
   use 'towolf/vim-helm'
   use { 'cespare/vim-toml', branch = 'main', ft = 'toml' }
+  use { 'numToStr/Comment.nvim' }
   use { 'rust-lang/rust.vim', ft = 'rust' }
 
   -- -----------------------------------------------------------------------------
@@ -120,7 +120,7 @@ return require('packer').startup(function(use)
   use 'tpope/vim-surround'
   use 'tpope/vim-unimpaired'
   use 'vim-scripts/HTML-AutoCloseTag'
-  use 'vim-scripts/YankRing.vim'  -- FIXME - Find something newer.
+  use 'vim-scripts/YankRing.vim' -- FIXME - Find something newer.
 
   -- -----------------------------------------------------------------------------
   -- dr-vimfiles-devops

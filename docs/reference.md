@@ -93,6 +93,9 @@ Other:
   markdown preview plugin for (neo)vim
 - [tpope/vim-markdown](https://github.com/tpope/vim-markdown): Vim Markdown
   runtime files
+- [numToStr/Comment.nvim](https://github.com/numToStr/Comment.nvim): :brain:
+  :muscle: // Smart and powerful comment plugin for neovim. Supports
+  treesitter, dot repeat, left-right/up-down motions, hooks, and more
 
 
 ## Plugins that Might be Integrated (Todo List)
