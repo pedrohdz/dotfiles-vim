@@ -384,6 +384,13 @@ lspconfig.dockerls.setup({
   on_attach = on_attach,
 })
 
+-- helm
+lspconfig.helm_ls.setup({
+  capabilities = capabilities,
+  flags = lsp_flags,
+  on_attach = on_attach,
+})
+
 -- json
 lspconfig.jsonls.setup({
   capabilities = capabilities,
@@ -439,6 +446,7 @@ lspconfig.terraformls.setup({
 
 -- yaml
 lspconfig.yamlls.setup({
+  autostart = false, -- See `yaml.lua`
   capabilities = capabilities,
   flags = lsp_flags,
   on_attach = on_attach,
