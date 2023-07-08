@@ -39,7 +39,7 @@ endfunction
 
 function! PhdzHudApplyFull()
   let b:_phdz_hud_current_state = _PHDZ_HUD_CONSTANT_FULL()
-  call _PhdzTryExecute(":GitGutterEnable")
+  call _PhdzTryExecute(":Gitsigns toggle_signs true")
   call _PhdzTryExecute(":IndentBlanklineEnable")
   call _PhdzTryExecute(":ToggleDiagOn")
   setlocal list
@@ -49,7 +49,7 @@ endfunction
 
 function! PhdzHudApplySimple()
   let b:_phdz_hud_current_state = _PHDZ_HUD_CONSTANT_SIMPLE()
-  call _PhdzTryExecute(":GitGutterDisable")
+  call _PhdzTryExecute(":Gitsigns toggle_signs false")
   call _PhdzTryExecute(":IndentBlanklineEnable")
   call _PhdzTryExecute(":ToggleDiagOff")
   setlocal list
@@ -59,7 +59,7 @@ endfunction
 
 function! PhdzHudApplyNone()
   let b:_phdz_hud_current_state = _PHDZ_HUD_CONSTANT_NONE()
-  call _PhdzTryExecute(":GitGutterDisable")
+  call _PhdzTryExecute(":Gitsigns toggle_signs false")
   call _PhdzTryExecute(":IndentBlanklineDisable")
   call _PhdzTryExecute(":ToggleDiagOff")
   setlocal nolist
@@ -112,13 +112,15 @@ function! _PhdzTryExecute(commannd)
 endfunction
 
 
+" FIXME - Fix with Gitsigns so it does not echo a bool.  Better yet, replace
+" HUD with Lua code. "
 " -----------------------------------------------------------------------------
-" Internal funcations
-" -----------------------------------------------------------------------------
-augroup phdz_hub
-  autocmd!
-  " autocmd BufNewFile,BufRead,BufEnter * call PhdzUpdateBuffer()
-  autocmd BufNewFile,BufRead * call PhdzUpdateBuffer()
-augroup END
-
-nmap <F4>   :<C-E><C-U>call PhdzHudToggle()<CR>
+" " Internal funcations
+" " -----------------------------------------------------------------------------
+" augroup phdz_hub
+"   autocmd!
+"   " autocmd BufNewFile,BufRead,BufEnter * call PhdzUpdateBuffer()
+"   autocmd BufNewFile,BufRead * if (! &diff) | call PhdzUpdateBuffer()
+" augroup END
+"
+" nmap <F4>   :<C-E><C-U>call PhdzHudToggle()<CR>

@@ -1,10 +1,10 @@
 local lsp_config_callback = function(opt)
   vim.schedule(function()
-    if not vim.wo.diff then
+    local window_id = vim.fn.win_getid(vim.fn.bufwinnr(opt.buf))
+    if not vim.wo[window_id].diff then
       return
     end
 
-    local window_id = vim.fn.win_getid(vim.fn.bufwinnr(opt.buf))
     vim.api.nvim_win_set_cursor(window_id, { 1, 0 })
   end)
 end

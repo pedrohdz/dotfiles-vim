@@ -1,9 +1,3 @@
-" FIXME
-augroup git_gutter
-  autocmd!
-  autocmd BufRead * GitGutterLineNrHighlightsEnable
-augroup end
-
 if exists('g:toggle_lsp_diagnostics_loaded_install')
 lua <<EOF
 require'toggle_lsp_diagnostics'.init()

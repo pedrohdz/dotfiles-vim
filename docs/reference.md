@@ -98,6 +98,8 @@ Other:
   treesitter, dot repeat, left-right/up-down motions, hooks, and more
 - [lukas-reineke/indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim):
   Indent guides for Neovim
+- [lewis6991/gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim): Git
+  integration for buffers
 
 
 ## Plugins that Might be Integrated (Todo List)

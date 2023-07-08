@@ -27,10 +27,8 @@ register({
   },
   s = {
     name = 'Switch/toggle',
-    G = { '<cmd>GitGutterToggle<CR>', 'Git gutter toggle (all buffers)' },
+    G = { '<cmd>Gitsigns toggle_signs<CR>', 'Gitsigns toggle (all buffers)' },
     d = { '<Plug>(toggle-lsp-diag)', 'LSP diag toggle (all buffers)' },
-    g = { '<cmd>GitGutterBufferToggle<CR>', 'Git gutter toggle (local buffer)' },
-    h = { '<cmd>GitGutterLineHighlightsToggle<CR>', 'Git gutter line highlights (local buffer)' },
     s = { '<cmd>set spell!<cr>', 'Spell checking' },
     t = { '<cmd>TroubleToggle<cr>', 'Toggle' },
     v = { '<Plug>(toggle-lsp-diag-vtext)', 'LSP diag vtext toggle (all buffers)' },
