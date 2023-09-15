@@ -1,5 +1,7 @@
 # dotfiles-vim
 
+My NeoVim configuration files.
+
 ## Appendix
 
 - [Reference material](docs/reference.md)
