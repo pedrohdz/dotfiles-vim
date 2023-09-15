@@ -1,6 +1,6 @@
 # dotfiles-vim
 
-My NeoVim configuration files.
+My NeoVim configuration dot files.
 
 ## Appendix
 
