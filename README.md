@@ -2,6 +2,7 @@
 
 My NeoVim configuration dot files.
 
+
 ## Appendix
 
 - [Reference material](docs/reference.md)
