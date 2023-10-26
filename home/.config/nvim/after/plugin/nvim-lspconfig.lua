@@ -40,7 +40,7 @@ local on_attach = function(client, bufnr)
 
   -- To list capabilities:
   --    `:lua vim.lsp.get_active_clients()[1].server_capabilities`
-  which_key.register({name = 'Local Leader'}, {prefix = '<localleader>'})
+  which_key.register({ name = 'Local Leader' }, { prefix = '<localleader>' })
   whichkey_register_lsp_capability(
     {
       ['*'] = { 'references', builtin.lsp_references, 'Show references' },
@@ -159,11 +159,11 @@ local sort_config = function()
   return {
     priority_weight = 1.0,
     comparators = {
+      compare.exact,
       compare.length, -- new
       compare.locality,
       compare.scopes, -- what?
       compare.recently_used,
-      compare.exact,
       compare.score,
       compare.offset,
       compare.length,
