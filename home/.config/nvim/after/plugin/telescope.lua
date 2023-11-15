@@ -21,6 +21,9 @@ telescope.setup {
       i = { ['<c-o>'] = trouble.open_with_trouble },
       n = { ['<c-o>'] = trouble.open_with_trouble },
     },
-    vimgrep_arguments = vimgrep_arguments
+    vimgrep_arguments = vimgrep_arguments,
+    file_ignore_patterns = {
+      '^.git/',
+    }
   },
 }
