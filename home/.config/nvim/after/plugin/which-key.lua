@@ -58,7 +58,7 @@ register({
     },
     o = {
       name = 'Other',
-      t = { '<cmd>TodoTelescope<cr>', 'LSP definitions' },
+      t = { '<cmd>TodoTelescope<cr>', 'Todo Telescope' },
     },
     p = {
       name = 'Telescope pickers',
