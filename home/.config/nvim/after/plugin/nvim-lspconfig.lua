@@ -5,6 +5,10 @@ local keymap = require('cmp.utils.keymap')
 local lspkind = require('lspkind')
 local select_options = { behavior = require('cmp.types').cmp.SelectBehavior.Select }
 
+if not unpack then
+  unpack = table.unpack
+end
+
 -- --------------------------------------------------------------------------
 -- LSP key mappings
 -- --------------------------------------------------------------------------
@@ -22,7 +26,7 @@ local on_attach = function(client, bufnr)
   -- Mappings
   local whichkey_register_lsp_capability = function(mappings, options)
     for keys, mapping_config in pairs(mappings) do
-      local lsp_capability, action, description, local_options = table.unpack(mapping_config)
+      local lsp_capability, action, description, local_options = unpack(mapping_config)
       local prefix = ' '
       lsp_capability = lsp_capability .. 'Provider'
       if not client.server_capabilities[lsp_capability] then

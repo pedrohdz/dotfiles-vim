@@ -19,6 +19,12 @@ nvim-treesitter:
 :TSUpdate
 ```
 
+Mason/LSPs:
+```vim
+:Mason
+:MasonLog
+```
+
 
 ## Appendix
 
