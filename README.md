@@ -3,6 +3,23 @@
 My NeoVim configuration dot files.
 
 
+## Upgrade/update cheetsheet
+
+Packer:
+```vim
+:PackerSnapshot ~/.homesick/repos/dotfiles-vim/vim-plug-snapshot.vim
+:PackerClean
+:PackerSync --preview
+:PackerSync
+:PackerStatus
+```
+
+nvim-treesitter:
+```vim
+:TSUpdate
+```
+
+
 ## Appendix
 
 - [Reference material](docs/reference.md)
