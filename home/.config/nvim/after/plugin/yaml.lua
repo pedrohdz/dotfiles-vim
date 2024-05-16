@@ -15,7 +15,7 @@ local lsp_config_callback = function(opt)
   end
 
   -- Else load
-  yaml_config.manager.try_add(opt.buf)
+  yaml_config.manager:try_add(opt.buf)
 end
 
 vim.api.nvim_create_autocmd(
