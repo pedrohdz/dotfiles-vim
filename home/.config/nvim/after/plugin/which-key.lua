@@ -137,8 +137,6 @@ end
 -- ----
 -- Function keys
 -- ----
-vim.opt.pastetoggle = '<F7>'
-
 register(
   {
     ['<F2>'] = { '<cmd>ToggleBufExplorer<cr>', 'Buffer Explorer' },
