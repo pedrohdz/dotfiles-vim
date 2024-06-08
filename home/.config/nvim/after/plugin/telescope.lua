@@ -1,7 +1,7 @@
 -- ----------------------------------------------------------------------------
 -- https://github.com/nvim-telescope/telescope.nvim
 -- ----------------------------------------------------------------------------
-local trouble = require('trouble.providers.telescope')
+local trouble = require('trouble.sources.telescope')
 local telescope = require('telescope')
 
 local vimgrep_arguments = {
@@ -18,8 +18,8 @@ local vimgrep_arguments = {
 telescope.setup {
   defaults = {
     mappings = {
-      i = { ['<c-o>'] = trouble.open_with_trouble },
-      n = { ['<c-o>'] = trouble.open_with_trouble },
+      i = { ['<c-o>'] = trouble.open },
+      n = { ['<c-o>'] = trouble.open },
     },
     vimgrep_arguments = vimgrep_arguments,
     file_ignore_patterns = {
