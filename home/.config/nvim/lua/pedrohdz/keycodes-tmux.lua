@@ -1,7 +1,36 @@
--- For more information:
---    - http://vim.wikia.com/wiki/Mapping_fast_keycodes_in_terminal_Vim
---    - :help t_ku - for a list of Vim internal keycodes.
---    - :help termcap - other terminal information.
+-- More information on this Funcation key issue.
+--  - https://github.com/neovim/neovim/blob/master/src/nvim/tui/terminfo_defs.h
+--  - https://github.com/neovim/neovim/issues/7384#
+--  - https://neovim.io/doc/user/api.html#nvim_replace_termcodes()
+--  - https://neovim.io/doc/user/term.html
+--
+-- Might be able to fix this via WezTerm
+--  - https://wezfurlong.org/wezterm/escape-sequences.html
+--  - https://wezfurlong.org/wezterm/config/lua/keyassignment/SendString.html
+--
+-- Old information from Vim:
+--  - http://vim.wikia.com/wiki/Mapping_fast_keycodes_in_terminal_Vim
+--  - :help t_ku - for a list of Vim internal keycodes.
+--  - :help termcap - other terminal information.
+--
+
+local function map(key, set)
+  vim.api.nvim_set_keymap('', key, set, {
+    noremap = false,
+    nowait = true,
+  })
+end
+
+-- TODO - Come up with a better long term solution.
+--
+-- Use the following and `showkey` to figure out the mappings:
+--  - https://github.com/neovim/neovim/blob/master/src/nvim/tui/terminfo_defs.h
+--
+if vim.list_contains({ 'xterm-256color', 'tmux-256color' }, vim.env.TERM) then
+  map('<F15>', '<S-F3>')
+end
+
+
 -- vim.cmd([[
 --   if !has("gui_running")
 --     if &term == "screen" || &term == "screen-256color"
@@ -35,4 +64,3 @@
 --     endif
 --   endif
 -- ]])
---

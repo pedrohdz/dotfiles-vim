@@ -105,8 +105,36 @@ return require('packer').startup(function(use)
 
   use {
     'nvim-lualine/lualine.nvim',
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true },
   }
+
+  use({
+    'stevearc/oil.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true },
+    tag = 'v2.*',
+  })
+
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true },
+    tag = 'v1.*',
+  }
+
+  use {
+    's1n7ax/nvim-window-picker',
+    tag = 'v2.*',
+    config = function()
+      require('window-picker').setup()
+    end,
+  }
+
+  -- use {
+  --   'nvim-telescope/telescope-file-browser.nvim',
+  --   requires = {
+  --     'nvim-telescope/telescope.nvim',
+  --     'nvim-lua/plenary.nvim',
+  --   }
+  -- }
 
   use {
     'zbirenbaum/copilot.lua',
