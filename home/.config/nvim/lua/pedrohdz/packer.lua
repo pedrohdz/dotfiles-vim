@@ -20,7 +20,6 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use 'dmitmel/cmp-cmdline-history'
-  use 'folke/todo-comments.nvim'
   use 'folke/trouble.nvim'
   use 'folke/which-key.nvim'
   use 'hrsh7th/cmp-buffer'
@@ -135,6 +134,14 @@ return require('packer').startup(function(use)
   --     'nvim-lua/plenary.nvim',
   --   }
   -- }
+
+  use {
+    'folke/todo-comments.nvim',
+    tag = 'v1.*',
+    requires = {
+      'nvim-lua/plenary.nvim',
+    }
+  }
 
   use {
     'zbirenbaum/copilot.lua',
