@@ -3,7 +3,7 @@
 --
 require('todo-comments').setup({
   highlight = {
-    pattern = [=[.*<(KEYWORDS)\s*[:-]]=],
+    pattern = [=[.*<(KEYWORDS)>\s*[:-]]=],
   },
   search = {
     pattern = [=[\b(KEYWORDS)\b\s*[:-]]=],
