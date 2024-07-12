@@ -27,7 +27,10 @@ end
 --  - https://github.com/neovim/neovim/blob/master/src/nvim/tui/terminfo_defs.h
 --
 if vim.list_contains({ 'xterm-256color', 'tmux-256color' }, vim.env.TERM) then
+  map('<F13>', '<S-F1>')
+  map('<F14>', '<S-F2>')
   map('<F15>', '<S-F3>')
+  map('<F16>', '<S-F4>')
 end
 
 

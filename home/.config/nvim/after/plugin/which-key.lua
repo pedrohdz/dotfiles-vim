@@ -180,9 +180,15 @@ register({
     -- Relative to Buffer --
     ['<leader>r<F3>'] = { with_buffer_dir(find_files, find_files_opts), 'Files, buf dir' },
     ['<leader>r<S-F3>'] = { with_buffer_project_root(find_files, find_files_opts), 'Files, buf project root', },
+
+    ['<F4>'] = { '<cmd>NvimTreeToggle<cr>', 'NvimTreeToggle' },
   },
   quick_opts()
 )
+
+-- TODO - Figure out how to handle the following.
+vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Oil' })
+
 
 -- ----
 -- Find Strings
