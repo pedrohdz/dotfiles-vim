@@ -177,17 +177,16 @@ register({ ['<leader>r'] = { name = 'Relative to buffer' } })
 register({
     ['<F3>'] = { with_cwd_project_root(find_files, find_files_opts), 'Files, CWD project root', },
     ['<S-F3>'] = { with_cwd(find_files, find_files_opts), 'Files, CWD' },
-
-    -- Relative to Buffer --
-    ['<leader>r<F3>'] = { with_buffer_project_root(find_files, find_files_opts), 'Files, buf project root', },
-    ['<leader>r<S-F3>'] = { with_buffer_dir(find_files, find_files_opts), 'Files, buf dir' },
-
     ['<F4>'] = { with_cwd_project_root(nvtree.toggle, {}), 'nvim-tree, CWD project root' },
     ['<S-F4>'] = { with_cwd(nvtree.toggle, {}), 'nvim-tree, CWD' },
 
-    ['<leader>r<F4>'] = { with_buffer_project_root(nvtree.toggle, {}), 'nvim-tree, buf project root', },
+    -- Relative to Buffer --
+    ['<leader>r<F3>'] = { with_buffer_dir(find_files, find_files_opts), 'Files, buf dir' },
+    ['<leader>r<F4>'] = { with_buffer_dir(nvtree.toggle, {}), 'nvim-tree, buf dir' },
+
     -- TODO - Not working
-    ['<leader>r<S-F4>'] = { with_buffer_dir(nvtree.toggle, {}), 'nvim-tree, buf dir' },
+    ['<leader>r<S-F3>'] = { with_buffer_project_root(find_files, find_files_opts), 'Files, buf project root', },
+    ['<leader>r<S-F4>'] = { with_buffer_project_root(nvtree.toggle, {}), 'nvim-tree, buf project root', },
   },
   quick_opts()
 )
