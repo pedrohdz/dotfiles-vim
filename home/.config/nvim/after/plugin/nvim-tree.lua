@@ -52,10 +52,32 @@ local float_open_win_config = function()
   }
 end
 
+local on_attach = function(bufnr)
+  local nvtree_api = require('nvim-tree.api')
+
+  local function opts(desc)
+    return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- default mappings
+  nvtree_api.config.mappings.default_on_attach(bufnr)
+
+  vim.keymap.set('n', '<ESC>', nvtree_api.tree.close, opts('Close'))
+end
+
 
 nvtree.setup({
   disable_netrw = false,
   hijack_netrw = false,
+  on_attach = on_attach,
+  update_focused_file = {
+    enable = true,
+    update_root = {
+      enable = true,
+      -- ignore_list = {},
+    },
+    -- exclude = false,
+  },
   renderer = {
     icons = {
       bookmarks_placement = 'signcolumn',

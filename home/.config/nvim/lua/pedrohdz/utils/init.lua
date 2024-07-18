@@ -26,10 +26,11 @@ end
 -- ----------------------------------------------------------------------------
 --
 -- ----------------------------------------------------------------------------
-M.wrapper_dir_wrapper = function (func, dir_func, opts)
+M.wrapper_dir_wrapper = function(func, dir_func, opts)
   opts = vim.deepcopy(opts) or {}
   return function()
-    opts.cwd = dir_func()
+    opts.cwd = dir_func() -- For Telescope
+    opts.path = opts.cwd  -- For nvim-tree
     func(opts)
   end
 end
