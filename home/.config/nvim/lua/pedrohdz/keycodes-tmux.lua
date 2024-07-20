@@ -1,18 +1,58 @@
--- More information on this Funcation key issue.
---  - https://github.com/neovim/neovim/blob/master/src/nvim/tui/terminfo_defs.h
---  - https://github.com/neovim/neovim/issues/7384#
---  - https://neovim.io/doc/user/api.html#nvim_replace_termcodes()
---  - https://neovim.io/doc/user/term.html
+-- ----------------------------------------------------------------------------
+-- NeoVim
+-- - The NeoVim ticket:
+--      https://github.com/neovim/neovim/issues/7384
+-- - Built in terminfo.  Handy for finding what key codes map to what keys in
+--   Neovim:
+--      https://github.com/neovim/neovim/blob/master/src/nvim/tui/terminfo_defs.h
+-- - terminal codes and keycodes (<CR>, <Esc>, ...):
+--      https://neovim.io/doc/user/intro.html#keycodes
+-- - nvim_replace_termcodes(), might come in handy?
+--      https://neovim.io/doc/user/api.html#nvim_replace_termcodes()
+-- - NeoVim information on internal terminal 
+--      https://neovim.io/doc/user/term.html#tui-input:
 --
--- Might be able to fix this via WezTerm
---  - https://wezfurlong.org/wezterm/escape-sequences.html
---  - https://wezfurlong.org/wezterm/config/lua/keyassignment/SendString.html
+-- ----
+-- - XTerm Control Sequences
+--      https://invisible-island.net/xterm/ctlseqs/ctlseqs.txt:
+-- - Terminfo data
+--      https://invisible-island.net/xterm/terminfo.html:
 --
+-- ----
+-- WezTerm
+-- - Might be able to fix this via WezTerm:
+--      https://wezfurlong.org/wezterm/escape-sequences.html
+--      https://wezfurlong.org/wezterm/config/lua/keyassignment/SendString.html
+-- - Setting `enable_csi_u_key_encoding` to `true` does not seem to work:
+--      https://wezfurlong.org/wezterm/config/lua/config/enable_csi_u_key_encoding.html
+--
+-- ----
 -- Old information from Vim:
 --  - http://vim.wikia.com/wiki/Mapping_fast_keycodes_in_terminal_Vim
 --  - :help t_ku - for a list of Vim internal keycodes.
 --  - :help termcap - other terminal information.
+-- ----------------------------------------------------------------------------
+
+-- ----------------------------------------------------------------------------
+-- To get the terminal key codes and other information:
+--  ```
+--  infocmp -1
+--  ```
 --
+-- To show the codes for the pressed keys:
+--  ```
+--  showkey
+--
+--  # Or
+--  cat > /dev/null
+--  ```
+--
+-- This MIGHT be a way of sending escape codes to the terminal:
+--  ```
+--  echo -ne '\e[?1049$p'; cat
+--  ```
+--
+-- ----------------------------------------------------------------------------
 
 local function map(key, set)
   vim.api.nvim_set_keymap('', key, set, {
@@ -25,7 +65,6 @@ end
 --
 -- Use the following and `showkey` to figure out the mappings:
 --  - https://github.com/neovim/neovim/blob/master/src/nvim/tui/terminfo_defs.h
---
 if vim.list_contains({ 'xterm-256color', 'tmux-256color' }, vim.env.TERM) then
   map('<F13>', '<S-F1>')
   map('<F14>', '<S-F2>')
@@ -34,6 +73,9 @@ if vim.list_contains({ 'xterm-256color', 'tmux-256color' }, vim.env.TERM) then
 end
 
 
+-- ----------------------------------------------------------------------------
+-- Old Vim solution
+-- ----------------------------------------------------------------------------
 -- vim.cmd([[
 --   if !has("gui_running")
 --     if &term == "screen" || &term == "screen-256color"
