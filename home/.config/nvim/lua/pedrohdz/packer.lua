@@ -21,7 +21,6 @@ return require('packer').startup(function(use)
 
   use 'dmitmel/cmp-cmdline-history'
   use 'folke/trouble.nvim'
-  use 'folke/which-key.nvim'
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/cmp-nvim-lsp'
@@ -156,10 +155,28 @@ return require('packer').startup(function(use)
     "jackMort/ChatGPT.nvim",
     requires = {
       "MunifTanjim/nui.nvim",
+      "folke/trouble.nvim",
       "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
+      "nvim-telescope/telescope.nvim",
     }
   })
+
+  use {
+    'folke/which-key.nvim',
+    -- tag = 'v1.*',  -- the `*` does not seem to work
+    tag = 'v1.6.1',  -- FIXME - needs to be updated
+    requires = {
+      'nvim-lua/plenary.nvim',
+    }
+  }
+
+  use {
+    'echasnovski/mini.ai',
+    tag = 'v0.13.0',  -- FIXME - needs to be updated
+    config = function()
+      require('mini.ai').setup()
+    end,
+  }
 
   -- -----------------------------------------------------------------------------
   -- Graduated from dr-vimfiles
