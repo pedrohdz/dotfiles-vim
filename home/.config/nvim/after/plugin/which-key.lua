@@ -140,8 +140,8 @@ end
 -- ----
 register(
   {
-    ['<F2>'] = { '<cmd>ToggleBufExplorer<cr>', 'Buffer Explorer' },
-    ['<S-F2>'] = { builtin.buffers, 'Telescope Buffers' },
+    ['<F2>'] = { builtin.buffers, 'Telescope Buffers' },
+    ['<S-F2>'] = { '<cmd>ToggleBufExplorer<cr>', 'Buffer Explorer' },
     -- ['<S-F4>'] = AVAILABLE
     ['<F5>'] = { '<cmd>GundoToggle<cr>', 'GundoToggle' },
     ['<F6>'] = { '<cmd>YRShow<cr>', 'YRShow' },
