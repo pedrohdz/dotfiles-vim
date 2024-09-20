@@ -42,11 +42,6 @@ return require('packer').startup(function(use)
   use 'hrsh7th/vim-vsnip'
 
   use {
-    'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim',
-    commit = 'a7839742dadf90177f3a9ea4747e79f404d10af3'
-  }
-
-  use {
     'jose-elias-alvarez/null-ls.nvim',
     requires = {
       { 'nvim-lua/plenary.nvim' },

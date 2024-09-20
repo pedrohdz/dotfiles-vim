@@ -51,3 +51,6 @@ vim.opt.pumheight = 20
 
 vim.g.mapleader = '\\'
 vim.g.maplocalleader = ' '
+
+-- For use with the CursorHold autocmd event with vim.diagnostic.open_float().
+vim.opt.updatetime = 250 -- msec
