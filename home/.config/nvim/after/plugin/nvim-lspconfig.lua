@@ -1,5 +1,4 @@
 local cmp = require('cmp')
-local compare = require('cmp.config.compare')
 local feedkeys = require('cmp.utils.feedkeys')
 local keymap = require('cmp.utils.keymap')
 local lspkind = require('lspkind')
@@ -51,7 +50,6 @@ local on_attach = function(client, bufnr)
       ['#'] = { 'definition', builtin.lsp_definitions, 'Goto definition' },
       ['^'] = { 'declaration', vim.lsp.buf.declaration, 'Goto declaration' },
       ['0'] = { 'typeDefinition', builtin.lsp_type_definitions, 'Goto type definition' },
-
 
       ['K'] = { 'hover', vim.lsp.buf.hover, 'Hover' },
       ['<C-k>'] = { 'signatureHelp', vim.lsp.buf.signature_help, 'Signature help', { prefix = '', mode = { 'n', 'i' } } },
@@ -174,27 +172,51 @@ local confirm_insert_func = cmp.mapping.confirm({
   select = false, -- Explicit selection one `false`
 })
 
-local sort_config = function()
-  -- This section is from:
-  --   - https://www.reddit.com/r/neovim/comments/u3c3kw/how_do_you_sorting_cmp_completions_items/
+local cmp_formatting = function()
+  -- This section is mostly from:
+  --   - https://github.com/onsails/lspkind.nvim
+  --   - https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations=
   return {
-    priority_weight = 1.0,
-    comparators = {
-      compare.exact,
-      compare.length, -- new
-      compare.locality,
-      compare.scopes, -- what?
-      compare.recently_used,
-      compare.score,
-      compare.offset,
-      compare.length,
-      compare.sort_text,
-      compare.order,
-      -- compare.kind,
-      -- compare.score_offset, -- not good at all
-    }
+    format = lspkind.cmp_format({
+      -- mode = 'symbol',
+      mode = 'symbol_text',
+      menu = ({
+        buffer = '[Buffer]',
+        cmdline = '[CmdLine]',
+        cmdline_history = '[History]',
+        nvim_lsp = '[LSP]',
+        nvim_lua = '[NeovimLua]',
+        path = '[Path]',
+        vsnip = '[Vsnip]',
+      })
+    })
   }
 end
+
+-- From:
+--   - https://github.com/hrsh7th/cmp-buffer?tab=readme-ov-file#visible-buffers
+--   - https://github.com/hrsh7th/cmp-buffer?tab=readme-ov-file#indexing-and-how-to-optimize-it
+local cmp_buffer_source = function()
+  return {
+    name = 'buffer',
+    option = {
+      get_bufnrs = function()
+        local bufs = {}
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          local buf = vim.api.nvim_win_get_buf(win)
+          local byte_size = vim.api.nvim_buf_get_offset(
+            buf, vim.api.nvim_buf_line_count(buf)
+          )
+          if byte_size < 1048576 then -- 1 MB
+            bufs[buf] = true
+          end
+        end
+        return vim.tbl_keys(bufs)
+      end
+    },
+  }
+end
+
 
 cmp.setup({
   snippet = {
@@ -208,7 +230,7 @@ cmp.setup({
   },
   window = {
     -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -223,31 +245,17 @@ cmp.setup({
   }),
   sources = cmp.config.sources(
     {
-      { name = 'path' },
       { name = 'nvim_lua' },
       { name = 'nvim_lsp' },
+      cmp_buffer_source(),
+      { name = 'path' },
       { name = 'vsnip' }, -- For vsnip users.
-      { name = 'buffer' },
       -- { name = 'luasnip' }, -- For luasnip users.
       -- { name = 'ultisnips' }, -- For ultisnips users.
       -- { name = 'snippy' }, -- For snippy users.
     }
   ),
-  formatting = {
-    -- This section is mostly from:
-    --   - https://github.com/onsails/lspkind.nvim
-    --   - https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations=
-    format = lspkind.cmp_format({
-      mode = 'symbol_text',
-      menu = ({
-        buffer = '[Buffer]',
-        nvim_lsp = '[LSP]',
-        nvim_lua = '[NeovimLua]',
-        vsnip = '[Vsnip]',
-      })
-    }),
-  },
-  sorting = sort_config()
+  formatting = cmp_formatting(),
 })
 
 -- Set configuration for specific filetype.
@@ -255,38 +263,26 @@ cmp.setup.filetype('gitcommit', {
   sources = cmp.config.sources({
     { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
   }, {
-    { name = 'buffer' },
+    cmp_buffer_source(),
   })
 })
 
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline({
-    ['<C-l>'] = cmp.mapping(complete_common_string, { 'c' }),
-    ['<Tab>'] = cmp.mapping(cmd_select_func(cmp.select_next_item), { 'c' }),
-    ['<S-Tab>'] = cmp.mapping(cmd_select_func(cmp.select_prev_item), { 'c' }),
-    ['<CR>'] = cmp.mapping(confirm_func, { 'c' }),
-    ['<M-CR>'] = cmp.mapping(confirm_insert_func, { 'c' }),
-  }),
-  sources = {
-    { name = 'buffer' },
-    {
-      name = 'cmdline_history',
-      option = { history_type = '/' },
-      max_item_count = 7,
-    },
-  },
-  formatting = {
-    format = lspkind.cmp_format({
-      mode = 'symbol',
-      menu = ({
-        buffer = '[Buffer]',
-        cmdline_history = '[History]',
-      })
+for _, cmd_type in ipairs({ '/', '?' }) do
+  cmp.setup.cmdline(cmd_type, {
+    mapping = cmp.mapping.preset.cmdline({
+      ['<C-l>'] = cmp.mapping(complete_common_string, { 'c' }),
+      ['<Tab>'] = cmp.mapping(cmd_select_func(cmp.select_next_item), { 'c' }),
+      ['<S-Tab>'] = cmp.mapping(cmd_select_func(cmp.select_prev_item), { 'c' }),
+      ['<CR>'] = cmp.mapping(confirm_func, { 'c' }),
+      ['<M-CR>'] = cmp.mapping(confirm_insert_func, { 'c' }),
     }),
-  },
-  sorting = sort_config(),
-})
+    sources = {
+      cmp_buffer_source(),
+      { name = 'cmdline_history', option = { history_type = '/' }, },
+    },
+    formatting = cmp_formatting(),
+  })
+end
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
@@ -302,43 +298,10 @@ cmp.setup.cmdline(':', {
     { name = 'path' },
   }, {
     { name = 'cmdline' },
-    {
-      name = 'cmdline_history',
-      option = { history_type = ':' },
-      max_item_count = 7,
-    },
+    { name = 'cmdline_history', option = { history_type = ':' }, },
   }),
-  formatting = {
-    format = lspkind.cmp_format({
-      mode = 'symbol',
-      menu = ({
-        cmdline = '[CmdLine]',
-        cmdline_history = '[History]',
-        path = '[Path]',
-      })
-    }),
-  },
-  sorting = {
-    priority_weight = 1.0,
-    comparators = {
-      compare.length,
-      compare.locality,
-      compare.scopes, -- what?
-      compare.exact,
-      compare.score,
-      compare.offset,
-      compare.length,
-      compare.sort_text,
-      compare.order,
-      compare.recently_used,
-      -- compare.kind,
-      -- compare.score_offset, -- not good at all
-    }
-  }
+  formatting = cmp_formatting(),
 })
-
--- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 
 -- --------------------------------------------------------------------------
@@ -346,20 +309,22 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 -- --------------------------------------------------------------------------
 -- Colors for nvim-cmp completion menus. Thank you:
 --   - https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#how-to-add-visual-studio-code-dark-theme-colors-to-the-menu=
---   - https://www.reddit.com/r/neovim/comments/r42njg/here_are_the_vs_code_theme_colors_for_the_new/hmelirh/
-vim.cmd('set termguicolors')
-vim.cmd('syntax on')
-vim.cmd('highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080')
-vim.cmd('highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6')
-vim.cmd('highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6')
-vim.cmd('highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE')
-vim.cmd('highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE')
-vim.cmd('highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE')
-vim.cmd('highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0')
-vim.cmd('highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0')
-vim.cmd('highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4')
-vim.cmd('highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4')
-vim.cmd('highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4')
+-- gray
+vim.api.nvim_set_hl(0, 'CmpItemAbbrDeprecated', { bg = 'NONE', strikethrough = true, fg = '#808080' })
+-- blue
+vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', { bg = 'NONE', fg = '#569CD6' })
+vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', { link = 'CmpIntemAbbrMatch' })
+-- light blue
+vim.api.nvim_set_hl(0, 'CmpItemKindVariable', { bg = 'NONE', fg = '#9CDCFE' })
+vim.api.nvim_set_hl(0, 'CmpItemKindInterface', { link = 'CmpItemKindVariable' })
+vim.api.nvim_set_hl(0, 'CmpItemKindText', { link = 'CmpItemKindVariable' })
+-- pink
+vim.api.nvim_set_hl(0, 'CmpItemKindFunction', { bg = 'NONE', fg = '#C586C0' })
+vim.api.nvim_set_hl(0, 'CmpItemKindMethod', { link = 'CmpItemKindFunction' })
+-- front
+vim.api.nvim_set_hl(0, 'CmpItemKindKeyword', { bg = 'NONE', fg = '#D4D4D4' })
+vim.api.nvim_set_hl(0, 'CmpItemKindProperty', { link = 'CmpItemKindKeyword' })
+vim.api.nvim_set_hl(0, 'CmpItemKindUnit', { link = 'CmpItemKindKeyword' })
 
 
 -- --------------------------------------------------------------------------
@@ -379,6 +344,7 @@ require('mason-lspconfig').setup({
 --   - https://github.com/neovim/nvim-lspconfig#suggested-configuration=
 --   - https://github.com/hrsh7th/nvim-cmp/#recommended-configuration=
 local lspconfig = require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
