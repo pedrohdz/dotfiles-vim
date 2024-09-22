@@ -124,3 +124,10 @@ oil.setup({
     is_always_hidden = is_always_hidden
   },
 })
+
+
+-- ----------------------------------------------------------------------------
+-- Key maps
+-- ----------------------------------------------------------------------------
+vim.keymap.set('n', '-', oil.open, { desc = 'Oil reletive to buffer' })
+vim.keymap.set('n', '_', function() oil.open(vim.fn.getcwd()) end, { desc = 'Oil CWD' })

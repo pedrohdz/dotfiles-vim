@@ -191,9 +191,6 @@ register({
   quick_opts()
 )
 
--- TODO - Figure out how to handle the following.
-vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Oil' })
-
 
 -- ----
 -- Find Strings
