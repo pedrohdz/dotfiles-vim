@@ -235,7 +235,7 @@ register({
 local trouble = require("trouble")
 local trouble_func = function(func)
   return function()
-    func({skip_groups = true, jump = true})
+    func({ skip_groups = true, jump = true })
   end
 end
 
@@ -253,12 +253,18 @@ register(
 -- ----------------------------------------------------------------------------
 -- Other
 -- ----------------------------------------------------------------------------
+local clean_trailing_whitespace = function()
+  local save = vim.fn.winsaveview()
+  vim.cmd([[keeppatterns %s/\s\+$//]])
+  vim.fn.winrestview(save)
+end
+
 register({
   C = {
     name = 'clean',
-    N = 'clean-vertical-whitespace',
-    T = 'clean-tabs',
-    W = 'clean-whitespace',
+    -- N = { 'clean-vertical-whitespace' }, --  TODO - :%s/^\n\+/\r//<cr>:let @/=''<cr>
+    T = { vim.cmd.retab, 'clean-tabs' },
+    W = { clean_trailing_whitespace, 'clean-trailing-whitespace' },
   },
-  ['\\'] = { '<cmd>nohlsearch<cr>', 'Clear search highlights' }
+  ['\\'] = { vim.cmd.nohlsearch, 'Clear search highlights' }
 }, { prefix = '<leader>' })
