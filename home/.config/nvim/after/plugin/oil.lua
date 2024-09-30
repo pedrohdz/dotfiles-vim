@@ -101,10 +101,10 @@ oil.setup({
 
   columns = {
     'icon',
-    'type',
-    'permissions',
-    'size',
-    'mtime',
+    -- 'type',
+    -- 'permissions',
+    -- 'size',
+    -- 'mtime',
   },
   keymaps = {
     ['<C-s>'] = false,
