@@ -277,8 +277,8 @@ for _, cmd_type in ipairs({ '/', '?' }) do
       ['<M-CR>'] = cmp.mapping(confirm_insert_func, { 'c' }),
     }),
     sources = {
-      cmp_buffer_source(),
       { name = 'cmdline_history', option = { history_type = '/' }, },
+      { name = 'buffer' },
     },
     formatting = cmp_formatting(),
   })
