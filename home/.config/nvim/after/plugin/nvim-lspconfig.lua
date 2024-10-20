@@ -269,15 +269,16 @@ cmp.setup.filetype('gitcommit', {
 
 for _, cmd_type in ipairs({ '/', '?' }) do
   cmp.setup.cmdline(cmd_type, {
-    mapping = cmp.mapping.preset.cmdline({
-      ['<C-l>'] = cmp.mapping(complete_common_string, { 'c' }),
-      ['<Tab>'] = cmp.mapping(cmd_select_func(cmp.select_next_item), { 'c' }),
-      ['<S-Tab>'] = cmp.mapping(cmd_select_func(cmp.select_prev_item), { 'c' }),
-      ['<CR>'] = cmp.mapping(confirm_func, { 'c' }),
-      ['<M-CR>'] = cmp.mapping(confirm_insert_func, { 'c' }),
-    }),
+    mapping = cmp.mapping.preset.cmdline(),
+    -- mapping = cmp.mapping.preset.cmdline({
+    --   ['<C-l>'] = cmp.mapping(complete_common_string, { 'c' }),
+    --   ['<Tab>'] = cmp.mapping(cmd_select_func(cmp.select_next_item), { 'c' }),
+    --   ['<S-Tab>'] = cmp.mapping(cmd_select_func(cmp.select_prev_item), { 'c' }),
+    --   ['<CR>'] = cmp.mapping(confirm_func, { 'c' }),
+    --   ['<M-CR>'] = cmp.mapping(confirm_insert_func, { 'c' }),
+    -- }),
     sources = {
-      { name = 'cmdline_history', option = { history_type = '/' }, },
+      -- { name = 'cmdline_history', option = { history_type = '/' }, },
       { name = 'buffer' },
     },
     formatting = cmp_formatting(),
@@ -286,20 +287,23 @@ end
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline({
-    ['<C-l>'] = cmp.mapping(complete_common_string, { 'c' }),
-    ['<Tab>'] = cmp.mapping(cmd_select_func(cmp.select_next_item), { 'c' }),
-    ['<S-Tab>'] = cmp.mapping(cmd_select_func(cmp.select_prev_item), { 'c' }),
-    ['<CR>'] = cmp.mapping(confirm_func, { 'c' }),
-    ['<M-CR>'] = cmp.mapping(confirm_insert_func, { 'c' }),
-    ['<Space>'] = cmp.mapping(confirm_with_tail('<Space>'), { 'c' }),
-  }),
+  mapping = cmp.mapping.preset.cmdline(),
+  -- mapping = cmp.mapping.preset.cmdline({
+  --   ['<C-l>'] = cmp.mapping(complete_common_string, { 'c' }),
+  --   ['<Tab>'] = cmp.mapping(cmd_select_func(cmp.select_next_item), { 'c' }),
+  --   ['<S-Tab>'] = cmp.mapping(cmd_select_func(cmp.select_prev_item), { 'c' }),
+  --   ['<CR>'] = cmp.mapping(confirm_func, { 'c' }),
+  --   ['<M-CR>'] = cmp.mapping(confirm_insert_func, { 'c' }),
+  --   ['<Space>'] = cmp.mapping(confirm_with_tail('<Space>'), { 'c' }),
+  -- }),
   sources = cmp.config.sources({
     { name = 'path' },
   }, {
+    -- { name = 'cmdline_history', option = { history_type = ':' }, },
     { name = 'cmdline' },
-    { name = 'cmdline_history', option = { history_type = ':' }, },
+    { name = 'buffer' },
   }),
+  matching = { disallow_symbol_nonprefix_matching = true },
   formatting = cmp_formatting(),
 })
 
