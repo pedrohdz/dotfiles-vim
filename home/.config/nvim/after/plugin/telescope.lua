@@ -60,8 +60,29 @@ local vimgrep_arguments = {
   '--with-filename',
 }
 
+local sort_buffers = function(bufnr_a, bufnr_b)
+  local path_a = vim.fn.fnamemodify(
+    vim.api.nvim_buf_get_name(bufnr_a),
+    ':p'
+  )
+  local path_b = vim.fn.fnamemodify(
+    vim.api.nvim_buf_get_name(bufnr_b),
+    ':p'
+  )
+  return path_a < path_b
+end
+
 telescope.setup({
   defaults = {
+    sorting_strategy = 'ascending',
+    vimgrep_arguments = vimgrep_arguments,
+
+    file_ignore_patterns = {
+      '^.git/',
+    },
+    layout_config = {
+      prompt_position = 'top',
+    },
     mappings = {
       i = {
         ['<C-/>'] = false,
@@ -70,6 +91,10 @@ telescope.setup({
         ['<C-x>'] = false,
 
         ['<M-?>'] = actions.which_key,
+
+        -- Prompt history
+        ['<C-n>'] = actions.cycle_history_next,
+        ['<C-p>'] = actions.cycle_history_prev,
 
         -- New windows --
         ['<M-v>'] = actions.select_vertical,
@@ -101,15 +126,19 @@ telescope.setup({
         ['<M-t>'] = _actions.open_with_trouble,
       },
     },
-    vimgrep_arguments = vimgrep_arguments,
-    file_ignore_patterns = {
-      '^.git/',
-    }
   },
+
   pickers = {
     buffers = {
+      select_current = true,
       show_all_buffers = true,
-      previewer = true,
+      sort_buffers = sort_buffers,
+      theme = "dropdown",
+
+      layout_config = {
+        anchor = 'N',
+        width = 0.7,
+      },
       mappings = {
         i = {
           ['<M-d>'] = 'delete_buffer',
@@ -117,7 +146,10 @@ telescope.setup({
         n = {
           ['dd'] = 'delete_buffer',
         },
-      }
+      },
+      path_display = {
+        'filename_first'
+      },
     }
   },
 })
