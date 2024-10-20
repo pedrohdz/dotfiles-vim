@@ -137,15 +137,6 @@ return require('packer').startup(function(use)
     }
   }
 
-  use {
-    'zbirenbaum/copilot.lua',
-    -- cmd = 'Copilot',
-    -- event = 'InsertEnter',
-    config = function()
-      require('copilot').setup({})
-    end,
-  }
-
   use({
     "jackMort/ChatGPT.nvim",
     requires = {
