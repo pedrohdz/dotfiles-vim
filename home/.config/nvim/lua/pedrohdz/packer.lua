@@ -137,20 +137,25 @@ return require('packer').startup(function(use)
     }
   }
 
-  use({
-    "jackMort/ChatGPT.nvim",
+  use {
+    'yetone/avante.nvim',
     requires = {
-      "MunifTanjim/nui.nvim",
-      "folke/trouble.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
+      -- Required plugins
+      'nvim-treesitter/nvim-treesitter',
+      'stevearc/dressing.nvim',
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+      'MeanderingProgrammer/render-markdown.nvim',
+      { 'nvim-tree/nvim-web-devicons', opt = true },
+      { 'HakonHarnes/img-clip.nvim',   opt = true },
+      { 'zbirenbaum/copilot.lua',      opt = true },
     }
-  })
+  }
 
   use {
     'folke/which-key.nvim',
     -- tag = 'v1.*',  -- the `*` does not seem to work
-    tag = 'v1.6.1',  -- FIXME - needs to be updated
+    tag = 'v1.6.1', -- FIXME - needs to be updated
     requires = {
       'nvim-lua/plenary.nvim',
     }
@@ -158,7 +163,7 @@ return require('packer').startup(function(use)
 
   use {
     'echasnovski/mini.ai',
-    tag = 'v0.13.0',  -- FIXME - needs to be updated
+    tag = 'v0.13.0', -- FIXME - needs to be updated
     config = function()
       require('mini.ai').setup()
     end,
