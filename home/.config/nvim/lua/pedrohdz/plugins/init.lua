@@ -117,26 +117,6 @@ return {
     }
   },
 
-  --  Remember to run the following:
-  --    cd $HOME/.local/share/nvim/site/pack/packer/start/avante.nvim
-  --    make
-  --  Fix is from:
-  --    - https://github.com/yetone/avante.nvim/issues/547#issuecomment-2334232455
-  {
-    'yetone/avante.nvim',
-    dependencies = {
-      -- Required plugins
-      'nvim-treesitter/nvim-treesitter',
-      'stevearc/dressing.nvim',
-      'nvim-lua/plenary.nvim',
-      'MunifTanjim/nui.nvim',
-      'MeanderingProgrammer/render-markdown.nvim',
-      { 'nvim-tree/nvim-web-devicons', lazy = true },
-      { 'HakonHarnes/img-clip.nvim',   lazy = true },
-      { 'zbirenbaum/copilot.lua',      lazy = true },
-    }
-  },
-
   {
     'folke/which-key.nvim',
     -- version = 'v1.*',  -- the `*` does not seem to work

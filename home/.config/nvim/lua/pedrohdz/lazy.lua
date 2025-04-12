@@ -19,10 +19,10 @@ end
 
 ensure_lazy()
 
--- Make sure to setup `mapleader` and `maplocalleader` before
+-- NOTE - We have to load in the basic NeoVim/Vim settings first,
+-- especially `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
-vim.g.mapleader = '\\'
-vim.g.maplocalleader = ' '
+require('pedrohdz.settings')
 
 require('lazy').setup('pedrohdz.plugins')
