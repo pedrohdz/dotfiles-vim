@@ -137,6 +137,11 @@ return require('packer').startup(function(use)
     }
   }
 
+  --  Remember to run the following:
+  --    cd $HOME/.local/share/nvim/site/pack/packer/start/avante.nvim
+  --    make
+  --  Fix is from:
+  --    - https://github.com/yetone/avante.nvim/issues/547#issuecomment-2334232455
   use {
     'yetone/avante.nvim',
     requires = {
