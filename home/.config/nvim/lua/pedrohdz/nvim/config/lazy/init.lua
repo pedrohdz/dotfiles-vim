@@ -19,10 +19,4 @@ end
 
 ensure_lazy()
 
--- NOTE - We have to load in the basic NeoVim/Vim settings first,
--- especially `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
-require('pedrohdz.settings')
-
-require('lazy').setup('pedrohdz.plugins')
+require('lazy').setup('pedrohdz.nvim.config.lazy.plugins')
