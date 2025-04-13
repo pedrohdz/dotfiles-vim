@@ -1,7 +1,11 @@
 require('lualine').setup({
-  options = {
-    theme = 'jellybeans'
-  }
+  -- TODO - Note working. Gives the following error (:LualineNotices):
+  --  Theme `jellybeans` not found, falling back to `auto`. Check if spelling
+  --  is right.
+  --
+  -- options = {
+  --   theme = 'jellybeans'
+  -- }
 })
 
 -- Cleaning up the status line

@@ -52,16 +52,6 @@ return {
   },
 
   -- -----------------------------------------------------------------------------
-  -- Color configuration
-  'altercation/vim-colors-solarized',
-  'dhruvasagar/vim-railscasts-theme',
-  'morhetz/gruvbox',
-  'nanotech/jellybeans.vim',
-  'romainl/Apprentice',
-
-  'vim-scripts/colorsel.vim',
-
-  -- -----------------------------------------------------------------------------
   -- New plugins (post `dr-vimfiles*`)
   'farmergreg/vim-lastplace',
   'junegunn/fzf',
@@ -78,7 +68,9 @@ return {
 
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
   },
 
   {
