@@ -7,9 +7,13 @@ return {
   'hrsh7th/cmp-nvim-lua',
   'hrsh7th/cmp-path',
   'hrsh7th/nvim-cmp',
-  'kyazdani42/nvim-web-devicons',
   'onsails/lspkind.nvim',
   'windwp/nvim-autopairs',
+
+  {
+    'nvim-tree/nvim-web-devicons',
+    opts = {}
+  },
 
   {
     'williamboman/mason.nvim',
@@ -43,13 +47,6 @@ return {
     }
   },
 
-  {
-    'nvim-treesitter/nvim-treesitter',
-    build = function()
-      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-      ts_update()
-    end,
-  },
 
   -- -----------------------------------------------------------------------------
   -- New plugins (post `dr-vimfiles*`)
@@ -148,7 +145,7 @@ return {
   'sjl/gundo.vim',
   'tpope/vim-fugitive',
   'tpope/vim-haml',
-  'tpope/vim-markdown',
+  -- 'tpope/vim-markdown',
   'tpope/vim-repeat',
   'tpope/vim-sensible',
   'tpope/vim-speeddating',
