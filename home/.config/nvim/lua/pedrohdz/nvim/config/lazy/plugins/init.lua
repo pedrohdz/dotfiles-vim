@@ -57,11 +57,11 @@ return {
   'mustache/vim-mustache-handlebars',
   'pearofducks/ansible-vim',
   'towolf/vim-helm',
-  { 'cespare/vim-toml', branch = 'main', ft = 'toml' },
+  { 'cespare/vim-toml',                   branch = 'main', ft = 'toml' },
   { 'lewis6991/gitsigns.nvim' },
   { 'lukas-reineke/indent-blankline.nvim' },
   { 'numToStr/Comment.nvim' },
-  { 'rust-lang/rust.vim', ft = 'rust' },
+  { 'rust-lang/rust.vim',                 ft = 'rust' },
 
   {
     'nvim-lualine/lualine.nvim',
@@ -108,7 +108,7 @@ return {
 
   {
     'folke/which-key.nvim',
-    version = 'v1.*',  -- the `*` does not seem to work
+    version = 'v1.*', -- the `*` does not seem to work
     dependencies = {
       'nvim-lua/plenary.nvim',
     }
@@ -127,11 +127,6 @@ return {
   'elzr/vim-json',
   'kevinoid/vim-jsonc',
   'pedrohdz/vim-yaml-folds',
-
-  {
-    'iamcco/markdown-preview.nvim',
-    build = function() vim.fn['mkdp#util#install']() end,
-  },
 
   -- -----------------------------------------------------------------------------
   -- From original dr-vimfiles
