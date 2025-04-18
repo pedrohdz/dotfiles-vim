@@ -53,7 +53,6 @@ return {
   'farmergreg/vim-lastplace',
   'junegunn/fzf',
   'junegunn/fzf.vim',
-  'lambdalisue/fern.vim',
   'mustache/vim-mustache-handlebars',
   'pearofducks/ansible-vim',
   'towolf/vim-helm',

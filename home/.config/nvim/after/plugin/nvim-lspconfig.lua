@@ -57,7 +57,9 @@ local on_attach = function(client, bufnr)
       -- Changes code
       ['r'] = { 'rename', vim.lsp.buf.rename, 'Rename' },
       ['a'] = { 'codeAction', vim.lsp.buf.code_action, 'Code Action' },
-      ['f'] = { 'documentFormatting', function() vim.lsp.buf.format({ async = true }) end, 'Re-format' },
+
+      -- TODO - Replaced by conform.nvim. Delete once verified.
+      -- ['f'] = { 'documentFormatting', function() vim.lsp.buf.format({ async = true }) end, 'Re-format' },
     },
     {
       buffer = bufnr,
