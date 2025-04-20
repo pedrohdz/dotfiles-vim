@@ -1,22 +1,17 @@
--- ----------------------------------------------------------------------------
--- https://github.com/nvim-telescope/telescope.nvim
--- ----------------------------------------------------------------------------
-local action_set = require('telescope.actions.set')
-local actions = require('telescope.actions')
-local transform_mod = require('telescope.actions.mt').transform_mod
-local trouble = require('trouble.sources.telescope')
-
+-- For more information
+--    https://github.com/nvim-telescope/telescope.nvim
 
 -- ----------------------------------------------------------------------------
 -- Custom actions
 -- ----------------------------------------------------------------------------
-local _actions = {}
+local _custom_actions = {}
 
 -- Thank you:
 --   - https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#using-nvim-window-picker-to-choose-a-target-window-when-opening-a-file-from-any-picker
-_actions.window_picker = function(prompt_bufnr)
+_custom_actions.window_picker = function(prompt_bufnr)
   -- Use nvim-window-picker to choose the window by dynamically attaching a function
   local action_state = require('telescope.actions.state')
+  local action_set = require('telescope.actions.set')
 
   local picker = action_state.get_current_picker(prompt_bufnr)
   picker.get_selection_window = function(picker, entry)
@@ -29,19 +24,20 @@ _actions.window_picker = function(prompt_bufnr)
   return action_set.edit(prompt_bufnr, 'edit')
 end
 
-_actions.select_horizontal_above = function(prompt_bufnr)
+_custom_actions.select_horizontal_above = function(prompt_bufnr)
+  local action_set = require('telescope.actions.set')
   return action_set.edit(prompt_bufnr, 'leftabove new')
 end
 
-_actions.select_vertical_left = function(prompt_bufnr)
+_custom_actions.select_vertical_left = function(prompt_bufnr)
+  local action_set = require('telescope.actions.set')
   return action_set.edit(prompt_bufnr, 'leftabove vnew')
 end
 
-_actions.open_with_trouble = function(prompt_bufnr, opts)
+_custom_actions.open_with_trouble = function(prompt_bufnr, opts)
+  local trouble = require('trouble.sources.telescope')
   return trouble.open(prompt_bufnr, opts)
 end
-
-_actions = transform_mod(_actions)
 
 
 -- ----------------------------------------------------------------------------
@@ -71,6 +67,10 @@ local sort_buffers = function(bufnr_a, bufnr_b)
 end
 
 local function get_options()
+  local actions = require('telescope.actions')
+  local transform_mod = require('telescope.actions.mt').transform_mod
+  local _actions = transform_mod(_custom_actions)
+
   return {
     defaults = {
       sorting_strategy = 'ascending',

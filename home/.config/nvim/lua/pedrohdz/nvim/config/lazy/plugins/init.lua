@@ -1,6 +1,5 @@
 return {
   'dmitmel/cmp-cmdline-history',
-  'folke/trouble.nvim',
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-cmdline',
   'hrsh7th/cmp-nvim-lsp',
