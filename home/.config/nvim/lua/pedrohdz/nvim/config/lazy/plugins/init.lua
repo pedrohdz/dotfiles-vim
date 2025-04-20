@@ -33,12 +33,6 @@ return {
   },
 
   {
-    'nvim-telescope/telescope.nvim',
-    -- version = '0.1.6',
-    dependencies = { { 'nvim-lua/plenary.nvim' } }
-  },
-
-  {
     'sudormrfbin/cheatsheet.nvim',
     dependencies = {
       { 'nvim-telescope/telescope.nvim' },

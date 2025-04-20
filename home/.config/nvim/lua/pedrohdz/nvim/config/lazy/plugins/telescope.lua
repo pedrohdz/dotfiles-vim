@@ -3,7 +3,6 @@
 -- ----------------------------------------------------------------------------
 local action_set = require('telescope.actions.set')
 local actions = require('telescope.actions')
-local telescope = require('telescope')
 local transform_mod = require('telescope.actions.mt').transform_mod
 local trouble = require('trouble.sources.telescope')
 
@@ -17,7 +16,6 @@ local _actions = {}
 --   - https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#using-nvim-window-picker-to-choose-a-target-window-when-opening-a-file-from-any-picker
 _actions.window_picker = function(prompt_bufnr)
   -- Use nvim-window-picker to choose the window by dynamically attaching a function
-  local action_set = require('telescope.actions.set')
   local action_state = require('telescope.actions.state')
 
   local picker = action_state.get_current_picker(prompt_bufnr)
@@ -72,84 +70,98 @@ local sort_buffers = function(bufnr_a, bufnr_b)
   return path_a < path_b
 end
 
-telescope.setup({
-  defaults = {
-    sorting_strategy = 'ascending',
-    vimgrep_arguments = vimgrep_arguments,
+local function get_options()
+  return {
+    defaults = {
+      sorting_strategy = 'ascending',
+      vimgrep_arguments = vimgrep_arguments,
 
-    file_ignore_patterns = {
-      '^.git/',
-    },
-    layout_config = {
-      prompt_position = 'top',
-    },
-    mappings = {
-      i = {
-        ['<C-/>'] = false,
-        ['<C-_>'] = false,
-        ['<C-v>'] = false,
-        ['<C-x>'] = false,
-
-        ['<M-?>'] = actions.which_key,
-
-        -- Prompt history
-        ['<C-n>'] = actions.cycle_history_next,
-        ['<C-p>'] = actions.cycle_history_prev,
-
-        -- New windows --
-        ['<M-v>'] = actions.select_vertical,
-        ['<M-V>'] = _actions.select_vertical_left,
-        ['<M-h>'] = actions.select_horizontal,
-        ['<M-H>'] = _actions.select_horizontal_above,
-
-        -- Other --
-        ['<M-p>'] = _actions.window_picker,
-        ['<M-t>'] = _actions.open_with_trouble,
+      file_ignore_patterns = {
+        '^.git/',
       },
-      n = {
-        ['<C-v>'] = false,
-        ['<C-x>'] = false,
-        ['<esc>'] = false,
-        ['?'] = false,
-
-        ['<C-c>'] = actions.close,
-        ['<M-?>'] = actions.which_key,
-
-        -- New windows --
-        ['<M-v>'] = actions.select_vertical,
-        ['<M-V>'] = _actions.select_vertical_left,
-        ['<M-h>'] = actions.select_horizontal,
-        ['<M-H>'] = _actions.select_horizontal_above,
-
-        -- Other --
-        ['<M-p>'] = _actions.window_picker,
-        ['<M-t>'] = _actions.open_with_trouble,
-      },
-    },
-  },
-
-  pickers = {
-    buffers = {
-      select_current = true,
-      show_all_buffers = true,
-      sort_buffers = sort_buffers,
-      theme = "dropdown",
-
       layout_config = {
-        anchor = 'N',
-        width = 0.7,
+        prompt_position = 'top',
       },
       mappings = {
         i = {
-          ['<M-d>'] = 'delete_buffer',
+          ['<C-/>'] = false,
+          ['<C-_>'] = false,
+          ['<C-v>'] = false,
+          ['<C-x>'] = false,
+
+          ['<M-?>'] = actions.which_key,
+
+          -- Prompt history
+          ['<C-n>'] = actions.cycle_history_next,
+          ['<C-p>'] = actions.cycle_history_prev,
+
+          -- New windows --
+          ['<M-v>'] = actions.select_vertical,
+          ['<M-V>'] = _actions.select_vertical_left,
+          ['<M-h>'] = actions.select_horizontal,
+          ['<M-H>'] = _actions.select_horizontal_above,
+
+          -- Other --
+          ['<M-p>'] = _actions.window_picker,
+          ['<M-t>'] = _actions.open_with_trouble,
         },
         n = {
-          ['dd'] = 'delete_buffer',
+          ['<C-v>'] = false,
+          ['<C-x>'] = false,
+          ['<esc>'] = false,
+          ['?'] = false,
+
+          ['<C-c>'] = actions.close,
+          ['<M-?>'] = actions.which_key,
+
+          -- New windows --
+          ['<M-v>'] = actions.select_vertical,
+          ['<M-V>'] = _actions.select_vertical_left,
+          ['<M-h>'] = actions.select_horizontal,
+          ['<M-H>'] = _actions.select_horizontal_above,
+
+          -- Other --
+          ['<M-p>'] = _actions.window_picker,
+          ['<M-t>'] = _actions.open_with_trouble,
         },
       },
-      path_display = {
-        'filename_first'
-      },
-    }
+    },
+
+    pickers = {
+      buffers = {
+        select_current = true,
+        show_all_buffers = true,
+        sort_buffers = sort_buffers,
+        theme = "dropdown",
+
+        layout_config = {
+          anchor = 'N',
+          width = 0.7,
+        },
+        mappings = {
+          i = {
+            ['<M-d>'] = 'delete_buffer',
+          },
+          n = {
+            ['dd'] = 'delete_buffer',
+          },
+        },
+        path_display = {
+          'filename_first'
+        },
+      }
+    },
+  }
+end
+
+-- ----------------------------------------------------------------------------
+-- Lazy
+-- ----------------------------------------------------------------------------
+return {
+  'nvim-telescope/telescope.nvim',
+
+  opts = get_options(),
+  dependencies = {
+    'nvim-lua/plenary.nvim',
   },
-})
+}
