@@ -3,8 +3,7 @@ return {
   event = "VeryLazy",
   version = false, -- Never set this value to "*"! Never!
   opts = {
-    -- add any opts here
-    -- for example
+    -- FIXME - api_key_name = { 'pass', 'show', 'local/api/chatgpt.nvim' },
     provider = "openai",
     openai = {
       endpoint = "https://api.openai.com/v1",
