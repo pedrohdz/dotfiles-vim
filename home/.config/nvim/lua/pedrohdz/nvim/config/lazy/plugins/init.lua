@@ -132,7 +132,6 @@ return {
   'sjl/gundo.vim',
   'tpope/vim-fugitive',
   'tpope/vim-haml',
-  -- 'tpope/vim-markdown',
   'tpope/vim-repeat',
   'tpope/vim-sensible',
   'tpope/vim-speeddating',

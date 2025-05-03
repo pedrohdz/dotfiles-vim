@@ -251,6 +251,7 @@ cmp.setup({
       { name = 'nvim_lsp' },
       cmp_buffer_source(),
       { name = 'path' },
+      { name = 'render-markdown' },
       { name = 'vsnip' }, -- For vsnip users.
       -- { name = 'luasnip' }, -- For luasnip users.
       -- { name = 'ultisnips' }, -- For ultisnips users.
