@@ -7,7 +7,7 @@ return {
   init = function()
     vim.g.mkdp_auto_close = 0
     vim.g.mkdp_combine_preview = 0
-    vim.g.mkdp_filetypes = { 'Avante', ' markdown' }
+    vim.g.mkdp_filetypes = { 'Avante', 'markdown' }
   end,
   cmd = {
     'MarkdownPreview',
@@ -19,7 +19,7 @@ return {
     'markdown',
   },
   build = function()
-    vim.cmd('Lazy load markdown-preview.nvim')
+    require('lazy').load({plugins = 'markdown-preview.nvim'})
     vim.fn['mkdp#util#install']()
   end,
 }
