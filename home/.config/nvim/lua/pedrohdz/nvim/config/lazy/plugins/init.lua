@@ -100,7 +100,7 @@ return {
 
   {
     'folke/which-key.nvim',
-    version = 'v1.*', -- the `*` does not seem to work
+    -- version = 'v1.*', -- the `*` does not seem to work
     dependencies = {
       'nvim-lua/plenary.nvim',
     }

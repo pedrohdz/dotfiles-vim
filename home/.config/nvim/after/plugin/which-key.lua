@@ -5,115 +5,21 @@ local register = require('which-key').register
 
 which_key.setup({
   layout = {
-    height = { min = 10, max = 25 }, -- min and max height of the columns
-    width = { min = 20, max = 50 },  -- min and max width of the columns
-    spacing = 3,                     -- spacing between columns
-    align = 'left',                  -- align columns left, center or right
+    -- width = { min = 20, max = 50 },  -- min and max width of the columns
+    spacing = 3, -- spacing between columns
   },
-  window = {
-    border = 'single',        -- none, single, double, shadow
-    position = 'top',         -- bottom, top
-    margin = { 1, 1, 1, 1 },  -- extra window margin [top, right, bottom, left]
-    padding = { 1, 1, 1, 1 }, -- extra window padding [top, right, bottom, left]
-    winblend = 0
+  win = {
+    border = 'single', -- none, single, double, shadow
+    title = true,
+    title_pos = 'center',
   },
 })
 
-register({
-  d = {
-    name = 'diagnostics',
-    f = { vim.diagnostic.open_float, 'open-diagnostics-float' },
-    o = { vim.diagnostic.setloclist, 'open-diagnostics-list' },
-  },
-  s = {
-    name = 'Switch/toggle',
-    G = { '<cmd>Gitsigns toggle_signs<CR>', 'Gitsigns toggle (all buffers)' },
-    d = { '<Plug>(toggle-lsp-diag)', 'LSP diag toggle (all buffers)' },
-    s = { '<cmd>set spell!<cr>', 'Spell checking' },
-    t = { '<cmd>TroubleToggle<cr>', 'Toggle' },
-    v = { '<Plug>(toggle-lsp-diag-vtext)', 'LSP diag vtext toggle (all buffers)' },
-  },
-  T = {
-    name = 'Trouble',
-    c = { '<cmd>TroubleClose<cr>', 'Close' },
-    r = { '<cmd>TroubleRefresh<cr>', 'Refresh' },
-    t = { '<cmd>TroubleToggle<cr>', 'Toggle' },
-  },
-  t = {
-    name = 'Telescope',
-    f = {
-      name = 'Files',
-      F = { builtin.git_files, 'Fuzzy search git ls-files' },
-      f = { builtin.find_files, 'Files in CWD' },
-      g = { builtin.grep_string, 'Grep for string under cursor in CWD' },
-      l = { builtin.live_grep, 'String search in CWD' },
-    },
-    g = {
-      name = 'Git',
-      C = { builtin.git_bcommits, 'Commit diffs (buffer)' },
-      S = { builtin.git_stash, 'Stash' },
-      b = { builtin.git_branches, 'Branches, checkout <cr>, track <C-t>. rebase <C-r>' },
-      c = { builtin.git_commits, 'Commit diffs (workspace)' },
-      s = { builtin.git_status, 'Status' },
-    },
-    o = {
-      name = 'Other',
-      t = { '<cmd>TodoTelescope<cr>', 'Todo Telescope' },
-    },
-    p = {
-      name = 'Telescope pickers',
-      P = { builtin.planets, 'Planets' },
-      b = { builtin.builtin, 'Built-ins' },
-      l = { builtin.reloader, 'Lua module reload' },
-      s = { builtin.symbols, 'symbols inside data/telescope-sources/*.json' },
-    },
-    v = {
-      name = 'Vim',
-      C = { builtin.commands, 'Commands' },
-      D = { builtin.colorscheme, 'Colorschemes' },
-      F = { builtin.filetypes, 'Filetypes' },
-      H = { builtin.highlights, 'Highlights' },
-      M = { builtin.man_pages, 'Manpage' },
-      O = { builtin.vim_options, 'Vim options' },
-      P = { builtin.pickers, 'Previous pickers' },
-      Q = { builtin.quickfixhistory, 'Quickfix history' },
-      S = { builtin.spell_suggest, 'Spelling suggestions' },
-      T = { builtin.tags, 'Tags' },
-      a = { builtin.autocommands, 'Autocommands' },
-      b = { builtin.buffers, 'Buffers' },
-      c = { builtin.command_history, 'Commands history' },
-      f = { builtin.current_buffer_fuzzy_find, 'Buffer live fuzzy search' },
-      h = { builtin.help_tags, 'Help tags' },
-      j = { builtin.jumplist, 'Jump List' },
-      k = { builtin.keymaps, 'Normal mode keymappings' },
-      l = { builtin.loclist, 'Locations (current window' },
-      m = { builtin.marks, 'Marks' },
-      o = { builtin.oldfiles, 'Previously open files' },
-      p = { builtin.resume, 'Resume previous picker results' },
-      q = { builtin.quickfix, 'Quickfix list' },
-      r = { builtin.registers, 'Registers' },
-      s = { builtin.search_history, 'Searches history' },
-      t = { builtin.current_buffer_tags, 'Buffer tags' },
-    },
-  },
-}, {
-  mode = 'n',
-  noremap = true,
-  nowait = true,
-  prefix = '<leader>',
-  silent = true,
-})
 
-register({
-  ['[g'] = { vim.diagnostic.goto_prev, 'goto-prev-diagnostics' },
-  [']g'] = { vim.diagnostic.goto_next, 'goto-next-diagnostics' },
-}, {
-  mode = 'n',
-  noremap = true,
-  nowait = true,
-  silent = true,
+which_key.add({
+  { '[g', vim.diagnostic.goto_prev, desc = 'goto-prev-diagnostics', },
+  { ']g', vim.diagnostic.goto_next, desc = 'goto-next-diagnostics', },
 })
-
 
 -- ----------------------------------------------------------------------------
 -- New custom mappings
@@ -126,103 +32,84 @@ local with_cwd = require('pedrohdz.utils').with_cwd
 local with_cwd_project_root = require('pedrohdz.utils').with_cwd_project_root
 local nvtree = require("nvim-tree.api").tree
 
-local quick_opts = function(mode)
-  return {
-    mode = mode or 'n',
-    noremap = true,
-    nowait = true,
-    silent = true,
-  }
-end
-
 -- ----
 -- Function keys
 -- ----
-register(
-  {
-    ['<F2>'] = { builtin.buffers, 'Telescope Buffers' },
-    ['<S-F2>'] = { '<cmd>ToggleBufExplorer<cr>', 'Buffer Explorer' },
-    -- ['<S-F4>'] = AVAILABLE
-    ['<F5>'] = { '<cmd>GundoToggle<cr>', 'GundoToggle' },
-    ['<F6>'] = { '<cmd>YRShow<cr>', 'YRShow' },
-    ['<F7>'] = 'Paste toggle',
-  },
-  quick_opts()
-)
+which_key.add({
+  { '<F2>',   builtin.buffers,              desc = 'Telescope Buffers' },
+  { '<S-F2>', '<cmd>ToggleBufExplorer<cr>', desc = 'Buffer Explorer' }, -- FIXME - Broken
+  -- quick_map({ '<S-F4>', '', desc = '' }),
+  { '<F5>',   '<cmd>GundoToggle<cr>',       desc = 'GundoToggle' },
+  { '<F6>',   '<cmd>YRShow<cr>',            desc = 'YRShow' },
+  { '<F7>',   desc = 'Paste toggle' },
+})
 
 -- ----
 -- Help
 -- ----
-register({ ['<F1>'] = { '<cmd>WhichKey<cr>', 'WhichKey all' } }, quick_opts())
-register({ ['<S-F1>'] = { builtin.keymaps, 'Telescope Vim keymaps' } }, quick_opts())
+local which_key_help = function(mode, keys)
+  return function()
+    which_key.show({ mode = mode, keys = keys })
+  end
+end
 
-register({ ['<F1>'] = { '<cmd>WhichKey "" i<cr>', 'WhichKey INSERT' } }, quick_opts('i'))
-register({ ['<F1>'] = { '<cmd>WhichKey "" v<cr>', 'WhichKey VISUAL' } }, quick_opts('v'))
-
-register({ ['<leader><F1>'] = { '<cmd>WhichKey <leader><cr>', 'WhichKey <leader> all' } }, quick_opts())
-register({ ['<leader><F1>'] = { '<cmd>WhichKey <leader> v<cr>', 'WhichKey <leader> VISUAL' } }, quick_opts('v'))
-
-register({ ['<localleader><F1>'] = { '<cmd>WhichKey <localleader><cr>', 'WhichKey <localleader> all' } }, quick_opts())
-register({ ['<localleader><F1>'] = { '<cmd>WhichKey <localleader> v<cr>', 'WhichKey <localleader> VISUAL' } },
-  quick_opts('v'))
+which_key.add({
+  { '<F1>',   which_key_help('n', ''), desc = 'WhichKey NORMAL' },
+  { '<S-F1>', builtin.keymaps,         desc = 'Telescope Vim keymaps' }, -- FIXME - Broken
+  { '<F1>',   which_key_help('i', ''), desc = 'WhichKey INSERT',      mode = 'i' },
+  { '<F1>',   which_key_help('v', ''), desc = 'WhichKey VISUAL',      mode = 'v' },
+})
 
 -- ----
 -- Common WhichKey names
 -- ----
-register({ ['<leader>r'] = { name = 'Relative to buffer' } })
+which_key.add({
+  { '<leader>r', group = 'Relative to buffer' },
+})
 
 -- ----
 -- Find Files
 -- ----
-register({
-    ['<F3>'] = { with_cwd_project_root(find_files, find_files_opts), 'Files, CWD project root', },
-    ['<S-F3>'] = { with_cwd(find_files, find_files_opts), 'Files, CWD' },
-    ['<F4>'] = { with_cwd_project_root(nvtree.toggle, {}), 'nvim-tree, CWD project root' },
-    ['<S-F4>'] = { with_cwd(nvtree.toggle, {}), 'nvim-tree, CWD' },
+which_key.add({
+  { '<F3>',            with_cwd_project_root(find_files, find_files_opts),    desc = 'Files, CWD project root' },
+  { '<S-F3>',          with_cwd(find_files, find_files_opts),                 desc = 'Files, CWD' },
+  { '<F4>',            with_cwd_project_root(nvtree.toggle, {}),              desc = 'nvim-tree, CWD project root' },
+  { '<S-F4>',          with_cwd(nvtree.toggle, {}),                           desc = 'nvim-tree, CWD' },
 
-    -- Relative to Buffer --
-    ['<leader>r<F3>'] = { with_buffer_dir(find_files, find_files_opts), 'Files, buf dir' },
-    ['<leader>r<F4>'] = { with_buffer_dir(nvtree.toggle, {}), 'nvim-tree, buf dir' },
+  -- Relative to Buffer --
+  { '<leader>r<F3>',   with_buffer_dir(find_files, find_files_opts),          desc = 'Files, buf dir' },
+  { '<leader>r<F4>',   with_buffer_dir(nvtree.toggle, {}),                    desc = 'nvim-tree, buf dir' },
 
-    -- TODO - Not working
-    ['<leader>r<S-F3>'] = { with_buffer_project_root(find_files, find_files_opts), 'Files, buf project root', },
-    ['<leader>r<S-F4>'] = { with_buffer_project_root(nvtree.toggle, {}), 'nvim-tree, buf project root', },
-  },
-  quick_opts()
-)
-
+  -- TODO - Not working
+  { '<leader>r<S-F3>', with_buffer_project_root(find_files, find_files_opts), desc = 'Files, buf project root' },
+  { '<leader>r<S-F4>', with_buffer_project_root(nvtree.toggle, {}),           desc = 'nvim-tree, buf project root' },
+})
 
 -- ----
 -- Find Strings
 -- ----
-register({
-  -- ['?'] = { '<cmd>Cheatsheet<cr>', 'Cheatsheet' },
+which_key.add({
+  -- { '?',  '<cmd>Cheatsheet<cr>', desc = 'Cheatsheet' },
 
   -- ----
   -- Live Grep
   -- ----
-  ['/'] = { with_cwd(builtin.live_grep), 'String search, CWD' },
-  ['?'] = { with_cwd_project_root(builtin.live_grep), 'String search, CWD project root' },
+  { '<leader>/',  with_cwd(builtin.live_grep),                   desc = 'String search, CWD' },
+  { '<leader>?',  with_cwd_project_root(builtin.live_grep),      desc = 'String search, CWD project root' },
 
   -- Relative to Buffer --
-  ['r/'] = { with_buffer_dir(builtin.live_grep), 'String search, buf dir' },
-  ['r?'] = { with_buffer_project_root(builtin.live_grep), 'String search, buf project root' },
+  { '<leader>r/', with_buffer_dir(builtin.live_grep),            desc = 'String search, buf dir' },
+  { '<leader>r?', with_buffer_project_root(builtin.live_grep),   desc = 'String search, buf project root' },
 
   -- ----
   -- Grep Current String --
   -- ----
-  ['*'] = { with_cwd(builtin.grep_string), 'Grep current string, CWD' },
-  ['#'] = { with_cwd_project_root(builtin.grep_string), 'Grep current string, CWD project root' },
+  { '<leader>*',  with_cwd(builtin.grep_string),                 desc = 'Grep current string, CWD' },
+  { '<leader>#',  with_cwd_project_root(builtin.grep_string),    desc = 'Grep current string, CWD project root' },
 
   -- Relative to Buffer --
-  ['r*'] = { with_buffer_dir(builtin.grep_string), 'Grep current string, buf dir' },
-  ['r#'] = { with_buffer_project_root(builtin.grep_string), 'Grep current string, buf project root' },
-}, {
-  mode = 'n',
-  noremap = true,
-  nowait = true,
-  prefix = '<leader>',
-  silent = true,
+  { '<leader>r*', with_buffer_dir(builtin.grep_string),          desc = 'Grep current string, buf dir' },
+  { '<leader>r#', with_buffer_project_root(builtin.grep_string), desc = 'Grep current string, buf project root' },
 })
 
 
@@ -236,15 +123,12 @@ local trouble_func = function(func)
   end
 end
 
-register(
-  {
-    [']r'] = { trouble_func(trouble.next), 'Trouble - next' },
-    [']R'] = { trouble_func(trouble.last), 'Trouble - last' },
-    ['[r'] = { trouble_func(trouble.previous), 'Trouble - back' },
-    ['[R'] = { trouble_func(trouble.first), 'Trouble - first' },
-  },
-  quick_opts()
-)
+which_key.add({
+  { ']r', trouble_func(trouble.next),     desc = 'Trouble - next' },
+  { ']R', trouble_func(trouble.last),     desc = 'Trouble - last' },
+  { '[r', trouble_func(trouble.previous), desc = 'Trouble - back' },
+  { '[R', trouble_func(trouble.first),    desc = 'Trouble - first' },
+})
 
 
 -- ----------------------------------------------------------------------------
@@ -256,12 +140,10 @@ local clean_trailing_whitespace = function()
   vim.fn.winrestview(save)
 end
 
-register({
-  C = {
-    name = 'clean',
-    -- N = { 'clean-vertical-whitespace' }, --  TODO - :%s/^\n\+/\r//<cr>:let @/=''<cr>
-    T = { vim.cmd.retab, 'clean-tabs' },
-    W = { clean_trailing_whitespace, 'clean-trailing-whitespace' },
-  },
-  ['\\'] = { vim.cmd.nohlsearch, 'Clear search highlights' }
-}, { prefix = '<leader>' })
+which_key.add({
+  { "<leader>C",  group = "clean" },
+  -- N = { 'clean-vertical-whitespace' }, --  TODO - :%s/^\n\+/\r//<cr>:let @/=''<cr>
+  { '<leader>CT', vim.cmd.retab,             desc = 'clean-tabs' },
+  { '<leader>CW', clean_trailing_whitespace, desc = 'clean-trailing-whitespace' },
+  { '<leader>\\', vim.cmd.nohlsearch,        desc = 'Clear search highlights' },
+})

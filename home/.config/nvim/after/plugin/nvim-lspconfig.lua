@@ -43,7 +43,10 @@ local on_attach = function(client, bufnr)
 
   -- To list capabilities:
   --    `:lua vim.lsp.get_active_clients()[1].server_capabilities`
-  which_key.register({ name = 'Local Leader' }, { prefix = '<localleader>' })
+  which_key.add({
+    { '<localleader>', group = 'Local Leader' },
+  })
+
   whichkey_register_lsp_capability(
     {
       ['*'] = { 'references', builtin.lsp_references, 'Show references' },
@@ -69,40 +72,35 @@ local on_attach = function(client, bufnr)
     }
   )
 
-  which_key.register({
-    g = {
-      name = 'Goto',
-      -- Common gotos
-      i = { builtin.lsp_implementations, 'Goto implementation, word under the cursor' },
+  which_key.add({
+    { '<localleader>g',  group = 'Goto',                                      buffer = bufnr },
 
-      -- Show symbols
-      s = { builtin.lsp_document_symbols, 'Document symbols (buffer)' },
-      S = { builtin.lsp_workspace_symbols, 'Document symbols (workspace)' },
-      y = { builtin.lsp_dynamic_workspace_symbols, 'Dynamic symbols (workspace)' },
-      T = { builtin.treesitter, 'Treesitter' },
+    -- Common gotos
+    { '<localleader>gi', builtin.lsp_implementations,                         desc = 'Goto implementation, word under the cursor', buffer = bufnr },
 
-      -- Ins & outs
-      I = { builtin.lsp_incoming_calls, 'Incoming calls, word under the cursor' },
-      O = { builtin.lsp_outgoing_calls, 'Outgoing calls, word under the cursor' },
+    -- Show symbols
+    { '<localleader>gs', builtin.lsp_document_symbols,                        desc = 'Document symbols (buffer)',                  buffer = bufnr },
+    { '<localleader>gS', builtin.lsp_workspace_symbols,                       desc = 'Document symbols (workspace)',               buffer = bufnr },
+    { '<localleader>gy', builtin.lsp_dynamic_workspace_symbols,               desc = 'Dynamic symbols (workspace)',                buffer = bufnr },
+    { '<localleader>gT', builtin.treesitter,                                  desc = 'Treesitter',                                 buffer = bufnr },
 
-      -- Other
-      g = { function() builtin.diagnostics({ bufnr = 0 }) end, 'Diagnostics (buffer)' },
-      G = { function() builtin.diagnostics({ bufnr = nil }) end, 'Diagnostics (workspace)' },
-      l = { builtin.loclist, 'Loclist' },
-      q = { builtin.quickfix, 'Quickfix' },
-      w = { '<cmd>TodoTelescope<cr>', 'Todo (work) list' },
-    },
-    w = {
-      name = 'Workspace',
-      a = { vim.lsp.buf.add_workspace_folder, 'add_workspace_folder' },
-      l = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, 'list_workspace_folders' },
-      r = { vim.lsp.buf.remove_workspace_folder, 'remove_workspace_folder' },
-    },
-  }, {
-    buffer = bufnr,
-    noremap = true,
-    prefix = '<localleader>',
-    silent = true,
+    -- Ins & outs
+    { '<localleader>gI', builtin.lsp_incoming_calls,                          desc = 'Incoming calls, word under the cursor',      buffer = bufnr },
+    { '<localleader>gO', builtin.lsp_outgoing_calls,                          desc = 'Outgoing calls, word under the cursor',      buffer = bufnr },
+
+    -- Other
+    { '<localleader>gg', function() builtin.diagnostics({ bufnr = 0 }) end,   desc = 'Diagnostics (buffer)',                       buffer = bufnr },
+    { '<localleader>gG', function() builtin.diagnostics({ bufnr = nil }) end, desc = 'Diagnostics (workspace)',                    buffer = bufnr },
+    { '<localleader>gl', builtin.loclist,                                     desc = 'Loclist',                                    buffer = bufnr },
+    { '<localleader>gq', builtin.quickfix,                                    desc = 'Quickfix',                                   buffer = bufnr },
+    { '<localleader>gw', '<cmd>TodoTelescope<cr>',                            desc = 'Todo (work) list',                           buffer = bufnr },
+  })
+
+  which_key.add({
+    { '<localleader>w',  group = 'Workspace',                                                     buffer = bufnr },
+    { '<localleader>wa', vim.lsp.buf.add_workspace_folder,                                        desc = 'add_workspace_folder',    buffer = bufnr },
+    { '<localleader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, desc = 'list_workspace_folders',  buffer = bufnr },
+    { '<localleader>wr', vim.lsp.buf.remove_workspace_folder,                                     desc = 'remove_workspace_folder', buffer = bufnr },
   })
 
   -- Thank you:
