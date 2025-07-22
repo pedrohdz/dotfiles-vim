@@ -44,8 +44,6 @@ return {
   -- -----------------------------------------------------------------------------
   -- New plugins (post `dr-vimfiles*`)
   'farmergreg/vim-lastplace',
-  'junegunn/fzf',
-  'junegunn/fzf.vim',
   'mustache/vim-mustache-handlebars',
   'pearofducks/ansible-vim',
   'towolf/vim-helm',
