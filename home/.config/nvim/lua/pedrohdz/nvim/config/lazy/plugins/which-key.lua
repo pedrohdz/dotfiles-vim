@@ -54,9 +54,7 @@ local configuration = function()
   -- ----
   -- Common WhichKey names
   -- ----
-  which_key.add({
-    { '<leader>r', group = 'Relative to buffer' },
-  })
+  which_key.add({ { '<leader>r', group = 'Relative to buffer' } })
 
   -- ----
   -- Find Files
@@ -129,6 +127,14 @@ local configuration = function()
     { '[R', trouble_func(trouble.first),    desc = 'Trouble - first' },
   })
 
+  which_key.add({
+    { '<leader>s',  group = 'Switch/toggle' },
+    { '<leader>sG', '<cmd>Gitsigns toggle_signs<CR>', desc = 'Gitsigns toggle (all buffers)' },
+    { '<leader>sd', '<Plug>(toggle-lsp-diag)',        desc = 'LSP diag toggle (all buffers)' },
+    { '<leader>ss', '<cmd>set spell!<cr>',            desc = 'Spell checking' },
+    { '<leader>st', '<cmd>TroubleToggle<cr>',         desc = 'Trouble' },
+    { '<leader>sv', '<Plug>(toggle-lsp-diag-vtext)',  desc = 'LSP diag vtext toggle (all buffers)' },
+  })
 
   -- ----------------------------------------------------------------------------
   -- Other
