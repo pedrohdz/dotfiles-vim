@@ -99,14 +99,6 @@ return {
   },
 
   {
-    'folke/which-key.nvim',
-    -- version = 'v1.*', -- the `*` does not seem to work
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    }
-  },
-
-  {
     'echasnovski/mini.ai',
     version = 'v0.13.0', -- FIXME - needs to be updated
     config = function()
