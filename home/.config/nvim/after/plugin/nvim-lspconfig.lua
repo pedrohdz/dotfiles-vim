@@ -23,52 +23,45 @@ local on_attach = function(client, bufnr)
   local which_key = require('which-key')
 
   -- Mappings
-  local whichkey_register_lsp_capability = function(mappings, options)
+  local whichkey_register_lsp_capability = function(mappings)
     for keys, mapping_config in pairs(mappings) do
       local lsp_capability, action, description, local_options = unpack(mapping_config)
-      local prefix = ' '
+      local_options = local_options or {}
       lsp_capability = lsp_capability .. 'Provider'
+      local icon = {}
       if not client.server_capabilities[lsp_capability] then
-        prefix = ''
+        icon = { icon = { icon = '', hl = 'WhichKeyIconRed' } }
+        description = description .. ' (N/A)'
         action = function() print('ERROR - LSP "' .. lsp_capability .. '" capability is not available.') end
       end
 
-      local_options = vim.tbl_extend('force', options or {}, local_options or {})
-      which_key.register(
-        { [keys] = { action, prefix .. ' ' .. description } },
-        local_options
-      )
+      which_key.add({
+        vim.tbl_extend(
+          'force',
+          { keys, action, desc = description, buffer = bufnr },
+          local_options,
+          icon
+        )
+      })
     end
   end
 
   -- To list capabilities:
   --    `:lua vim.lsp.get_active_clients()[1].server_capabilities`
-  which_key.add({
-    { '<localleader>', group = 'Local Leader' },
-  })
-
+  which_key.add({ { '<localleader>', group = 'Local Leader' }, })
   whichkey_register_lsp_capability(
     {
-      ['*'] = { 'references', builtin.lsp_references, 'Show references' },
-      ['#'] = { 'definition', builtin.lsp_definitions, 'Goto definition' },
-      ['^'] = { 'declaration', vim.lsp.buf.declaration, 'Goto declaration' },
-      ['0'] = { 'typeDefinition', builtin.lsp_type_definitions, 'Goto type definition' },
+      ['<localleader>*'] = { 'references', builtin.lsp_references, 'Show references' },
+      ['<localleader>#'] = { 'definition', builtin.lsp_definitions, 'Goto definition' },
+      ['<localleader>^'] = { 'declaration', vim.lsp.buf.declaration, 'Goto declaration' },
+      ['<localleader>0'] = { 'typeDefinition', builtin.lsp_type_definitions, 'Goto type definition' },
 
-      ['K'] = { 'hover', vim.lsp.buf.hover, 'Hover' },
-      ['<C-k>'] = { 'signatureHelp', vim.lsp.buf.signature_help, 'Signature help', { prefix = '', mode = { 'n', 'i' } } },
+      ['<localleader>K'] = { 'hover', vim.lsp.buf.hover, 'Hover' },
+      ['<C-k>'] = { 'signatureHelp', vim.lsp.buf.signature_help, 'Signature help', { mode = { 'n', 'i' } } },
 
       -- Changes code
-      ['r'] = { 'rename', vim.lsp.buf.rename, 'Rename' },
-      ['a'] = { 'codeAction', vim.lsp.buf.code_action, 'Code Action' },
-
-      -- TODO - Replaced by conform.nvim. Delete once verified.
-      -- ['f'] = { 'documentFormatting', function() vim.lsp.buf.format({ async = true }) end, 'Re-format' },
-    },
-    {
-      buffer = bufnr,
-      noremap = true,
-      prefix = '<localleader>',
-      silent = true,
+      ['<localleader>r'] = { 'rename', vim.lsp.buf.rename, 'Rename' },
+      ['<localleader>a'] = { 'codeAction', vim.lsp.buf.code_action, 'Code Action' },
     }
   )
 
