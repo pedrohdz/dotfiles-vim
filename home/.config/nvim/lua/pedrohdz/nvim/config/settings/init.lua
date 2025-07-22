@@ -1,5 +1,6 @@
 require('pedrohdz.nvim.config.settings.vim-baseline')
 
+require('pedrohdz.nvim.config.settings.keycodes-tmux')
 require('pedrohdz.nvim.config.settings.bufexplorer')
 require('pedrohdz.nvim.config.settings.colorschemes')
 require('pedrohdz.nvim.config.settings.nvim-tree')
