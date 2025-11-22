@@ -387,6 +387,13 @@ lspconfig.lua_ls.setup({
   }
 })
 
+-- Nix
+lspconfig.nixd.setup({
+  capabilities = capabilities,
+  flags = lsp_flags,
+  on_attach = on_attach,
+})
+
 -- pyright
 lspconfig.pyright.setup({
   capabilities = capabilities,
