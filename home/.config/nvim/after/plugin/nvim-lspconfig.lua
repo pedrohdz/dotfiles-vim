@@ -326,16 +326,6 @@ vim.api.nvim_set_hl(0, 'CmpItemKindUnit', { link = 'CmpItemKindKeyword' })
 
 
 -- --------------------------------------------------------------------------
--- mason-lspconfig
--- --------------------------------------------------------------------------
-require('mason').setup()
-require('mason-lspconfig').setup({
-  automatic_installation = true,
-  -- ensure_installed = { 'tflint' },
-})
-
-
--- --------------------------------------------------------------------------
 -- nvim-lsp-installer
 -- --------------------------------------------------------------------------
 -- This section is a mix of:

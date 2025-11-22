@@ -6,18 +6,13 @@ return {
   'hrsh7th/cmp-nvim-lua',
   'hrsh7th/cmp-path',
   'hrsh7th/nvim-cmp',
+  'neovim/nvim-lspconfig',
   'onsails/lspkind.nvim',
   'windwp/nvim-autopairs',
 
   {
     'nvim-tree/nvim-web-devicons',
     opts = {}
-  },
-
-  {
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
-    'neovim/nvim-lspconfig',
   },
 
   -- For vsnip users.
