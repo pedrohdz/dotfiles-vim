@@ -181,16 +181,25 @@ function display_environment() {
 #------------------------------------------------------------------------------
 # Main
 #------------------------------------------------------------------------------
-echo "Logs are in: $LOG_DIR"
+case "${1:-test}" in
+  test)
+    echo "Logs are in: $LOG_DIR"
+    setup_test
+    display_environment
+    bootstrap_nvim
 
-setup_test
-display_environment
-bootstrap_nvim
-
-test_for_startup_error_messages
-test_lazy_install
-test_checkhealth
-
-# nvim_demo
+    test_for_startup_error_messages
+    test_lazy_install
+    test_checkhealth
+    ;;
+  nvim)
+    shift
+    nvim_demo "$@"
+    ;;
+  *)
+    echo "Usage: $0 [test|nvim]"
+    exit 1
+    ;;
+esac
 
 exit 0
