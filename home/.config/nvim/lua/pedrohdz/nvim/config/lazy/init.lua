@@ -19,4 +19,15 @@ end
 
 ensure_lazy()
 
-require('lazy').setup('pedrohdz.nvim.config.lazy.plugins')
+require('lazy').setup({
+  spec = {
+    import = 'pedrohdz.nvim.config.lazy.plugins'
+  },
+  install = {
+    missing = true,   -- install missing plugins on startup
+  },
+  change_detection = {
+    enabled = false,   -- automatically check for config file changes and reload the ui
+    notify = false,    -- get a notification when changes are found
+  },
+})
