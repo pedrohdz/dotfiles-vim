@@ -64,23 +64,34 @@ function nvim_demo() {
 
 function run_test() {
   local _msg=$1; shift
+  local _caller_func="${FUNCNAME[1]}"
+  log_section "$_msg ($_caller_func())" >> "$LOG_FILE_PATH"
 
   local _capture_file=/dev/null
   if [[ $1 == capture=* ]]; then
     _capture_file=${1#*=}
     shift
+    printf 'Captured stdout and stderr is in: %s\n' "$_capture_file" >> "$LOG_FILE_PATH"
   fi
 
-  log_section "$_msg" >> "$LOG_FILE_PATH"
   printf '• %s ' "$_msg"
   if "$@" |& tee -a "$LOG_FILE_PATH" -a "$_capture_file" &> /dev/null; then
+    printf '\nSTATUS - PASSED\n' >> "$LOG_FILE_PATH"
     echo -e "${_COLOR_GREEN}✓${_COLOR_NC}"
   else
+    printf '\nSTATUS - FAILED\n' >> "$LOG_FILE_PATH"
+
     echo -e "${_COLOR_RED}✖${_COLOR_NC}"
+    printf '\nFAILED - Review the log file for more information:\n'
+    printf '  - %s\n' $LOG_FILE_PATH
     exit 1
   fi
 }
 
+
+#------------------------------------------------------------------------------
+# Tests
+#------------------------------------------------------------------------------
 function bootstrap_nvim() {
   run_test \
       "Bootstrapping NeoVim" \
@@ -90,12 +101,9 @@ function bootstrap_nvim() {
         -c 'lua vim.defer_fn(function() vim.cmd[[qall]] end, 15000)'
 }
 
-
-#------------------------------------------------------------------------------
-# Tests
-#------------------------------------------------------------------------------
 function test_for_startup_error_messages() {
   local _capture_file=$LOG_FILE_BASE_PATH-${FUNCNAME[0]}.log
+
   run_test \
     "Capturing error messages at startup" \
     "capture=$_capture_file" \
@@ -106,6 +114,7 @@ function test_for_startup_error_messages() {
   # TODO - This should likely be folded into the previous command
   run_test \
     "Verifying no error messages at startup" \
+    "capture=$_capture_file" \
     bash -c "[ ! -s '$_capture_file' ]"
 }
 
@@ -119,6 +128,7 @@ function test_lazy_install() {
 
 function test_checkhealth() {
   local _capture_file=$LOG_FILE_BASE_PATH-${FUNCNAME[0]}.log
+
   run_test \
     "Capturing checkhealth" \
     "capture=$_capture_file" \
@@ -133,6 +143,7 @@ function test_checkhealth() {
 
   run_test \
     "Verifying clean checkhealth" \
+    "capture=$_capture_file" \
     "$_result"
 }
 
@@ -183,7 +194,7 @@ function display_environment() {
 #------------------------------------------------------------------------------
 case "${1:-test}" in
   test)
-    echo "Logs are in: $LOG_DIR"
+    printf '\nLogs are in: %s\n' "$LOG_DIR"
     setup_test
     display_environment
     bootstrap_nvim
