@@ -4,6 +4,10 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
+
+#------------------------------------------------------------------------------
+# Variables
+#------------------------------------------------------------------------------
 NVIM_EXEC=${NVIM_BIN:-nvim}
 BUILD_DIR=${BUILD_DIR:-build}
 
@@ -17,6 +21,14 @@ TIME_STAMP=$(date '+%Y%m%d-%H%M%S')
 LOG_FILE_BASE_PATH="$LOG_DIR/run-$TIME_STAMP"
 LOG_FILE_PATH="$LOG_FILE_BASE_PATH.log"
 
+_COLOR_GREEN="\e[1;32m"
+_COLOR_RED="\e[1;31m"
+_COLOR_NC="\e[0m"  # No Color
+
+
+#------------------------------------------------------------------------------
+# Test helpers
+#------------------------------------------------------------------------------
 function setup_test() {
   mkdir -p \
     "$LOG_DIR" \
@@ -60,11 +72,11 @@ function run_test() {
   fi
 
   log_section "$_msg" >> "$LOG_FILE_PATH"
-  printf '%s ' "$_msg"
+  printf '• %s ' "$_msg"
   if "$@" |& tee -a "$LOG_FILE_PATH" -a "$_capture_file" &> /dev/null; then
-    echo '[OK]'
+    echo -e "${_COLOR_GREEN}✓${_COLOR_NC}"
   else
-    echo '[ERROR]'
+    echo -e "${_COLOR_RED}✖${_COLOR_NC}"
     exit 1
   fi
 }
@@ -78,6 +90,10 @@ function bootstrap_nvim() {
         -c 'lua vim.defer_fn(function() vim.cmd[[qall]] end, 15000)'
 }
 
+
+#------------------------------------------------------------------------------
+# Tests
+#------------------------------------------------------------------------------
 function test_for_startup_error_messages() {
   local _capture_file=$LOG_FILE_BASE_PATH-${FUNCNAME[0]}.log
   run_test \
