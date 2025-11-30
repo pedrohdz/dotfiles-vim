@@ -36,7 +36,6 @@
   "mini.ai": { "branch": "main", "commit": "a7e90f110e6274262616311b93cef12cd2667a2d" },
   "nginx.vim": { "branch": "master", "commit": "cffaec54f0c7f9518de053634413a20e90eac825" },
   "nui.nvim": { "branch": "main", "commit": "8d3bce9764e627b62b07424e0df77f680d47ffdb" },
-  "null-ls.nvim": { "branch": "main", "commit": "0010ea927ab7c09ef0ce9bf28c2b573fc302f5a7" },
   "nvim-autopairs": { "branch": "master", "commit": "4d74e75913832866aa7de35e4202463ddf6efd1b" },
   "nvim-cmp": { "branch": "main", "commit": "b5311ab3ed9c846b585c0c15b7559be131ec4be9" },
   "nvim-lint": { "branch": "master", "commit": "3615c26c4922ae5f7366f0c1943a0e7cece04325" },

@@ -20,13 +20,6 @@ return {
   'hrsh7th/vim-vsnip',
 
   {
-    'jose-elias-alvarez/null-ls.nvim',
-    dependencies = {
-      { 'nvim-lua/plenary.nvim' },
-    }
-  },
-
-  {
     'sudormrfbin/cheatsheet.nvim',
     dependencies = {
       { 'nvim-telescope/telescope.nvim' },
