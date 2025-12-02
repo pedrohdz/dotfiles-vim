@@ -15,7 +15,7 @@ PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )"
 SCRIPT_NAME=$(basename "$0" '.sh')
 TEST_DIR="$BUILD_DIR/$SCRIPT_NAME"
 MOCK_HOME="$TEST_DIR/mock-home"
-LOG_DIR="$TEST_DIR/logs"
+LOG_DIR="$TEST_DIR/logs"  # Output log files are intentionally kept for review and are not deleted.
 
 TIME_STAMP=$(date '+%Y%m%d-%H%M%S')
 LOG_FILE_BASE_PATH="$LOG_DIR/run-$TIME_STAMP"
@@ -65,26 +65,68 @@ function nvim_demo() {
 function run_test() {
   local _msg=$1; shift
   local _caller_func="${FUNCNAME[1]}"
-  log_section "$_msg ($_caller_func())" >> "$LOG_FILE_PATH"
 
-  local _capture_file=/dev/null
-  if [[ $1 == capture=* ]]; then
-    _capture_file=${1#*=}
-    shift
-    printf 'Captured stdout and stderr is in: %s\n' "$_capture_file" >> "$LOG_FILE_PATH"
-  fi
+  # Toggle: if VERBOSE equals "true", then OUTPUT_TARGET is /dev/stdout; otherwise, it's /dev/null.
+  local OUTPUT_TARGET
+  OUTPUT_TARGET=$([ "${VERBOSE:-false}" = "true" ] && echo /dev/stdout || echo /dev/null)
 
   printf '• %s ' "$_msg"
-  if "$@" |& tee -a "$LOG_FILE_PATH" -a "$_capture_file" &> /dev/null; then
-    printf '\nSTATUS - PASSED\n' >> "$LOG_FILE_PATH"
-    echo -e "${_COLOR_GREEN}✓${_COLOR_NC}"
-  else
-    printf '\nSTATUS - FAILED\n' >> "$LOG_FILE_PATH"
 
-    echo -e "${_COLOR_RED}✖${_COLOR_NC}"
-    printf '\nFAILED - Review the log file for more information:\n'
-    printf '  - %s\n' $LOG_FILE_PATH
-    exit 1
+  (  # Sub-shell for pipefail/errexit toggling
+    set +o pipefail
+    {
+      log_section "$_msg ($_caller_func())"
+      printf "\n===== START OUTPUT (run_test) =====\n"
+
+      set +o errexit
+      trap 'echo "Error: Command \"$BASH_COMMAND\" failed at line ${LINENO}"' ERR
+      "$@" 2>&1
+      local _return_code=$?
+      trap - ERR
+      set -o errexit
+
+      printf "\n===== END OUTPUT (run_test) =====\n"
+
+      if [ "$_return_code" -eq 0 ]; then
+        printf '\nSTATUS - PASSED\n'
+      else
+        printf '\nSTATUS - FAILED\n'
+      fi
+
+      exit $_return_code
+    } | tee -a "$LOG_FILE_PATH" > "$OUTPUT_TARGET"
+
+    if [ "${PIPESTATUS[0]}" -eq 0 ]; then
+      echo -e "${_COLOR_GREEN}✓${_COLOR_NC}"
+    else
+      echo -e "${_COLOR_RED}✖${_COLOR_NC}"
+      printf '\nFAILED - Review the log file for more information:\n'
+      printf '  - %s\n' "$LOG_FILE_PATH"
+      exit 1
+    fi
+
+    set -o pipefail
+  )
+}
+
+function assert_empty_capture() {
+  local _capture_file="$1"; shift
+
+  printf 'Capturing stdout/stderr to: %s\n' "$_capture_file"
+  local _output
+  _output="$("${@}" 2>&1)"
+  echo "$_output" | tee -a "$_capture_file"
+
+  if [[ -n "$_output" ]]; then
+
+    echo # Add a vertical space
+    echo 'Unexpected output in capture (error):'
+    echo '--- START CAPTURE OUTPUT ---'
+    echo "$_output"
+    echo '--- END CAPTURE OUTPUT ---'
+    echo # Add a vertical space
+
+    return 1
   fi
 }
 
@@ -105,17 +147,16 @@ function test_for_startup_error_messages() {
   local _capture_file=$LOG_FILE_BASE_PATH-${FUNCNAME[0]}.log
 
   run_test \
-    "Capturing error messages at startup" \
-    "capture=$_capture_file" \
-    run_nvim \
-      -c 'lua vim.cmd[[autocmd VimEnter * if v:errmsg ~=# "" | cq | endif]]' \
-      -c 'qall'
-
-  # TODO - This should likely be folded into the previous command
-  run_test \
     "Verifying no error messages at startup" \
-    "capture=$_capture_file" \
-    bash -c "[ ! -s '$_capture_file' ]"
+    assert_empty_capture \
+      "$_capture_file" \
+      _test_for_startup_error_messages
+}
+
+function _test_for_startup_error_messages() {
+  run_nvim \
+    -c 'lua vim.cmd[[autocmd VimEnter * if v:errmsg ~=# "" | cq | endif]]' \
+    -c 'qall'
 }
 
 function test_lazy_install() {
@@ -127,25 +168,23 @@ function test_lazy_install() {
 }
 
 function test_checkhealth() {
-  local _capture_file=$LOG_FILE_BASE_PATH-${FUNCNAME[0]}.log
-
-  run_test \
-    "Capturing checkhealth" \
-    "capture=$_capture_file" \
-    run_nvim \
-      -c 'checkhealth' \
-      -c 'qall'
-
-  # TODO - This is hacky, it should likely be folded into the previous command.
-  local _result=/bin/false
-  [[ $(sed -e 's/^Running healthchecks\.\.\.//' "$_capture_file" | wc -m) -eq 0 ]] \
-    && _result=/bin/true
+  local _capture_file=$LOG_FILE_BASE_PATH-${FUNCNAME[0]}-capture.log
 
   run_test \
     "Verifying clean checkhealth" \
-    "capture=$_capture_file" \
-    "$_result"
+    assert_empty_capture \
+      "$_capture_file" \
+      _test_checkhealth
 }
+
+function _test_checkhealth() {
+  run_nvim \
+    -c 'checkhealth' \
+    -c 'qall' \
+  |& sed \
+    -e 's/^Running healthchecks\.\.\.//'
+}
+
 
 #------------------------------------------------------------------------------
 # Utility functions
@@ -194,11 +233,12 @@ function display_environment() {
 #------------------------------------------------------------------------------
 case "${1:-test}" in
   test)
-    printf '\nLogs are in: %s\n' "$LOG_DIR"
+    printf '\nPrimary run log file: %s\n' "$LOG_FILE_PATH"
+    printf 'Related log file:     %s\n\n' "${LOG_FILE_BASE_PATH}-*.log"
+    printf 'Testing:\n'
     setup_test
     display_environment
     bootstrap_nvim
-
     test_for_startup_error_messages
     test_lazy_install
     test_checkhealth
