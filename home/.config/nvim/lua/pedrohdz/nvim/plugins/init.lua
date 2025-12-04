@@ -54,11 +54,6 @@ return {
     version = 'v2.*',
   },
 
-  {
-    'nvim-tree/nvim-tree.lua',
-    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
-    version = 'v1.*',
-  },
 
   {
     's1n7ax/nvim-window-picker',
