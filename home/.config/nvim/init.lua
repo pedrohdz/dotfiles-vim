@@ -1,1 +1,1 @@
-require('pedrohdz.nvim.config')
+require('pedrohdz.nvim')
