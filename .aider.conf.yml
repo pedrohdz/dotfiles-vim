@@ -16,10 +16,10 @@
 #auto-lint: true
 
 ## Specify command to run tests
-test-cmd: 'make test || (cat ./build/nvim-smoke-test/logs/run-recent.log ; false)'
+test-cmd: 'make clean test || (cat ./build/nvim-smoke-test/logs/run-recent.log ; false)'
 
 ## Enable/disable automatic testing after changes (default: False)
-#auto-test: false
+auto-test: true
 
 ## Run tests, fix problems found and then exit
 #test: false
