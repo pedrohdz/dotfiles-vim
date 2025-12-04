@@ -20,6 +20,7 @@ LOG_DIR="$TEST_DIR/logs"  # Output log files are intentionally kept for review a
 TIME_STAMP=$(date '+%Y%m%d-%H%M%S')
 LOG_FILE_BASE_PATH="$LOG_DIR/run-$TIME_STAMP"
 LOG_FILE_PATH="$LOG_FILE_BASE_PATH.log"
+LOG_FILE_RECENT_PATH="$LOG_DIR/run-recent.log" 
 
 _COLOR_GREEN="\e[1;32m"
 _COLOR_RED="\e[1;31m"
@@ -36,6 +37,9 @@ function setup_test() {
     "$MOCK_HOME/.local/share" \
     "$MOCK_HOME/.local/state" \
     "$MOCK_HOME/.cache"
+
+  touch "$LOG_FILE_PATH"
+  ln -fs "$(basename "$LOG_FILE_PATH")" "$LOG_FILE_RECENT_PATH"
 
   ln -fs "$PROJECT_ROOT/home/.config/nvim" \
     "$MOCK_HOME/.config/"
