@@ -21,7 +21,7 @@ ensure_lazy()
 
 require('lazy').setup({
   spec = {
-    import = 'pedrohdz.nvim.config.lazy.plugins'
+    import = 'pedrohdz.nvim.plugins'
   },
   install = {
     missing = true,   -- install missing plugins on startup
