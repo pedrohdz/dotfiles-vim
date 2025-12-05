@@ -113,6 +113,5 @@ return {
   -- -----------------------------------------------------------------------------
   -- dr-vimfiles-python
   'Glench/Vim-Jinja2-Syntax',
-  'Rykka/InstantRst',
   'honza/vim-snippets',
 }
