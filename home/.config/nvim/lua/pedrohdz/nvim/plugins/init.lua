@@ -47,11 +47,6 @@ return {
     },
   },
 
-  {
-    'stevearc/oil.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
-    version = 'v2.*',
-  },
 
 
 

@@ -110,7 +110,7 @@ Each step is considered **done** when:
       custom mappings into the Lazy configuration.
     - Confirm that file explorer behavior is consistent with previous usage.
 
-13. **oil.lua**
+13. **oil.lua** *(DONE)*
     **Goal:** Migrate the more complex file explorer enhancements (Oil plugin).
     **Migration Details:**
     - Move over helper functions, window-picker integration, and multiple key
