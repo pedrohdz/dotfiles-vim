@@ -84,7 +84,7 @@ Each step is considered **done** when:
      colorcolumn into Lua (if needed) or include the existing Vimscript as part
      of the Lazy load mechanism.
 
-9. **diff.lua**
+9. **diff.lua** *(DONE)*
    **Goal:** Preserve diff mode behavior by adjusting window cursor placement.
    **Migration Details:**
    - Port the auto commands (that move the cursor when a buffer is in diff
