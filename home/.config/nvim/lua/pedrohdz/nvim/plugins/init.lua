@@ -102,7 +102,6 @@ return {
   'mattn/webapi-vim',
   'othree/xml.vim',
   'pangloss/vim-javascript',
-  'sjl/gundo.vim',
   'tpope/vim-fugitive',
   'tpope/vim-haml',
   'tpope/vim-repeat',
