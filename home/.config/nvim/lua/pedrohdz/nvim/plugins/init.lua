@@ -39,12 +39,6 @@ return {
   { 'numToStr/Comment.nvim' },
   { 'rust-lang/rust.vim',                 ft = 'rust' },
 
-  {
-    'nvim-lualine/lualine.nvim',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
-  },
 
 
 
