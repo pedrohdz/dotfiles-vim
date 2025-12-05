@@ -32,7 +32,7 @@ Each step is considered **done** when:
 - The migrated feature is manually verified.
 - The legacy `after/plugin` file has been removed.
 
-1. **netrw.lua**
+1. **netrw.lua** *(DONE)*
    **Goal:** Disable netrw in favor of `nvim-tree`.
    **Migration Details:**
    - Convert the current Vimscript setting in `netrw.lua` to a Lua module.
