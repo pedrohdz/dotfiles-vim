@@ -39,7 +39,7 @@ Each step is considered **done** when:
    - Ensure `nvim-tree` loads in the same commit so disabling netrw does not
      break file-browsing workflows.
 
-2. **gundo.lua**
+2. **gundo.lua** *(DONE)*
    **Goal:** Transition Gundo configuration.
    **Migration Details:**
    - Migrate the simple global option settings.
@@ -102,7 +102,7 @@ Each step is considered **done** when:
     - Port the plugin’s configuration (highlight and search patterns) into the
       Lazy.nvim configuration block.
 
-12. **nvim-tree.lua**
+12. **nvim-tree.lua** *(DONE)*
     **Goal:** Migrate the file explorer’s floating window configuration and key
     mappings.
     **Migration Details:**
