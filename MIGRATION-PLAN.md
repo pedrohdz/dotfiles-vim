@@ -70,7 +70,7 @@ Each step is considered **done** when:
    - Port the configuration (with its hint and filter rules) into a Lua module
      managed by Lazy.
 
-7. **indent-blankline.lua**
+7. **indent-blankline.lua** *(DONE)*
    **Goal:** Migrate the indent guide configuration.
    **Migration Details:**
    - Switch to the successor plugin `ibl.nvim` (indent-blankline rewrite) and
