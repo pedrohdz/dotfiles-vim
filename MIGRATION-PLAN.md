@@ -96,7 +96,7 @@ Each step is considered **done** when:
     - Move the global variable settings from Vimscript into Lua.
     - Ensure these settings are applied before InstantRst starts.
 
-11. **todo-comments.lua**
+11. **todo-comments.lua** *(DONE)*
     **Goal:** Transition the todo-comments setup.
     **Migration Details:**
     - Port the plugin’s configuration (highlight and search patterns) into the
