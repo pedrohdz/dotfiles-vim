@@ -102,7 +102,7 @@ Each step is considered **done** when:
     - Port the plugin’s configuration (highlight and search patterns) into the
       Lazy.nvim configuration block.
 
-12. **nvim-tree.lua**
+12. **nvim-tree.lua** *(DONE)*
     **Goal:** Migrate the file explorer’s floating window configuration and key
     mappings.
     **Migration Details:**
