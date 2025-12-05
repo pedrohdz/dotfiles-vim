@@ -46,14 +46,14 @@ Each step is considered **done** when:
    - Optionally, convert them to a Lua-based configuration if possible,
      maintaining any legacy behavior.
 
-3. **fill-path.lua**
+3. **fill-path.lua** *(DONE)*
    **Goal:** Migrate the helper function and key mapping.
    **Migration Details:**
    - Port the helper function (getting and simplifying the current working
      directory) and the key mapping using Lua’s `vim.keymap.set` to the Lazy
      configuration.
 
-4. **gist.vim**  **Goal:** Integrate the gist settings.  **Migration Details:**
+4. **gist.vim** *(DONE)*  **Goal:** Integrate the gist settings.  **Migration Details:
    - Migrate global gist options and the sourcing of credentials.
    - Ensure that these settings are loaded at the appropriate stage in the
      Lazy.nvim setup.

@@ -98,8 +98,6 @@ return {
   'godlygeek/tabular',
   'jlanzarotta/bufexplorer',
   'majutsushi/tagbar',
-  'mattn/gist-vim',
-  'mattn/webapi-vim',
   'othree/xml.vim',
   'pangloss/vim-javascript',
   'tpope/vim-fugitive',
