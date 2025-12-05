@@ -58,7 +58,7 @@ Each step is considered **done** when:
    - Ensure that these settings are loaded at the appropriate stage in the
      Lazy.nvim setup.
 
-5. **comment.lua**
+5. **comment.lua** *(DONE)*
    **Goal:** Transition the Comment plugin initialization.
    **Migration Details:**
    - Replace the `require('Comment').setup()` call in the after-plugin file
