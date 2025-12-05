@@ -77,14 +77,14 @@ Each step is considered **done** when:
      port the settings accordingly.
    - Validate that the visual indent lines are still working as intended.
 
-8. **highlight-line.lua**
+8. **highlight-line.lua** *(DONE)*
    **Goal:** Migrate current line and color column highlighting.
    **Migration Details:**
    - Convert the Vimscript autocommands for enabling/disabling cursorline and
      colorcolumn into Lua (if needed) or include the existing Vimscript as part
      of the Lazy load mechanism.
 
-9. **diff.lua**
+9. **diff.lua** *(DONE)*
    **Goal:** Preserve diff mode behavior by adjusting window cursor placement.
    **Migration Details:**
    - Port the auto commands (that move the cursor when a buffer is in diff
