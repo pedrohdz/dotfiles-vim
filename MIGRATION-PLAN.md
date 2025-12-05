@@ -90,13 +90,13 @@ Each step is considered **done** when:
    - Port the auto commands (that move the cursor when a buffer is in diff
      mode) into Lua under a Lazy-controlled autocommand.
 
-10. **instant-rst.lua**
+10. **instant-rst.lua** *(DONE)*
     **Goal:** Migrate InstantRst settings.
     **Migration Details:**
     - Move the global variable settings from Vimscript into Lua.
     - Ensure these settings are applied before InstantRst starts.
 
-11. **todo-comments.lua**
+11. **todo-comments.lua** *(DONE)*
     **Goal:** Transition the todo-comments setup.
     **Migration Details:**
     - Port the plugin’s configuration (highlight and search patterns) into the

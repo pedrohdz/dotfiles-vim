@@ -63,13 +63,6 @@ return {
   --   }
   -- },
 
-  {
-    'folke/todo-comments.nvim',
-    version = 'v1.*',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    }
-  },
 
   {
     'echasnovski/mini.ai',
@@ -113,6 +106,5 @@ return {
   -- -----------------------------------------------------------------------------
   -- dr-vimfiles-python
   'Glench/Vim-Jinja2-Syntax',
-  'Rykka/InstantRst',
   'honza/vim-snippets',
 }
