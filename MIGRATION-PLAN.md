@@ -46,7 +46,7 @@ Each step is considered **done** when:
    - Optionally, convert them to a Lua-based configuration if possible,
      maintaining any legacy behavior.
 
-3. **fill-path.lua**
+3. **fill-path.lua** *(DONE)*
    **Goal:** Migrate the helper function and key mapping.
    **Migration Details:**
    - Port the helper function (getting and simplifying the current working
