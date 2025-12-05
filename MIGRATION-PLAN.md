@@ -39,7 +39,7 @@ Each step is considered **done** when:
    - Ensure `nvim-tree` loads in the same commit so disabling netrw does not
      break file-browsing workflows.
 
-2. **gundo.lua**
+2. **gundo.lua** *(DONE)*
    **Goal:** Transition Gundo configuration.
    **Migration Details:**
    - Migrate the simple global option settings.
