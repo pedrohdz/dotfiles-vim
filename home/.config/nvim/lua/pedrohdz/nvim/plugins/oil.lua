@@ -1,4 +1,7 @@
-local is_always_hidden = function(name, _)
+-- ----------------------------------------------------------------------------
+-- Helpers
+-- ----------------------------------------------------------------------------
+local is_always_hidden           = function(name, _)
   return (
     name:match([[~$]])
     or name:match([[^%..*%.swp$]])
@@ -9,7 +12,9 @@ local is_always_hidden = function(name, _)
   )
 end
 
-local window_picker = function()
+-- Thank you:
+--  - https://github.com/stevearc/oil.nvim/issues/360#issuecomment-2099555989
+local window_picker              = function()
   local oil = require('oil')
   local entry_path = vim.fn.fnamemodify(
     vim.fn.simplify(
@@ -35,9 +40,66 @@ local window_picker = function()
   vim.cmd.edit(entry_path)
 end
 
+local _actions                   = {}
+
+_actions.help                    = {
+  'actions.show_help',
+  desc = 'Show help (<C-?>)'
+}
+
+_actions.select_vertical         = {
+  'actions.select',
+  opts = {
+    close = true,
+    vertical = true,
+  },
+  desc = 'Open in a right vertical split'
+}
+
+_actions.select_vertical_left    = {
+  'actions.select',
+  opts = {
+    close = true,
+    split = 'aboveleft',
+    vertical = true,
+  },
+  desc = 'Open in a left vertical split'
+}
+
+_actions.select_horizontal       = {
+  'actions.select',
+  opts = {
+    close = true,
+    horizontal = true,
+  },
+  desc = 'Open in a lower horizontal split'
+}
+
+_actions.select_horizontal_above = {
+  'actions.select',
+  opts = {
+    close = true,
+    horizontal = true,
+    split = 'aboveleft',
+  },
+  desc = 'Open in a upper horizontal split'
+}
+
+
+-- ----------------------------------------------------------------------------
+-- Key maps
+-- ----------------------------------------------------------------------------
+vim.keymap.set('n', '-', function() require('oil').open() end, { desc = 'Oil reletive to buffer' })
+vim.keymap.set('n', '_', function() require('oil').open(vim.fn.getcwd()) end, { desc = 'Oil CWD' })
+
+
+-- ----------------------------------------------------------------------------
+-- Configure
+-- ----------------------------------------------------------------------------
 return {
   'stevearc/oil.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  lazy = false,
   opts = {
     default_file_explorer = true,
     delete_to_trash = true,
@@ -48,12 +110,12 @@ return {
       ['<C-s>'] = false,
       ['<C-h>'] = false,
       ['g?'] = false,
-      ['<M-?>'] = { 'actions.show_help', desc = 'Show help (<C-?>)' },
+      ['<M-?>'] = _actions.help,
       ['<M-p>'] = window_picker,
-      ['<M-v>'] = { 'actions.select', opts = { close = true, vertical = true }, desc = 'Open in a right vertical split' },
-      ['<M-V>'] = { 'actions.select', opts = { close = true, split = 'aboveleft', vertical = true }, desc = 'Open in a left vertical split' },
-      ['<M-h>'] = { 'actions.select', opts = { close = true, horizontal = true }, desc = 'Open in a lower horizontal split' },
-      ['<M-H>'] = { 'actions.select', opts = { close = true, horizontal = true, split = 'aboveleft' }, desc = 'Open in an upper horizontal split' },
+      ['<M-v>'] = _actions.select_vertical,
+      ['<M-V>'] = _actions.select_vertical_left,
+      ['<M-h>'] = _actions.select_horizontal,
+      ['<M-H>'] = _actions.select_horizontal_above,
     },
     view_options = {
       show_hidden = true,
