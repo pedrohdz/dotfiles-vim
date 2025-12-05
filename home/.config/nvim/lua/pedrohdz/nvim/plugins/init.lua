@@ -63,13 +63,6 @@ return {
   --   }
   -- },
 
-  {
-    'folke/todo-comments.nvim',
-    version = 'v1.*',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    }
-  },
 
   {
     'echasnovski/mini.ai',
