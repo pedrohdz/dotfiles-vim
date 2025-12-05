@@ -77,7 +77,7 @@ Each step is considered **done** when:
      port the settings accordingly.
    - Validate that the visual indent lines are still working as intended.
 
-8. **highlight-line.lua**
+8. **highlight-line.lua** *(DONE)*
    **Goal:** Migrate current line and color column highlighting.
    **Migration Details:**
    - Convert the Vimscript autocommands for enabling/disabling cursorline and
