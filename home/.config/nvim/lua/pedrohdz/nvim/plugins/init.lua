@@ -37,7 +37,6 @@ return {
   'towolf/vim-helm',
   { 'cespare/vim-toml',                   branch = 'main', ft = 'toml' },
   { 'lewis6991/gitsigns.nvim' },
-  { 'lukas-reineke/indent-blankline.nvim' },
   { 'numToStr/Comment.nvim' },
   { 'rust-lang/rust.vim',                 ft = 'rust' },
 
