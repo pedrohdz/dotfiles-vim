@@ -36,7 +36,6 @@ return {
   'pearofducks/ansible-vim',
   'towolf/vim-helm',
   { 'cespare/vim-toml',                   branch = 'main', ft = 'toml' },
-  { 'lewis6991/gitsigns.nvim' },
   { 'numToStr/Comment.nvim' },
   { 'rust-lang/rust.vim',                 ft = 'rust' },
 
