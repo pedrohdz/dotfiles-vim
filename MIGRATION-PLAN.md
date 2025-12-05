@@ -64,7 +64,7 @@ Each step is considered **done** when:
    - Replace the `require('Comment').setup()` call in the after-plugin file
      with a similar call in the Lazy plugin configuration block.
 
-6. **window-picker.lua**
+6. **window-picker.lua** *(DONE)*
    **Goal:** Migrate window-picker configuration.
    **Migration Details:**
    - Port the configuration (with its hint and filter rules) into a Lua module
