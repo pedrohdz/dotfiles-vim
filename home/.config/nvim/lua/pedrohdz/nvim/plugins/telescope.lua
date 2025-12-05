@@ -160,6 +160,7 @@ end
 return {
   'nvim-telescope/telescope.nvim',
 
+  version = '>0',
   opts = get_options(),
   dependencies = {
     'nvim-lua/plenary.nvim',
