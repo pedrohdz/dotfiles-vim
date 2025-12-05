@@ -1,5 +1,6 @@
 return {
   "lewis6991/gitsigns.nvim",
+  version = '>1',
   config = function()
     require("gitsigns").setup({
       on_attach = function(buffer_num)
