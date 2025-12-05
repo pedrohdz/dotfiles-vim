@@ -42,6 +42,7 @@ end
 
 return {
   'nvim-treesitter/nvim-treesitter',
+  version = '>0',
   config = setup,
   lazy = false,
   build = ':TSUpdate',
