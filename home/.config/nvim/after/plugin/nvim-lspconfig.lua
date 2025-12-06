@@ -329,119 +329,36 @@ vim.api.nvim_set_hl(0, 'CmpItemKindUnit', { link = 'CmpItemKindKeyword' })
 -- nvim-lsp-installer
 -- --------------------------------------------------------------------------
 -- This section is a mix of:
---   - https://github.com/neovim/nvim-lspconfig#suggested-configuration=
 --   - https://github.com/hrsh7th/nvim-cmp/#recommended-configuration=
-local lspconfig = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
-}
 
--- ansible
-lspconfig.ansiblels.setup({
-  capabilities = capabilities,
-  flags = lsp_flags,
-  on_attach = on_attach,
+vim.lsp.config('*', {
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  -- flags = {
+  --   -- This is the default in Nvim 0.7+
+  --   debounce_text_changes = 150,
+  -- },
 })
 
--- bashls
-lspconfig.bashls.setup({
-  capabilities = capabilities,
-  flags = lsp_flags,
-  on_attach = on_attach,
+vim.lsp.enable({
+  'ansiblels',
+  'bashls',
+  'dockerls',
+  'helm_ls',
+  'jsonls',
+  'lua_ls',
+  'nixd',
+  'pyright',
+  'rust_analyzer',
+  'solargraph',
+  'terraformls',
+  'vimls',
+  'yamlls',
 })
 
--- docker
-lspconfig.dockerls.setup({
-  capabilities = capabilities,
-  flags = lsp_flags,
-  on_attach = on_attach,
-})
-
--- helm
-lspconfig.helm_ls.setup({
-  capabilities = capabilities,
-  flags = lsp_flags,
-  on_attach = on_attach,
-})
-
--- json
-lspconfig.jsonls.setup({
-  capabilities = capabilities,
-  flags = lsp_flags,
-  on_attach = on_attach,
-})
-
--- lua
-lspconfig.lua_ls.setup({
-  capabilities = capabilities,
-  flags = lsp_flags,
-  on_attach = on_attach,
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { 'vim' }
-      }
-    }
-  }
-})
-
--- Nix
-lspconfig.nixd.setup({
-  capabilities = capabilities,
-  flags = lsp_flags,
-  on_attach = on_attach,
-})
-
--- pyright
-lspconfig.pyright.setup({
-  capabilities = capabilities,
-  flags = lsp_flags,
-  on_attach = on_attach,
-})
-
--- ruby (solargraph)
-lspconfig.solargraph.setup({
-  capabilities = capabilities,
-  flags = lsp_flags,
-  on_attach = on_attach,
-})
-
--- rust
-lspconfig.rust_analyzer.setup({
-  capabilities = capabilities,
-  flags = lsp_flags,
-  on_attach = on_attach,
-  -- Server-specific settings...
-  settings = {
-    ["rust-analyzer"] = {}
-  }
-})
-
--- terraform
-lspconfig.terraformls.setup({
-  on_attach = on_attach,
-  flags = lsp_flags,
-  capabilities = capabilities,
-})
-
--- yaml
-lspconfig.yamlls.setup({
-  autostart = false, -- See `yaml.lua`
-  capabilities = capabilities,
-  flags = lsp_flags,
-  on_attach = on_attach,
-  settings = {
-    yaml = {
-      keyOrdering = false
-    }
-  }
-})
-
--- vim
-lspconfig.vimls.setup({
-  capabilities = capabilities,
-  flags = lsp_flags,
-  on_attach = on_attach,
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('my.lsp', {}),
+  callback = function(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+    on_attach(client, args.buf)
+  end,
 })
