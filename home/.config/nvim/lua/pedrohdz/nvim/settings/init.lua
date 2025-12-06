@@ -1,4 +1,5 @@
 require('pedrohdz.nvim.settings.vim-baseline')
+require('pedrohdz.nvim.settings.lsp')
 
 require('pedrohdz.nvim.settings.keycodes-tmux')
 require('pedrohdz.nvim.settings.bufexplorer')
