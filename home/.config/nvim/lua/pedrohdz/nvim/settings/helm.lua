@@ -1,3 +1,6 @@
+-- TODO - Disabled in ./init.lua until I have time to look at this again.
+-- Remember to update ../../../../lsp/yamlls.lua.
+
 -- ----------------------------------------------------------------------------
 -- YAML LSP configuration
 -- ----------------------------------------------------------------------------

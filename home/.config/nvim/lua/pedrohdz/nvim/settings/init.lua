@@ -1,4 +1,5 @@
 require('pedrohdz.nvim.settings.vim-baseline')
+require('pedrohdz.nvim.settings.lsp')
 
 require('pedrohdz.nvim.settings.keycodes-tmux')
 require('pedrohdz.nvim.settings.bufexplorer')
@@ -9,3 +10,6 @@ require('pedrohdz.nvim.settings.netrw')
 require('pedrohdz.nvim.settings.fill-path')
 require('pedrohdz.nvim.settings.highlight-line')
 require('pedrohdz.nvim.settings.diff')
+
+-- TODO - Enable when we have time
+-- require('pedrohdz.nvim.settings.helm')
