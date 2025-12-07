@@ -1,22 +1,10 @@
 return {
-  'dmitmel/cmp-cmdline-history',
-  'hrsh7th/cmp-buffer',
-  'hrsh7th/cmp-cmdline',
-  'hrsh7th/cmp-nvim-lsp',
-  'hrsh7th/cmp-nvim-lua',
-  'hrsh7th/cmp-path',
-  'hrsh7th/nvim-cmp',
   'onsails/lspkind.nvim',
-  'windwp/nvim-autopairs',
 
   {
     'nvim-tree/nvim-web-devicons',
     opts = {}
   },
-
-  -- For vsnip users.
-  'hrsh7th/cmp-vsnip',
-  'hrsh7th/vim-vsnip',
 
   {
     'sudormrfbin/cheatsheet.nvim',
@@ -38,10 +26,6 @@ return {
   { 'numToStr/Comment.nvim' },
   { 'rust-lang/rust.vim',                 ft = 'rust' },
 
-
-
-
-
   -- {
   --   'nvim-telescope/telescope-file-browser.nvim',
   --   dependencies = {
@@ -49,7 +33,6 @@ return {
   --     'nvim-lua/plenary.nvim',
   --   }
   -- },
-
 
   {
     'echasnovski/mini.ai',
