@@ -18,6 +18,7 @@
   "codecompanion.nvim": { "branch": "main", "commit": "180bebe0a4d413b24a48442a943cd5b7a175e90c" },
   "colorsel.vim": { "branch": "master", "commit": "af52cfaedefdeebfc6869cafd50f5dc92ef45dfc" },
   "conform.nvim": { "branch": "master", "commit": "ffe26e8df8115c9665d24231f8a49fadb2d611ce" },
+  "copilot.lua": { "branch": "master", "commit": "508d8b00390ff3046323f61187a57069910c6e17" },
   "gitsigns.nvim": { "branch": "main", "commit": "7010000889bfb6c26065e0b0f7f1e6aa9163edd9" },
   "gruvbox": { "branch": "master", "commit": "697c00291db857ca0af00ec154e5bd514a79191f" },
   "gundo.vim": { "branch": "master", "commit": "c5efef192b975b8e7d5fa3c6db932648d3b76323" },
