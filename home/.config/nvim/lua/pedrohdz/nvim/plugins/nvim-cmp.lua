@@ -77,34 +77,6 @@ local cmp_formatting = function()
   }
 end
 
-local confirm_with_tail = function(key)
-  local keymap = require('cmp.utils.keymap')
-  local feedkeys = require('cmp.utils.feedkeys')
-  return function(fallback)
-    if cmp.visible() then
-      cmp.confirm({
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = false,
-      })
-      feedkeys.call(keymap.t(key), 'n')
-    else
-      fallback()
-    end
-  end
-end
-
-local cmd_select_func = function(select_func)
-  local select_options = { behavior = require('cmp.types').cmp.SelectBehavior.Select }
-  local keymap = require('cmp.utils.keymap')
-  local feedkeys = require('cmp.utils.feedkeys')
-  return function()
-    if cmp.visible() then
-      select_func(select_options)
-    else
-      feedkeys.call(keymap.t('<C-z>'), 'n')
-    end
-  end
-end
 
 -- --------------------------------------------------------------------------
 -- Setup functions
@@ -125,15 +97,8 @@ local setup_search_cmp = function()
   for _, cmd_type in ipairs({ '/', '?' }) do
     cmp.setup.cmdline(cmd_type, {
       mapping = cmp.mapping.preset.cmdline(),
-      -- mapping = cmp.mapping.preset.cmdline({
-      --   ['<C-l>'] = cmp.mapping(complete_common_string, { 'c' }),
-      --   ['<Tab>'] = cmp.mapping(cmd_select_func(cmp.select_next_item), { 'c' }),
-      --   ['<S-Tab>'] = cmp.mapping(cmd_select_func(cmp.select_prev_item), { 'c' }),
-      --   ['<CR>'] = cmp.mapping(confirm_func(), { 'c' }),
-      --   ['<M-CR>'] = cmp.mapping(confirm_insert_func(), { 'c' }),
-      -- }),
       sources = {
-        -- { name = 'cmdline_history', option = { history_type = '/' }, },
+        { name = 'cmdline_history', option = { history_type = '/' }, },
         { name = 'buffer' },
       },
       formatting = cmp_formatting(),
@@ -146,18 +111,10 @@ local setup_cmdline_cmp = function()
   local cmp = require('cmp')
   cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
-    -- mapping = cmp.mapping.preset.cmdline({
-    --   ['<C-l>'] = cmp.mapping(complete_common_string, { 'c' }),
-    --   ['<Tab>'] = cmp.mapping(cmd_select_func(cmp.select_next_item), { 'c' }),
-    --   ['<S-Tab>'] = cmp.mapping(cmd_select_func(cmp.select_prev_item), { 'c' }),
-    --   ['<CR>'] = cmp.mapping(confirm_func(), { 'c' }),
-    --   ['<M-CR>'] = cmp.mapping(confirm_insert_func(), { 'c' }),
-    --   ['<Space>'] = cmp.mapping(confirm_with_tail('<Space>'), { 'c' }),
-    -- }),
     sources = cmp.config.sources({
       { name = 'path' },
     }, {
-      -- { name = 'cmdline_history', option = { history_type = ':' }, },
+      { name = 'cmdline_history', option = { history_type = ':' }, },
       { name = 'cmdline' },
       { name = 'buffer' },
     }),
@@ -225,8 +182,8 @@ local setup = function()
       ['<C-l>'] = complete_common_string,
       ['<Tab>'] = cmp.mapping.select_next_item(select_options),
       ['<S-Tab>'] = cmp.mapping.select_prev_item(select_options),
-      ['<CR>'] = cmp.mapping(confirm_func()),
-      ['<M-CR>'] = cmp.mapping(confirm_insert_func()),
+      ['<CR>'] = confirm_func(),
+      ['<M-CR>'] = confirm_insert_func(),
     }),
     sources = cmp.config.sources(
       {
