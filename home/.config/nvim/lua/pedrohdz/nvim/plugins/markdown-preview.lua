@@ -14,7 +14,11 @@ return {
     vim.g.mkdp_browser = '/bin/true'
     vim.g.mkdp_combine_preview = 0
     vim.g.mkdp_echo_preview_url = 1
-    vim.g.mkdp_filetypes = { 'Avante', 'markdown' }
+    vim.g.mkdp_filetypes = {
+      'Avante',
+      'codecompanion',
+      'markdown',
+    }
   end,
   cmd = {
     'MarkdownPreview',
@@ -23,6 +27,7 @@ return {
   },
   ft = {
     'Avante',
+    'codecompanion',
     'markdown',
   },
   build = 'cd app && yarn install',

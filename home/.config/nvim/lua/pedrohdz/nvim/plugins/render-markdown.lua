@@ -3,11 +3,13 @@ return {
   opts = {
     file_types = {
       'Avante',
+      'codecompanion',
       'markdown',
     },
   },
   ft = {
     'Avante',
+    'codecompanion',
     'markdown',
   },
   dependencies = {
