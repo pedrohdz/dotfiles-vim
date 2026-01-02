@@ -98,8 +98,8 @@ local setup_search_cmp = function()
     cmp.setup.cmdline(cmd_type, {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
-        { name = 'cmdline_history', option = { history_type = '/' }, },
         { name = 'buffer' },
+        { name = 'cmdline_history', max_item_count = 7, option = { history_type = '/' }, },
       },
       formatting = cmp_formatting(),
     })
@@ -112,11 +112,11 @@ local setup_cmdline_cmp = function()
   cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-      { name = 'path' },
-    }, {
-      { name = 'cmdline_history', option = { history_type = ':' }, },
       { name = 'cmdline' },
       { name = 'buffer' },
+      { name = 'cmdline_history', max_item_count = 7, option = { history_type = ':' }, },
+    }, {
+      { name = 'path' },
     }),
     matching = { disallow_symbol_nonprefix_matching = true },
     formatting = cmp_formatting(),
