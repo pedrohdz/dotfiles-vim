@@ -17,9 +17,10 @@ function on_attach(client, bufnr)
     for keys, mapping_config in pairs(mappings) do
       local lsp_capability, action, description, local_options = unpack(mapping_config)
       local_options = local_options or {}
-      lsp_capability = lsp_capability .. 'Provider'
+      lsp_capability = 'textDocument/' .. lsp_capability .. 'Provider'
       local icon = {}
-      if not client.server_capabilities[lsp_capability] then
+
+      if not client:supports_method(lsp_capability) then
         icon = { icon = { icon = '', hl = 'WhichKeyIconRed' } }
         description = description .. ' (N/A)'
         action = function() print('ERROR - LSP "' .. lsp_capability .. '" capability is not available.') end
@@ -37,7 +38,7 @@ function on_attach(client, bufnr)
   end
 
   -- To list capabilities:
-  --    `:lua vim.lsp.get_active_clients()[1].server_capabilities`
+  --    :lua local c = vim.lsp.get_active_clients({ bufnr = 0 })[1]; vim.print(vim.tbl_keys(c.server_capabilities))
   which_key.add({ { '<localleader>', group = 'Local Leader' }, })
   whichkey_register_lsp_capability(
     {
