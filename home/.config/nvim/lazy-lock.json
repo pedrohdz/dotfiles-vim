@@ -15,7 +15,7 @@
   "cmp-nvim-lua": { "branch": "main", "commit": "e3a22cb071eb9d6508a156306b102c45cd2d573d" },
   "cmp-path": { "branch": "main", "commit": "c642487086dbd9a93160e1679a1327be111cbc25" },
   "cmp-vsnip": { "branch": "main", "commit": "989a8a73c44e926199bfd05fa7a516d51f2d2752" },
-  "codecompanion.nvim": { "branch": "main", "commit": "180bebe0a4d413b24a48442a943cd5b7a175e90c" },
+  "codecompanion.nvim": { "branch": "main", "commit": "a8fcdb7ee9d47593bccb52def47d0583caeec0f9" },
   "colorsel.vim": { "branch": "master", "commit": "af52cfaedefdeebfc6869cafd50f5dc92ef45dfc" },
   "conform.nvim": { "branch": "master", "commit": "ffe26e8df8115c9665d24231f8a49fadb2d611ce" },
   "copilot.lua": { "branch": "master", "commit": "508d8b00390ff3046323f61187a57069910c6e17" },
