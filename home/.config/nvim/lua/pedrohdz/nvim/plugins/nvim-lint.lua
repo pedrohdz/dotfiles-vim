@@ -7,7 +7,7 @@ local function setup()
   local lint = require('lint')
 
   lint.linters_by_ft = {
-    ansible = { 'ansible-lint' },
+    ansible = { 'ansible_lint' },
     bash = { 'bash', 'shellcheck' },
     lua = { 'luacheck' },
     nix = { 'nix' },
