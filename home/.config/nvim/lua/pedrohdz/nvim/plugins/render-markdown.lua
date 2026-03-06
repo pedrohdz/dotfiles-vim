@@ -6,6 +6,12 @@ return {
       'codecompanion',
       'markdown',
     },
+    heading = {
+      width = 'block',
+    },
+    code = {
+      width = 'block',
+    },
   },
   ft = {
     'Avante',
@@ -15,5 +21,5 @@ return {
   dependencies = {
     'nvim-tree/nvim-web-devicons',
     'nvim-treesitter/nvim-treesitter',
-  }
+  },
 }
