@@ -42,6 +42,8 @@ return {
     end,
   },
 
+  'aklt/plantuml-syntax',
+
   -- -----------------------------------------------------------------------------
   -- Graduated from dr-vimfiles
   'elzr/vim-json',
