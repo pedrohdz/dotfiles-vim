@@ -105,7 +105,6 @@ return {
   opts = get_options(),
   dependencies = {
     'nvim-lua/plenary.nvim',
-    'nvim-treesitter/nvim-treesitter',
     -- 'ravitemer/mcphub.nvim' -- TODO - https://github.com/ravitemer/mcphub.nvim
   },
 }
