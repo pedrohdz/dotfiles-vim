@@ -10,6 +10,7 @@ require('pedrohdz.nvim.settings.netrw')
 require('pedrohdz.nvim.settings.fill-path')
 require('pedrohdz.nvim.settings.highlight-line')
 require('pedrohdz.nvim.settings.diff')
+require('pedrohdz.nvim.settings.treesitter')
 
 -- TODO - Enable when we have time
 -- require('pedrohdz.nvim.settings.helm')
