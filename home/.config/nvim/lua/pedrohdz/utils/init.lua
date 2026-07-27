@@ -52,4 +52,44 @@ M.with_cwd = function(func, opts)
   return M.wrapper_dir_wrapper(func, vim.fn.getcwd, opts)
 end
 
+
+-- ----------------------------------------------------------------------------
+--
+-- ----------------------------------------------------------------------------
+M.path_reference = function(absolute)
+  return function()
+    local bufname = vim.api.nvim_buf_get_name(0)
+    local path = vim.fn.fnamemodify(bufname, absolute and ':p' or ':.')
+
+    local mode = vim.fn.mode()
+    local line_start, line_end
+
+    if mode == 'v' or mode == 'V' or mode == '\22' then
+      line_start = vim.fn.line('v')
+      line_end = vim.fn.line('.')
+      if line_start > line_end then
+        line_start, line_end = line_end, line_start
+      end
+
+      -- Leave Visual mode so the "-- VISUAL --" indicator doesn't
+      -- immediately overwrite the notify message below.
+      local esc = vim.api.nvim_replace_termcodes('<Esc>', true, false, true)
+      vim.api.nvim_feedkeys(esc, 'nx', false)
+    else
+      line_start = vim.fn.line('.')
+      line_end = line_start
+    end
+
+    local reference
+    if line_start == line_end then
+      reference = string.format('%s#L%d', path, line_start)
+    else
+      reference = string.format('%s#L%d-%d', path, line_start, line_end)
+    end
+
+    vim.fn.setreg('+', reference)
+    vim.notify('Copied: ' .. reference)
+  end
+end
+
 return M
