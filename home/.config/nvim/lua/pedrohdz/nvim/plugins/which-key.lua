@@ -83,6 +83,17 @@ local configuration = function()
   })
 
   -- ----
+  -- Path reference (for pasting into Claude Code, etc.)
+  -- ----
+  local path_reference = require('pedrohdz.utils').path_reference
+
+  which_key.add({
+    { '<leader>p', group = 'path' },
+    { '<leader>pp', path_reference(false), desc = 'path-reference-relative', mode = { 'n', 'v' } },
+    { '<leader>pP', path_reference(true),  desc = 'path-reference-absolute', mode = { 'n', 'v' } },
+  })
+
+  -- ----
   -- Find Strings
   -- ----
   which_key.add({
