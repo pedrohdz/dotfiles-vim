@@ -6,6 +6,21 @@
 --   - https://github.com/neovim/nvim-lspconfig#suggested-configuration=
 --   - See `:help vim.diagnostic.*` for documentation on any of the below functions
 function on_attach(client, bufnr)
+  -- FIXME - terraform-ls can emit a corrupted textDocument/semanticTokens/full
+  -- response: a negative deltaStartChar/deltaLine that underflows to a
+  -- huge uint32 (e.g. 4294967229). Neovim's client then tries to apply
+  -- that as a real position delta and pegs a CPU core indefinitely,
+  -- freezing the editor. Most commonly triggered by heredocs with
+  -- interpolations, but also seen with plain interpolated strings.
+  -- Disabling the capability avoids the request entirely. Open upstream:
+  --   https://github.com/hashicorp/terraform-ls/issues/2137
+  --   https://github.com/hashicorp/terraform-ls/issues/2094
+  --   https://github.com/hashicorp/terraform-ls/issues/2125
+  --   https://github.com/hashicorp/terraform-ls/issues/2108
+  if client.name == 'terraformls' then
+    client.server_capabilities.semanticTokensProvider = nil
+  end
+
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
